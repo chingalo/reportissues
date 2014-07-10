@@ -8,7 +8,7 @@ class Users(models.Model):
 	e_mail = models.EmailField(max_length = 200)
 	password = models.CharField(max_length = 200)
 	mobile_number = models.CharField(max_length = 200)
-	entry_date = models.DateTimeField()
+	entry_date = models.DateTimeField(default=timezone.now)
 	login_status = models.CharField(max_length = 100,  default = 'log_out')
 	
 	def __unicode__(self):
