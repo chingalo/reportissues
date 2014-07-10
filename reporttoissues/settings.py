@@ -86,7 +86,8 @@ INSTALLED_APPS = (
     'cms.plugins.text',
     'cms.plugins.video',
     'cms.plugins.twitter',
-    'cms_redirects',   
+    'cms_redirects', 
+    'project',  
 )
 LANGUAGES = [
     ('en', 'English'),
