@@ -14,6 +14,7 @@ class Users(models.Model):
 	def __unicode__(self):
 		return self.name
 
+
 class Project_details(models.Model):
 	project_owner = models.ForeignKey('Users',on_delete = models.CASCADE)
 	title = models.CharField(max_length = 200)
@@ -22,13 +23,17 @@ class Project_details(models.Model):
 	
 	def __unicode__(self):
 		return self.title
+		
 	
 class Project_assignment(models.Model):
 	project = models.ForeignKey('Project_details',on_delete = models.CASCADE)
 	project_member = models.ForeignKey('Users',on_delete = models.CASCADE)	
+
+	
 	
 class Issue(models.Model):
 	project = models.ForeignKey('Project_details',on_delete = models.CASCADE)
+	assigner = models.ForeignKey('Users',on_delete = models.CASCADE)
 	title = models.CharField(max_length = 200)
 	description = models.TextField(max_length = 20000)
 	type_of_issue = models.CharField(max_length = 20)
@@ -37,9 +42,23 @@ class Issue(models.Model):
 	def __unicode__(self):
 		return self.title
 		
+class Issue_assignment(models.Model):
+	assignee = models.ForeignKey('Users',on_delete = models.CASCADE)
+	issue = models.ForeignKey('Issue',on_delete = models.CASCADE)	
+			
+		
 	
-	
-	
+class Comments(models.Model):
+	issue = models.ForeignKey('Issue',on_delete = models.CASCADE)
+	commenter = models.ForeignKey('Users',on_delete = models.CASCADE)
+	description = models.TextField(max_length = 20000)
+		
+
+class Issue_status(models.Model):
+	status_changer = models.ForeignKey('Users',on_delete = models.CASCADE)	
+	issue = models.ForeignKey('Issue',on_delete = models.CASCADE)
+	status = models.CharField(max_length = 20)
+	date_of_change_status = models.DateTimeField()
 	
 	
 	
