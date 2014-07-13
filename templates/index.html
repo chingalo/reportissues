@@ -4,6 +4,7 @@
 <!-- login form and signup form for new user -->
 
 <div class = "container-fluid">
+	
 	<div class = "row-fluid">
 		<div class = "login">		
 			<span class = "pull-left">
@@ -14,9 +15,9 @@
 			<span class = "pull-right">
 				<form class="form-inline"  method = "post" action="" >
 					{% csrf_token %}
-					<input type="text" class="input-small" placeholder="Email">
+					<input type="text" class="input-medium" placeholder="Email">
 				  <input type="password" class="input-small" placeholder="Password">
-				  <input type="submit" value = "sign in " class = "btn">
+				   <input type="submit" value = "sign in " class = "btn">				  
 				</form>			
 			</span>
 			
@@ -28,13 +29,16 @@
 	<!-- sign up form and some important issues to the new user of syatem-->
 	<div class = "row-fluid signup">
 		<!--important info-->
-		<div class = "span6">
-			hello		
+		<div class = "span6 .hidden-phone .hidden-tablet">
+			<p>important infos or logs o animations for the site
+			
+			</p>
+					
 		</div>
 		
 		<!-- signup form -->
 		<div class = "span6">
-			<div class = "headerforsignup">signup form for new user</div>
+			<div class = "headerforsignup">For new users to sign up</div>
 			<form class="form-horizontal"  method = "post" action="">
 				{% csrf_token %}
 				<div class="control-group">
@@ -83,12 +87,9 @@
 					<div class="controls">
 						<input type="submit" value = "Sign up " class = "btn">
 					</div>			
-				</div>
-				
-				
+				</div>				
 							
-			</form>	
-		
+			</form>			
 		</div>
 	</div>
 	
