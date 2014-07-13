@@ -126,8 +126,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'sekizai.context_processors.sekizai',
 )  
 CMS_TEMPLATES = ( 
+	 ('index.html', gettext('pages')),
 	#('home.html', gettext('pages')),	              
    )
+   
+   
 CMS_LANGUAGES = {
     1: [
         {
