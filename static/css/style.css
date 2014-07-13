@@ -1,0 +1,22 @@
+body{
+margin:0px;
+padding:0px;
+background:#3AB1DB;
+}
+
+.body_page{
+max-width:70%;
+margin:10px auto;
+min-height:500px;
+background:#E5E5E5;
+border-radius:10px;
+
+}
+.login{
+margin:10px;
+padding:5px 10px;
+}
+.signup{
+margin:10px;
+padding:5px 10px;
+}
