@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block container %}
+
+<!-- login form and signup form for new user -->
+
+<div class = "container-fluid">
+	<div class = "row-fluid">
+		<div class = "login">		
+			<span class = "pull-left">
+				Today is :&#160;<em>{% now "jS F Y" %}</em>		
+			</span>
+			
+			<!-- login form -->
+			<span class = "pull-right">
+				<form class="form-inline">
+				  <input type="text" class="input-small" placeholder="Email">
+				  <input type="password" class="input-small" placeholder="Password">
+				  <button type="submit" class="btn">Sign in</button>
+				</form>			
+			</span>
+			
+		</div>	
+	</div>
+	<!--- end log in form and date for the page-->
+	
+	<!-- sign up form and some important issues to the new user of syatem-->
+	<div class = "row-fluid signup">
+		<!--important info-->
+		<div class = "span6">
+			hello		
+		</div>
+		
+		<!-- signup form -->
+		<div class = "span6">signupform
+		
+		
+		</div>
+	</div>
+	
+	
+	
+</div>
+
+{% endblock %}
