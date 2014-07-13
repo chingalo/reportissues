@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block container %}
+<!-- navigation bar for users login in the system -->
+<div class="navbar navigation">  
+  <div class="navbar-inner">  
+    <div class="container-fluid"> 
+		
+		<a class="brand" href="">Project name</a>  
+		
+		<!-- search form  for projects, log out and user information--->		
+		<form class="form-search pull-right" method = "POST" action = "">
+			 {% csrf_token %} 
+		  <div class="input-append">
+			<input type="text" class="span2 search-query" placeholder = "search for project">
+			<button type="submit" class="btn">Search</button>
+		  </div>		  
+	    </form>
+	    <span class = "pull-right useInformation">
+			<i class = "icon-user">&#160;joseph chingalo</i>&#160;					    
+	    </span>
+	    		    
+    </div>  
+  </div>  
+</div>
+<!-- end of navigation -->
+
+<div class = "row-fluid">
+	<!--navigation at side bar-->
+<div class = "span3">	
+	<div class = "asideNavigation">
+		<ul class="nav nav-list">
+			<li class="nav-header"><i class = "icon-book">&#160;Projects</i></li>
+			<li><a href= ""><i class = "icon-list-alt">&#160;All projects</i> </a></li>
+			<li><a href= ""><i class = "icon-list-alt">&#160;Own projects </i></a></li>
+			<li><a href= ""><i class = "icon-list-alt">&#160;Collaborated projects </i></a></li>	
+		</ul>
+		<ul class="nav nav-list">
+			<li class="nav-header"><i class ="icon-tasks">&#160;Issues</i></li>
+			<li><a href= ""><i class = "icon-list-alt">&#160;</i>All issues </a></li>
+			<li><a href= ""><i class = "icon-list-alt">&#160;</i>Assigned issues </a></li>
+			<li><a href= ""><i class = "icon-list-alt">&#160;</i>Assign to issues </a></li>	
+		</ul>
+		<ul class="nav nav-list">
+			<li class="nav-header"><i class = "icon-wrench">&#160;Setting</i></li>
+			<li><a href= ""><i class ="icon-edit">&#160;Edit profile </i></a></li>
+			<li><a href= ""><i class = "icon-off">&#160;logout</i></a></li>
+		</ul>	
+	</div>
+	
+
+</div>
+<!-- end of navigation at side bar -->
+
+<!--contents of the page-->
+<div class = "span9">
+contenst for the pages according to directory
+</div>
+</div>
+
+
+{% endblock %}

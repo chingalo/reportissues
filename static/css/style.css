@@ -9,18 +9,20 @@ max-width:70%;
 margin:10px auto;
 min-height:500px;
 background:;
-border-radius:10px;
+border-radius:8px;
 border:1px solid #E6E6FA;
-
 }
+
 .login{
 margin-top:10px;
 padding:2px 10px;
 }
+
 .signup form{
 margin-bottom:10px;
 padding:2px 10px;
 }
+
 .headerforsignup{
 color:blue;
 font-weight:bold;
@@ -29,6 +31,24 @@ padding:5px 15px 10px 10px;
 max-width:50%;
 margin:auto;
 }
+
 .myFooter{
 text-align:center;
+}
+
+.navigation{
+margin:3px 3px 30px 3px;
+
+}
+
+.form-search{
+padding:5px 0px 0px 2px;
+}
+.useInformation{
+padding:7px 4px;
+margin-right:3px;
+}
+
+.asideNavigation{
+padding:5px 7px;
 }
