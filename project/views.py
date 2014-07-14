@@ -11,6 +11,11 @@ def index(request):
 	context = {}
 	return render(request,'index.html',context)
 	
+#sign up for new account
+#def signUp(request):
+	
+		
+	
 #processing login processs
 def login(request):
 	
@@ -121,6 +126,78 @@ def collabiratedProjects(request,user_id):
 		context = {'user':user,'contents':'collaboprojects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
 
+
+#view all issues
+def allIssues(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:		
+		#list issues
+		allOwnIssuesFromSystem = Issue.objects.all()
+		allAssignedIssuesFromSystem = Issue_assignment.objects.all()
+		issues = []
+		
+		for issue in allOwnIssuesFromSystem:
+			if issue.assigner == user:
+				issues.append(issue)
+		
+		for issue in allAssignedIssuesFromSystem:
+			if issue.assignee == user:
+				issues.append(issue.issue)		
+				
+		context = {'user':user,'contents':'allIssues','allIssues':issues}	
+		return render(request,'userFunction.html',context)
+
+
+#view assigned issues
+def assignedIssues(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:		
+		#list issues
+		allAssignedIssuesFromSystem = Issue_assignment.objects.all()
+		issues = []			
+		for issue in allAssignedIssuesFromSystem:
+			if issue.assignee == user:
+				issues.append(issue.issue)		
+				
+		context = {'user':user,'contents':'assignedIssues','assignedIssues':issues}	
+		return render(request,'userFunction.html',context)
+
+#view for assign to issues
+def assignToIssues(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:		
+		#list issues
+		allOwnIssuesFromSystem = Issue.objects.all()		
+		issues = []
+		
+		for issue in allOwnIssuesFromSystem:
+			if issue.assigner == user:
+				issues.append(issue)
+				
+				
+		context = {'user':user,'contents':'assignToIssues','assignToIssues':issues}	
+		return render(request,'userFunction.html',context)
 
 #log out process
 def logout(request,user_id):
