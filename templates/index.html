@@ -13,16 +13,17 @@
 			<div class = "login">		
 				<!-- login form -->
 				<span class = "pull-right">
-					<form class="form-inline"  method = "post" action="" >
+					<form class="form-inline"  action ="{% url 'login' %}" method = "POST" >
 						{% csrf_token %}
-						<input type="text" class="input-medium" placeholder="Your e-mail">
-						<input type="password" class="input-medium" placeholder="Your password">						  
+						<input type="text" name = "email" class="input-medium" placeholder="Your e-mail">
+						<input type="password" name = "password" class="input-medium" placeholder="Your password">						  
 					    <input type="submit" value = "sign in " class = "btn">				  
 					</form>			
 				</span>
+				<!--
 				<span class = "pull-right">
 					Today is :&#160;<em>{% now "jS F Y" %}</em>&#160;&#160;		
-				</span>
+				</span> -->
 
 
 			</div>	
@@ -30,6 +31,7 @@
 	</div>
  </div>
 </div>
+
 	<!--- end log in form and date for the page-->
 	
 
@@ -51,42 +53,42 @@
 				<div class="control-group">
 					<label class="control-label pull-right" for="first name">First name </label>	
 					<div class="controls">
-						<input type="text" id="firstName" placeholder="First name">
+						<input type="text" name="firstName" placeholder="First name">
 					</div>			
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="middle name">Middle name </label>	
 					<div class="controls">
-						<input type="text" id="middleName" placeholder="Middle name">
+						<input type="text" name="middleName" placeholder="Middle name">
 					</div>			
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="last name">Last name </label>	
 					<div class="controls">
-						<input type="text"  id="lastName" placeholder="Last name">
+						<input type="text"  name="lastName" placeholder="Last name">
 					</div>			
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="email">E-mail </label>	
 					<div class="controls">
-						<input type="text" id="email" placeholder="example@xwys.com">
+						<input type="text" name="email" placeholder="example@xwys.com">
 					</div>			
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="password">Password </label>	
 					<div class="controls">
-						<input type="text" id="password" placeholder="password">
+						<input type="text" name="password" placeholder="password">
 					</div>			
 				</div>			
 
 				<div class="control-group">
 					<label class="control-label" for="mobile number">Mobile number </label>	
 					<div class="controls">
-						<input type="text" id="mobileNumber" placeholder="+255 687 168 637">
+						<input type="text" name="mobileNumber" placeholder="+255 687 168 637">
 					</div>			
 				</div>
 
