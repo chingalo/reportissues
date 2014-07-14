@@ -17,7 +17,7 @@
 		  </div>		  
 	    </form>
 	    <span class = "pull-right useInformation">
-			<i class = "icon-user">&#160;joseph chingalo</i>&#160;					    
+			<i class = "icon-user">&#160;{{user}}</i>&#160;					    
 	    </span>
 	    		    
     </div>  
@@ -44,7 +44,7 @@
 		<ul class="nav nav-list">
 			<li class="nav-header"><i class = "icon-wrench">&#160;Setting</i></li>
 			<li><a href= ""><i class ="icon-edit">&#160;Edit profile </i></a></li>
-			<li><a href= ""><i class = "icon-off">&#160;logout</i></a></li>
+			<li><a href= "{% url 'logout' user.id %}"><i class = "icon-off">&#160;logout</i></a></li>
 		</ul>	
 	</div>
 	

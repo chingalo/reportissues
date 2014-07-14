@@ -22,30 +22,64 @@ def login(request):
 		form = request.POST		
 		emailListPosted = form.getlist('email')
 		passwordPosted = form.getlist('password')
-		p = 'hello statrting login process'
-		
-		details = emailListPosted[0] + " " + passwordPosted[0]
-		
+				
 		#check if login user is registered
 		for user in userFromSystem:
 			if user.e_mail == emailListPosted[0] and user.password == passwordPosted[0]:
 				#for registered user				
-				word = 'successfully login in the system'
 				user.login_status = "log_in"
 				user.save()
-				context = {'m':p,'user':user,'form':word,'details':details,}
+				allProjects = []
+				
+				#list of projects for a given user
+				allProjectsFromSystem = Project_details.objects.all()
+				assignedProjectsFromSystem = Project_assignment.objects.all();
+				for project in allProjectsFromSystem:
+					if project.project_owner == user:
+						allProjects.append(project)
+				for projectLink in assignedProjectsFromSystem:
+					if projectLink.project_member == user:
+						allProjects.append(projectLink.project)			
+							
+				context = {'user':user,'contents':'allProjects','allProjects':allProjects}
 				return render(request,'userFunction.html',context)
 			
-	#for not registered users
-		word = 'Fail to login, if you are registered user try to login again else signup for new user account'		
-		context = {'word':word,'details':details,}
-		return render(request,'index.html',context)
+		#for not registered users
+	word = 'Fail to login, if you are registered user try to login again else signup for new user account'		
+	context = {'word':word,}
+	return render(request,'index.html',context)
+
+
+#all projects in the system
+def allProjects(request,user_id):
+	user = Users.objects.get(id = user_id)
 	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:
+		
+		#list of all projects for a given user
+		allProjectsFromSystem = Project_details.objects.all()
+		assignedProjectsFromSystem = Project_assignment.objects.all()
+		allProjects = []
+		for project in allProjectsFromSystem:
+			if project.project_owner == user:
+				allProjects.append(project)
+		for projectLink in assignedProjectsFromSystem:
+			if projectLink.project_member == user:
+				allProjects.append(projectLink.project)	
+				
+		context = {'user':user,'contents':'allProjects','allProjects':allProjectsFromSystem}	
+		return render(request,'userFunction.html',context)
+
 
 #log out process
 def logout(request,user_id):
-	
-	word = 'logout'
+	#for successfull log out process	
 	user = Users.objects.get(id = user_id)
 	user.login_status = "log_out"
 	user.save()
