@@ -42,6 +42,11 @@
 				<li><a href= "{% url 'assignToIssues' user.id %}"><i class = "icon-list-alt">&#160;</i>Assign to issues </a></li>	
 			</ul>
 			<ul class="nav nav-list">
+				<li class="nav-header"><i class = "icon-wrench">&#160;Managements of project</i></li>
+				<li><a href= "#"><i class ="icon-edit">&#160;Create project </i></a></li>
+				<li><a href= "#"><i class = "icon-edit">&#160;Create Issue</i></a></li>
+			</ul>
+			<ul class="nav nav-list">
 				<li class="nav-header"><i class = "icon-wrench">&#160;Setting</i></li>
 				<li><a href= "#"><i class ="icon-edit">&#160;Edit profile </i></a></li>
 				<li><a href= "{% url 'logout' user.id %}"><i class = "icon-off">&#160;logout</i></a></li>
@@ -55,16 +60,7 @@
 <!--contents of all functionalities for login user-->
 
 {% block functionalities_of_user %}{% endblock %}
-
-
-	<div class = "span3">
-		<ul class="nav nav-list">
-			<li class="nav-header"><i class = "icon-wrench">&#160;Managements</i></li>
-			<li><a href= "#"><i class ="icon-edit">&#160;Create project </i></a></li>
-			<li><a href= "#"><i class = "icon-edit">&#160;Create Issue</i></a></li
-		</ul>
-	</div>
-
+	
 </div>
 
 

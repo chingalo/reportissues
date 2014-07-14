@@ -2,7 +2,10 @@
 
 {% block functionalities_of_user %}
 <div class = "loginUserContents">
-	<div class = "span6">
+	<div class = "span9">
+		
+		<!--- ------- ---- projetct ----------------------------->
+		
 		<!-- all projects for successfully login user -->
 		{% if contents == 'allProjects' %}		
 		<ol>
@@ -37,28 +40,112 @@
 		</ol>
 		{% endif %}
 		
-		<!-- all issues -->
-		{% if contents == 'allIssues' %}
-		<div class = "well">
-			{{allIssues}}		
-		</div>	
 		
+		
+		<!-- ----------- issues -------- ----->
+		
+		<!-- all issues -->
+		{% if contents == 'allIssues' %} 
+		<div class = "well">
+			<table class="table table-striped">
+				<thead>
+					<th>Title</th>
+					<th>disc</th>
+					<th>priority</th>
+					<th>type</th>														
+				</thead>
+				<tbody>
+					{% for issue in allIssues %}
+					<tr>												
+					<td>			
+						{{issue}}							
+					</td>
+					<td>
+						{{issue.description}}
+					</td>
+					<td>
+						{{issue.priority}}
+					</td>
+					<td>
+						{{issue.type_of_issue}}
+					</td>											
+					</tr>
+					</ol>	
+					{% endfor %}									
+				</tbody>
+			</table>				
+		</div>						
 		{% endif %}
 		
 		<!--assigned issues -->
 		{% if contents == 'assignedIssues' %}
 		<div class = "well">
-			{{assignedIssues}}		
-		</div>	
-		
+			<table class="table table-striped">
+				<thead>
+					<th>Title</th>
+					<th>disc</th>
+					<th>priority</th>
+					<th>type</th>				
+				</thead>
+				<tbody>					
+					{% for issue in assignedIssues %}					
+					<tr>												
+					<td>			
+						{{issue}}							
+					</td>
+					<td>
+						{{issue.description}}
+					</td>
+					<td>
+						{{issue.priority}}
+					</td>
+					<td>
+						{{issue.type_of_issue}}
+					</td>						
+					</tr>
+					</ol>	
+					{% endfor %}
+													
+				</tbody>
+			</table>				
+		</div>					
 		{% endif %}
 		
 		<!-- assign to issues -->
 		{% if contents == 'assignToIssues' %}
-		<div class = "well">
-			{{assignToIssues}}		
-		</div>	
 		
+		<div class = "well">
+			<table class="table table-striped">
+				<thead>
+					<th>Title</th>
+					<th>disc</th>
+					<th>priority</th>
+					<th>type</th>				
+				</thead>
+				<tbody>
+					<tr>
+						{% for issue in assignToIssues %}
+					<tr>												
+					<td>			
+						{{issue}}							
+					</td>
+					<td>
+						{{issue.description}}
+					</td>
+					<td>
+						{{issue.priority}}
+					</td>
+					<td>
+						{{issue.type_of_issue}}
+					</td>						
+					</tr>
+					</ol>	
+					{% endfor %}
+					</tr>									
+				</tbody>
+			</table>				
+		</div>	
+				
 		{% endif %}
 		
 		<!-- edit profile -->
