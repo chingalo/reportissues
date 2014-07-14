@@ -31,15 +31,26 @@ def login(request):
 			if user.e_mail == emailListPosted[0] and user.password == passwordPosted[0]:
 				#for registered user				
 				word = 'successfully login in the system'
-				context = {'m':p,'form':word,'details':details,}
+				user.login_status = "log_in"
+				user.save()
+				context = {'m':p,'user':user,'form':word,'details':details,}
 				return render(request,'userFunction.html',context)
 			
 	#for not registered users
-		word = 'Fail to login, either try to login again if you are registered user or signup for new user'		
+		word = 'Fail to login, if you are registered user try to login again else signup for new user account'		
 		context = {'word':word,'details':details,}
 		return render(request,'index.html',context)
 	
 
+#log out process
+def logout(request,user_id):
+	
+	word = 'logout'
+	user = Users.objects.get(id = user_id)
+	user.login_status = "log_out"
+	user.save()
+	context = {}
+	return render(request,'index.html',context)
 
 
 
