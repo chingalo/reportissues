@@ -7,7 +7,7 @@ class Users(models.Model):
 	name = models.CharField(max_length = 200)
 	e_mail = models.EmailField(max_length = 200)
 	password = models.CharField(max_length = 200)
-	mobile_number = models.CharField(max_length = 200)
+	mobile_number = models.CharField(max_length = 200,blank=True)
 	entry_date = models.DateTimeField(default=timezone.now)
 	login_status = models.CharField(max_length = 100,  default = 'log_out')
 	
@@ -19,7 +19,7 @@ class Project_details(models.Model):
 	project_owner = models.ForeignKey('Users',on_delete = models.CASCADE)
 	title = models.CharField(max_length = 200)
 	description = models.TextField(max_length = 20000)
-	date_of_creation = models.DateTimeField()
+	date_of_creation = models.DateTimeField(default=timezone.now)
 	
 	def __unicode__(self):
 		return self.title
@@ -58,7 +58,7 @@ class Issue_status(models.Model):
 	status_changer = models.ForeignKey('Users',on_delete = models.CASCADE)	
 	issue = models.ForeignKey('Issue',on_delete = models.CASCADE)
 	status = models.CharField(max_length = 20)
-	date_of_change_status = models.DateTimeField()
+	date_of_change_status = models.DateTimeField(default=timezone.now)
 	
 	
 	
