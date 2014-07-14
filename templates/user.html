@@ -37,9 +37,9 @@
 			</ul>
 			<ul class="nav nav-list">
 				<li class="nav-header"><i class ="icon-tasks">&#160;Issues</i></li>
-				<li><a href= "#"><i class = "icon-list-alt">&#160;</i>All issues </a></li>
-				<li><a href= "#"><i class = "icon-list-alt">&#160;</i>Assigned issues </a></li>
-				<li><a href= "#"><i class = "icon-list-alt">&#160;</i>Assign to issues </a></li>	
+				<li><a href= "{% url 'allIssues' user.id %}"><i class = "icon-list-alt">&#160;</i>All issues </a></li>
+				<li><a href= "{% url 'assignedIssues' user.id %}"><i class = "icon-list-alt">&#160;</i>Assigned issues </a></li>
+				<li><a href= "{% url 'assignToIssues' user.id %}"><i class = "icon-list-alt">&#160;</i>Assign to issues </a></li>	
 			</ul>
 			<ul class="nav nav-list">
 				<li class="nav-header"><i class = "icon-wrench">&#160;Setting</i></li>

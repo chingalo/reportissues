@@ -38,12 +38,28 @@
 		{% endif %}
 		
 		<!-- all issues -->
+		{% if contents == 'allIssues' %}
+		<div class = "well">
+			{{allIssues}}		
+		</div>	
 		
+		{% endif %}
 		
 		<!--assigned issues -->
+		{% if contents == 'assignedIssues' %}
+		<div class = "well">
+			{{assignedIssues}}		
+		</div>	
 		
+		{% endif %}
 		
 		<!-- assign to issues -->
+		{% if contents == 'assignToIssues' %}
+		<div class = "well">
+			{{assignToIssues}}		
+		</div>	
+		
+		{% endif %}
 		
 		<!-- edit profile -->
 		
