@@ -5,7 +5,7 @@ background:;
 }
 
 .body_page{
-max-width:70%;
+max-width:75%;
 margin:10px auto;
 min-height:500px;
 background:;
@@ -18,9 +18,17 @@ margin-top:10px;
 padding:2px 10px;
 }
 
+.signup{
+padding:10px;
+}
+
 .signup form{
 margin-bottom:10px;
 padding:2px 10px;
+}
+
+.importantinfoOrAnimation{
+padding-left:5px;
 }
 
 .headerforsignup{
@@ -44,6 +52,7 @@ margin:3px 3px 30px 3px;
 .form-search{
 padding:5px 0px 0px 2px;
 }
+
 .useInformation{
 padding:7px 4px;
 margin-right:3px;
@@ -52,3 +61,4 @@ margin-right:3px;
 .asideNavigation{
 padding:5px 7px;
 }
+
