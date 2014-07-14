@@ -3,41 +3,48 @@
 
 <!-- login form and signup form for new user -->
 
-<div class = "container-fluid">
-	
-	<div class = "row-fluid">
-		<div class = "login">		
-			<span class = "pull-left">
-				Today is :&#160;<em>{% now "jS F Y" %}</em>		
-			</span>
-			
-			<!-- login form -->
-			<span class = "pull-right">
-				<form class="form-inline"  method = "post" action="" >
-					{% csrf_token %}
-					<input type="text" class="input-medium" placeholder="Your e-mail">
-				  <input type="password" class="input-medium" placeholder="Your password">
-				   <input type="submit" value = "sign in " class = "btn">				  
-				</form>			
-			</span>
-			
-		</div>	
+<div class="navbar navigation">  
+  <div class="navbar-inner">  
+    <div class="container-fluid"> 
+		
+		<a class="brand" href="">Project name</a>  
+
+		<div class = "row-fluid">
+			<div class = "login">		
+				<!-- login form -->
+				<span class = "pull-right">
+					<form class="form-inline"  method = "post" action="" >
+						{% csrf_token %}
+						<input type="text" class="input-medium" placeholder="Your e-mail">
+						<input type="password" class="input-medium" placeholder="Your password">						  
+					    <input type="submit" value = "sign in " class = "btn">				  
+					</form>			
+				</span>
+				<span class = "pull-right">
+					Today is :&#160;<em>{% now "jS F Y" %}</em>&#160;&#160;		
+				</span>
+
+
+			</div>	
+		</div>
 	</div>
+ </div>
+</div>
 	<!--- end log in form and date for the page-->
-	<hr>
 	
+
 	<!-- sign up form and some important issues to the new user of syatem-->
 	<div class = "row-fluid signup">
 		<!--important info-->
-		<div class = "span6 .hidden-phone .hidden-tablet">
+		<div class = "span6 importantinfoOrAnimation">
 			<p>important infos or logs or animations for the site
-			
+
 			</p>
-					
+
 		</div>
-		
+
 		<!-- signup form -->
-		<div class = "span6">
+		<div class = "span6 ">
 			<div class = "headerforsignup">For new users to sign up</div>
 			<form class="form-horizontal"  method = "post" action="">
 				{% csrf_token %}
@@ -47,54 +54,52 @@
 						<input type="text" id="firstName" placeholder="First name">
 					</div>			
 				</div>
-				
+
 				<div class="control-group">
 					<label class="control-label" for="middle name">Middle name </label>	
 					<div class="controls">
 						<input type="text" id="middleName" placeholder="Middle name">
 					</div>			
 				</div>
-				
+
 				<div class="control-group">
 					<label class="control-label" for="last name">Last name </label>	
 					<div class="controls">
 						<input type="text"  id="lastName" placeholder="Last name">
 					</div>			
 				</div>
-				
+
 				<div class="control-group">
 					<label class="control-label" for="email">E-mail </label>	
 					<div class="controls">
 						<input type="text" id="email" placeholder="example@xwys.com">
 					</div>			
 				</div>
-				
+
 				<div class="control-group">
 					<label class="control-label" for="password">Password </label>	
 					<div class="controls">
 						<input type="text" id="password" placeholder="password">
 					</div>			
 				</div>			
-				
+
 				<div class="control-group">
 					<label class="control-label" for="mobile number">Mobile number </label>	
 					<div class="controls">
 						<input type="text" id="mobileNumber" placeholder="+255 687 168 637">
 					</div>			
 				</div>
-				
+
 				<div class="control-group">
 					<div class="controls">
 						<input type="submit" value = "Sign up " class = "btn">
 					</div>			
 				</div>				
-							
+
 			</form>			
 		</div>
 	</div>
-	
-	
-	
-</div>
+
+
 
 {% endblock %}
