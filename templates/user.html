@@ -6,7 +6,7 @@
   <div class="navbar-inner">  
     <div class="container-fluid"> 
 		
-		<a class="brand" href="">Project name</a>  
+		<a class="brand" href="#">Project name</a>  
 		
 		<!-- search form  for projects, log out and user information--->		
 		<form class="form-search pull-right" method = "POST" action = "">
@@ -31,19 +31,19 @@
 	<div class = "asideNavigation">
 		<ul class="nav nav-list">
 			<li class="nav-header"><i class = "icon-book">&#160;Projects</i></li>
-			<li><a href= ""><i class = "icon-list-alt">&#160;All projects</i> </a></li>
-			<li><a href= ""><i class = "icon-list-alt">&#160;Own projects </i></a></li>
-			<li><a href= ""><i class = "icon-list-alt">&#160;Collaborated projects </i></a></li>	
+			<li><a href= "{% url 'allProjects' user.id %}"><i class = "icon-list-alt">&#160;All projects</i> </a></li>
+			<li><a href= "#"><i class = "icon-list-alt">&#160;Own projects </i></a></li>
+			<li><a href= "#"><i class = "icon-list-alt">&#160;Collaborated projects </i></a></li>	
 		</ul>
 		<ul class="nav nav-list">
 			<li class="nav-header"><i class ="icon-tasks">&#160;Issues</i></li>
-			<li><a href= ""><i class = "icon-list-alt">&#160;</i>All issues </a></li>
-			<li><a href= ""><i class = "icon-list-alt">&#160;</i>Assigned issues </a></li>
-			<li><a href= ""><i class = "icon-list-alt">&#160;</i>Assign to issues </a></li>	
+			<li><a href= "#"><i class = "icon-list-alt">&#160;</i>All issues </a></li>
+			<li><a href= "#"><i class = "icon-list-alt">&#160;</i>Assigned issues </a></li>
+			<li><a href= "#"><i class = "icon-list-alt">&#160;</i>Assign to issues </a></li>	
 		</ul>
 		<ul class="nav nav-list">
 			<li class="nav-header"><i class = "icon-wrench">&#160;Setting</i></li>
-			<li><a href= ""><i class ="icon-edit">&#160;Edit profile </i></a></li>
+			<li><a href= "#"><i class ="icon-edit">&#160;Edit profile </i></a></li>
 			<li><a href= "{% url 'logout' user.id %}"><i class = "icon-off">&#160;logout</i></a></li>
 		</ul>	
 	</div>

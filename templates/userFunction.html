@@ -1,12 +1,27 @@
 {% extends "user.html" %}
 
 {% block functionalities_of_user %}
+<div class = "loginUserContents">
+	<div class = "span6">
+		<!-- all projects for successfully login user -->
+		{% if contents == 'allProjects' %}		
+		<ol>
+		{% for project in allProjects %}
+		<div class = "well">
+			<li>{{project.project_owner}}<br>{{project}}</li>
+		</div>	
+		{% endfor %}
+		</ol>
+		{% endif %}
+		
+		
+	</div>
 
-<div class = "span7">
-{{m}}<br>{{form}}<br>{{details}}
+	<div class = "span3">
+		ok i get it an it done
+	</div>
 </div>
 
-<div class = "span2">ok i get it an it done</div>
 
 
 {% endblock %}
