@@ -7,12 +7,24 @@ from project.forms import *
 
 #return the home page for the site
 def index(request):
-	
+			
 	context = {}
 	return render(request,'index.html',context)
 	
 #sign up for new account
-#def signUp(request):
+def signUp(request):
+		
+	form = request.POST	
+	firstName  = form.getlist('firstName')
+	middleName = form.getlist('middleName')
+	lastName = form.getlist('lastName')
+	password = form.getlist('password')
+	email = form.getlist('email')
+	mobileNumber = form.getlist('mobileNumber')	
+	
+	#newUser = User()	
+	context = {}
+	return render(request,'index.html',context)
 	
 		
 	
@@ -205,8 +217,8 @@ def logout(request,user_id):
 	user = Users.objects.get(id = user_id)
 	user.login_status = "log_out"
 	user.save()
-	context = {}
-	return render(request,'index.html',context)
+	
+	return HttpResponseRedirect("/")
 
 
 

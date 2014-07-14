@@ -4,6 +4,7 @@ from project import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
+    url(r'^signup/$', views.signUp, name='signUp'),
     url(r'^login/$', views.login, name='login'),
     url(r'^(?P<user_id>\d+)/logout/$', views.logout, name='logout'),
     #urls for projects view
