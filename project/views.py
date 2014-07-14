@@ -5,4 +5,9 @@ from django.core.urlresolvers import reverse
 from project.models import *
 from project.forms import *
 
-
+#return the home page for the site
+def index(request):
+	
+	context = {}
+	return render(request,'index.html',context)
+	

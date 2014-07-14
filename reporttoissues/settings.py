@@ -127,6 +127,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )  
 CMS_TEMPLATES = ( 
 	 ('index.html', gettext('pages')),
+	 ('userFunction.html', gettext('users functionalities')),
 	 ('user.html', gettext('users interface')),
 	#('home.html', gettext('pages')),	              
    )
