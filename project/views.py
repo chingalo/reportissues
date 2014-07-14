@@ -141,8 +141,8 @@ def allIssues(request,user_id):
 		#list issues
 		allOwnIssuesFromSystem = Issue.objects.all()
 		allAssignedIssuesFromSystem = Issue_assignment.objects.all()
-		issues = []
-		
+		allIssuesStatusFromSystem = Issue_status.objects.all()
+		issues = []				
 		for issue in allOwnIssuesFromSystem:
 			if issue.assigner == user:
 				issues.append(issue)
@@ -151,7 +151,7 @@ def allIssues(request,user_id):
 			if issue.assignee == user:
 				issues.append(issue.issue)		
 				
-		context = {'user':user,'contents':'allIssues','allIssues':issues}	
+		context = {'user':user,'contents':'allIssues','allIssues':issues,}	
 		return render(request,'userFunction.html',context)
 
 
