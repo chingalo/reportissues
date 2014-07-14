@@ -35,8 +35,7 @@
 	<!--- end log in form and date for the page-->
 	
 	<div class = "warninginfo">		
-		<marquee behavior="alternate" scrollamount="3">{{word}}</marquee>
-		{{details}}
+		<marquee behavior="alternate" scrollamount="3">{{word}}</marquee>		
 	</div>
 	<!-- sign up form and some important issues to the new user of syatem-->
 	<div class = "row-fluid signup">
@@ -51,12 +50,12 @@
 		<!-- signup form -->
 		<div class = "span6 ">
 			<div class = "headerforsignup">For new users to sign up</div>
-			<form class="form-horizontal"  method = "post" action="">
+			<form class="form-horizontal"  method = "POST" action="{% url 'signUp' %}" name = "myform" onsubmit ="return validateForm()" >
 				{% csrf_token %}
 				<div class="control-group">
 					<label class="control-label pull-right" for="first name">First name </label>	
 					<div class="controls">
-						<input type="text" name="firstName" placeholder="First name">
+						<input type="text" name="firstName" placeholder="First name" class = "required">
 					</div>			
 				</div>
 
@@ -70,21 +69,21 @@
 				<div class="control-group">
 					<label class="control-label" for="last name">Last name </label>	
 					<div class="controls">
-						<input type="text"  name="lastName" placeholder="Last name">
+						<input type="text"  name="lastName" placeholder="Last name" class = "required">
 					</div>			
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="email">E-mail </label>	
 					<div class="controls">
-						<input type="text" name="email" placeholder="example@xwys.com">
+						<input type="text" name="email" placeholder="example@xwys.com" class = "required">
 					</div>			
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="password">Password </label>	
 					<div class="controls">
-						<input type="text" name="password" placeholder="password">
+						<input type="text" name="password" placeholder="password" class = "required">
 					</div>			
 				</div>			
 
@@ -97,7 +96,7 @@
 
 				<div class="control-group">
 					<div class="controls">
-						<input type="submit" value = "Sign up " class = "btn">
+						<input type="submit" value = "Sign up " class = "btn" >
 					</div>			
 				</div>				
 
