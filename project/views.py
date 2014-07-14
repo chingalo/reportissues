@@ -22,18 +22,28 @@ def login(request):
 		form = request.POST		
 		emailListPosted = form.getlist('email')
 		passwordPosted = form.getlist('password')
+		p = 'hello statrting login process'
 		
 		details = emailListPosted[0] + " " + passwordPosted[0]
 		
 		#check if login user is registered
 		for user in userFromSystem:
-			if user.e_mail == emailListPosted[0] and user.password == passwordPosted[0]:				
+			if user.e_mail == emailListPosted[0] and user.password == passwordPosted[0]:
+				#for registered user				
 				word = 'successfully login in the system'
-				
-			else :
-				word = 'not login in the system please login in or register'
-		
-	context = {'m':'hello statrting login process',
-				'form':word,'details':details,
-			}
-	return render(request,'userFunction.html',context)
+				context = {'m':p,'form':word,'details':details,}
+				return render(request,'userFunction.html',context)
+			
+	#for not registered users
+		word = 'Fail to login, either try to login again if you are registered user or signup for new user'		
+		context = {'word':word,'details':details,}
+		return render(request,'index.html',context)
+	
+
+
+
+
+
+
+
+
