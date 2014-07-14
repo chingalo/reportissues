@@ -27,34 +27,43 @@
 
 <div class = "row-fluid">
 	<!--navigation at side bar-->
-<div class = "span3">	
-	<div class = "asideNavigation">
-		<ul class="nav nav-list">
-			<li class="nav-header"><i class = "icon-book">&#160;Projects</i></li>
-			<li><a href= "{% url 'allProjects' user.id %}"><i class = "icon-list-alt">&#160;All projects</i> </a></li>
-			<li><a href= "#"><i class = "icon-list-alt">&#160;Own projects </i></a></li>
-			<li><a href= "#"><i class = "icon-list-alt">&#160;Collaborated projects </i></a></li>	
-		</ul>
-		<ul class="nav nav-list">
-			<li class="nav-header"><i class ="icon-tasks">&#160;Issues</i></li>
-			<li><a href= "#"><i class = "icon-list-alt">&#160;</i>All issues </a></li>
-			<li><a href= "#"><i class = "icon-list-alt">&#160;</i>Assigned issues </a></li>
-			<li><a href= "#"><i class = "icon-list-alt">&#160;</i>Assign to issues </a></li>	
-		</ul>
-		<ul class="nav nav-list">
-			<li class="nav-header"><i class = "icon-wrench">&#160;Setting</i></li>
-			<li><a href= "#"><i class ="icon-edit">&#160;Edit profile </i></a></li>
-			<li><a href= "{% url 'logout' user.id %}"><i class = "icon-off">&#160;logout</i></a></li>
-		</ul>	
-	</div>
-	
+	<div class = "span3">	
+		<div class = "asideNavigation">
+			<ul class="nav nav-list">
+				<li class="nav-header"><i class = "icon-book">&#160;Projects</i></li>
+				<li><a href= "{% url 'allProjects' user.id %}"><i class = "icon-list-alt">&#160;All projects</i> </a></li>
+				<li><a href= "{% url 'ownprojects' user.id %}"><i class = "icon-list-alt">&#160;Own projects </i></a></li>
+				<li><a href= "{% url 'collaboratedprojects' user.id %}"><i class = "icon-list-alt">&#160;Collaborated projects </i></a></li>	
+			</ul>
+			<ul class="nav nav-list">
+				<li class="nav-header"><i class ="icon-tasks">&#160;Issues</i></li>
+				<li><a href= "#"><i class = "icon-list-alt">&#160;</i>All issues </a></li>
+				<li><a href= "#"><i class = "icon-list-alt">&#160;</i>Assigned issues </a></li>
+				<li><a href= "#"><i class = "icon-list-alt">&#160;</i>Assign to issues </a></li>	
+			</ul>
+			<ul class="nav nav-list">
+				<li class="nav-header"><i class = "icon-wrench">&#160;Setting</i></li>
+				<li><a href= "#"><i class ="icon-edit">&#160;Edit profile </i></a></li>
+				<li><a href= "{% url 'logout' user.id %}"><i class = "icon-off">&#160;logout</i></a></li>
+			</ul>	
+		</div>
+		
 
-</div>
+	</div>
 <!-- end of navigation at side bar -->
 
 <!--contents of all functionalities for login user-->
 
 {% block functionalities_of_user %}{% endblock %}
+
+
+	<div class = "span3">
+		<ul class="nav nav-list">
+			<li class="nav-header"><i class = "icon-wrench">&#160;Managements</i></li>
+			<li><a href= "#"><i class ="icon-edit">&#160;Create project </i></a></li>
+			<li><a href= "#"><i class = "icon-edit">&#160;Create Issue</i></a></li
+		</ul>
+	</div>
 
 </div>
 

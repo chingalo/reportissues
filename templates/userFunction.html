@@ -14,11 +14,41 @@
 		</ol>
 		{% endif %}
 		
+		<!-- own projects -->
+		{% if contents == 'ownProjects' %}
+		<ol>
+		{% for project in allProjects %}
+		<div class = "well">
+			<li>{{project.project_owner}}<br>{{project}}</li>
+		</div>	
+		{% endfor %}
+		</ol>
+		{% endif %}
 		
-	</div>
-
-	<div class = "span3">
-		ok i get it an it done
+		
+		<!--	collaborated projects	-->
+		{% if contents == 'collaboprojects' %}
+		<ol>
+		{% for project in allProjects %}
+		<div class = "well">
+			<li>{{project.project_owner}}<br>{{project}}</li>
+		</div>	
+		{% endfor %}
+		</ol>
+		{% endif %}
+		
+		<!-- all issues -->
+		
+		
+		<!--assigned issues -->
+		
+		
+		<!-- assign to issues -->
+		
+		<!-- edit profile -->
+		
+		
+		
 	</div>
 </div>
 
