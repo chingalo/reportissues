@@ -73,7 +73,52 @@ def allProjects(request,user_id):
 			if projectLink.project_member == user:
 				allProjects.append(projectLink.project)	
 				
-		context = {'user':user,'contents':'allProjects','allProjects':allProjectsFromSystem}	
+		context = {'user':user,'contents':'allProjects','allProjects':allProjects}	
+		return render(request,'userFunction.html',context)
+
+
+#own projects
+def ownProjects(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:
+		
+		#list of all projects for a given user
+		allProjectsFromSystem = Project_details.objects.all()
+		allProjects = []
+		for project in allProjectsFromSystem:
+			if project.project_owner == user:
+				allProjects.append(project)
+						
+		context = {'user':user,'contents':'ownProjects','allProjects':allProjects}	
+		return render(request,'userFunction.html',context)
+
+#collaborated projects
+def collabiratedProjects(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:
+		
+		#list of all projects for a given user
+		assignedProjectsFromSystem = Project_assignment.objects.all()
+		allProjects = []		
+		for projectLink in assignedProjectsFromSystem:
+			if projectLink.project_member == user:
+				allProjects.append(projectLink.project)	
+				
+		context = {'user':user,'contents':'collaboprojects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
 
 
