@@ -15,8 +15,9 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/allissues/$', views.allIssues, name='allIssues'),
     url(r'^(?P<user_id>\d+)/assignedissues/$', views.assignedIssues, name='assignedIssues'),
     url(r'^(?P<user_id>\d+)/assignToIssues/$', views.assignToIssues, name='assignToIssues'),
-    #urls for individual project
+    #urls for individual project     
+    url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/singleProject/$', views.singleProject, name='singleProject'),
+    #urls for individual issue
+    url(r'^(?P<user_id>\d+)/(?P<issue_id>\d+)/singleIssue/$', views.singleIssue, name='singleIssue'),
     
-    #urls for individual issue 
-    url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/allprojects/$', views.singleProject, name='singleProject')
 )

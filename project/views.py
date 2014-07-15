@@ -22,7 +22,8 @@ def signUp(request):
 	email = form.getlist('email')
 	mobileNumber = form.getlist('mobileNumber')	
 	
-	#newUser = User()	
+	#newUser = User()
+		
 	context = {}
 	return render(request,'index.html',context)
 	
@@ -230,6 +231,25 @@ def assignToIssues(request,user_id):
 				
 		context = {'user':user,'contents':'assignToIssues','assignToIssues':issues}	
 		return render(request,'userFunction.html',context)
+		
+		
+#view individual issue
+def singleIssue(request,user_id,issue_id):
+	
+	user = Users.objects.get(id = user_id)
+		
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:		
+		
+		context = {'user':user,'contents':'singleissue',}
+		return render(request, 'userFunction.html',context)
+
+		
 
 #log out process
 def logout(request,user_id):
