@@ -12,7 +12,10 @@
 			{% for project in allProjects %}
 			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
 				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}
-				<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{project.description|truncatechars:20}}</a>
+					<span class="pull-right">creaated on 						
+						{{project.date_of_creation|date:"D d M Y"}}
+					</span>
+				</a>
 			</li>
 			{% endfor %}
 		</ul>		
@@ -24,8 +27,10 @@
 			{% for project in allProjects %}
 			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
 				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}
-				<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{project.description|truncatechars:20}}</a>
-
+					<span class="pull-right">creaated on 						
+						{{project.date_of_creation|date:"D d M Y"}}
+					</span>
+				</a>
 			</li>
 			{% endfor %}
 		</ul>		
@@ -37,9 +42,11 @@
 		<ul class="nav nav-stacked nav-tabs">
 			{% for project in allProjects %}
 			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
-				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i>{{ project.title|title }}
-				<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{project.description|truncatechars:20}}</a>
-
+				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}
+					<span class="pull-right">creaated on 						
+						{{project.date_of_creation|date:"D d M Y"}}
+					</span>
+				</a>				
 			</li>
 			{% endfor %}
 		</ul>		
@@ -49,8 +56,17 @@
 		
 		<!--- ---------single project----------------------->
 		{% if contents == 'singleproject' %} 
-		<div class = "well">
-			ok to single projects
+		<div class = "row-fluid">
+			<!-- details for a given project -->
+			
+			<!-- for owner of projects -->
+			<div class = "span6">
+				<div class = "well">
+					{{project}}
+				</div>				
+			</div>
+			<!-- for normal user of projects -->
+			
 		</div>
 		{% endif %}
 		
@@ -73,7 +89,7 @@
 					{% for issue in allIssues %}					
 					<tr>												
 					<td>			
-						{{issue}}							
+						<a href = "{% url 'singleIssue' user.id issue.id %}">#&nbsp;&nbsp;{{issue}}</a>						
 					</td>
 					<td>
 						{{issue.description}}
@@ -105,7 +121,7 @@
 					{% for issue in assignedIssues %}					
 					<tr>												
 					<td>			
-						{{issue}}							
+						<a href = "{% url 'singleIssue' user.id issue.id %}">#&nbsp;&nbsp;{{issue}}</a>								
 					</td>
 					<td>
 						{{issue.description}}
@@ -141,7 +157,7 @@
 						{% for issue in assignToIssues %}
 					<tr>												
 					<td>			
-						{{issue}}							
+						<a href = "{% url 'singleIssue' user.id issue.id %}">#&nbsp;&nbsp;{{issue}}</a>								
 					</td>
 					<td>
 						{{issue.description}}
@@ -161,6 +177,17 @@
 		</div>	
 				
 		{% endif %}
+		
+		<!--    single issue view ---->
+		{% if contents == 'singleissue' %} 
+		<div class = "well">
+			ok single issue
+		</div>
+		{% endif %}
+		
+		
+		
+		
 		
 		<!-- edit profile -->
 		
