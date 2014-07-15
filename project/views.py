@@ -139,6 +139,26 @@ def collabiratedProjects(request,user_id):
 		return render(request,'userFunction.html',context)
 
 
+
+#view individual project
+def singleProject(request,user_id,project_id):
+	
+	user = Users.objects.get(id = user_id)
+		
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:	
+		
+		project = Project_details.objects.get(id = project_id)
+		context = {'user':user,'contents':'singleproject','project':project}
+		return render(request, 'userFunction.html',context)
+
+
+
 #view all issues
 def allIssues(request,user_id):
 	user = Users.objects.get(id = user_id)
