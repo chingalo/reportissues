@@ -8,37 +8,52 @@
 		
 		<!-- all projects for successfully login user -->
 		{% if contents == 'allProjects' %}		
-		<ol>
-		{% for project in allProjects %}
-		<div class = "well">
-			<li>{{project.project_owner}}<br>{{project}}</li>
-		</div>	
-		{% endfor %}
-		</ol>
+		<ul class="nav nav-stacked nav-tabs">
+			{% for project in allProjects %}
+			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
+				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}
+				<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{project.description|truncatechars:20}}</a>
+			</li>
+			{% endfor %}
+		</ul>		
 		{% endif %}
 		
 		<!-- own projects -->
 		{% if contents == 'ownProjects' %}
-		<ol>
-		{% for project in allProjects %}
-		<div class = "well">
-			<li>{{project.project_owner}}<br>{{project}}</li>
-		</div>	
-		{% endfor %}
-		</ol>
+		<ul class="nav nav-stacked nav-tabs">
+			{% for project in allProjects %}
+			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
+				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}
+				<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{project.description|truncatechars:20}}</a>
+
+			</li>
+			{% endfor %}
+		</ul>		
 		{% endif %}
 		
 		
 		<!--	collaborated projects	-->
 		{% if contents == 'collaboprojects' %}
-		<ol>
-		{% for project in allProjects %}
-		<div class = "well">
-			<li>{{project.project_owner}}<br>{{project}}</li>
-		</div>	
-		{% endfor %}
-		</ol>
+		<ul class="nav nav-stacked nav-tabs">
+			{% for project in allProjects %}
+			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
+				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i>{{ project.title|title }}
+				<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{project.description|truncatechars:20}}</a>
+
+			</li>
+			{% endfor %}
+		</ul>		
 		{% endif %}
+		
+		
+		
+		<!--- ---------single project----------------------->
+		{% if contents == 'singleproject' %} 
+		<div class = "well">
+			ok to single projects
+		</div>
+		{% endif %}
+		
 		
 		
 		
@@ -55,7 +70,7 @@
 					<th>type</th>														
 				</thead>
 				<tbody>
-					{% for issue in allIssues %}
+					{% for issue in allIssues %}					
 					<tr>												
 					<td>			
 						{{issue}}							
@@ -70,7 +85,6 @@
 						{{issue.type_of_issue}}
 					</td>											
 					</tr>
-					</ol>	
 					{% endfor %}									
 				</tbody>
 			</table>				
