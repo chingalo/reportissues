@@ -57,12 +57,14 @@
 		<!--- ---------single project----------------------->
 		{% if contents == 'singleproject' %} 
 		<div class = "row-fluid">
-			<!-- details for a given project -->
-			
-			
+			<!-- details for a given project -->			
 			<div class = "span8">
 				<div class = "well">
-					projects details					
+					<h4>{{ project.title|title }}</h4>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ project.description }}</p>	
+					<span class="pull-right">
+						<i>creaated on </i>{{project.date_of_creation|date:"D d M Y"}}
+					</span>				
 				</div>				
 			</div>
 			<!-- for owner of projects -->
@@ -86,10 +88,6 @@
 				</ul>					
 			</div>
 			{% endif %}
-			
-			
-			
-			
 		</div>
 		{% endif %}
 		
@@ -203,8 +201,47 @@
 		
 		<!--    single issue view ---->
 		{% if contents == 'singleissue' %} 
-		<div class = "well">
-			ok single issue
+		<div class = "row-fluid">
+			<!-- details and comments for a given issue -->			
+			<div class = "span8">
+				<div class = "well">
+					<!-- deatails for a given issue-->
+					<h4><u>{{ issue.title|title }}</u></h4>
+					<p>&nbsp;&nbsp;{{ issue.description }}<br>
+					<span class="pull-left" style = "color:#1E90FF;">
+						<i>creaated by </i>{{ issue.assigner }}
+					</span>						
+					<br>
+					Total commets : <i style = "color:#1E90FF;">{{commentsTotal}}</i>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type of Issue : <i style = "color:#1E90FF;">{{ issue.type_of_issue }}</i>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; priority : <i style = "color:#1E90FF;">{{ issue.priority }}</i></p>
+					<hr> 
+						<!-- comments on a issue --->				
+					<div class = "comments">
+						{% for comment in comments %}
+						<div>
+							<p>{{comment.description}}<br>					 
+								<span class="pull-right" style = "color:#1E90FF;">									
+									<i>commented by </i>{{ comment.commenter }}
+								</span>
+							</p>
+						</div><hr> 													
+						{% endfor %}				
+					</div>	
+					<hr>
+					<form class="form-inline"  action ="" method = "POST" >
+						{% csrf_token %}
+						<textarea rows="5"  name = "comments" placeholder = "Your comments on {{issue}}"></textarea>
+						<input type="submit" value = "Comment " class = "btn">
+					</form>		
+				</div>			
+			</div>
+			<!-- status details for a given issue-->
+			<div class = "span4">
+			status history<br>
+			{{status_log}}
+			
+			</div>
 		</div>
 		{% endif %}
 		

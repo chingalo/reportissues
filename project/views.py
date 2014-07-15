@@ -245,8 +245,20 @@ def singleIssue(request,user_id,issue_id):
 		return render(request,'index.html',context)
 		
 	else:		
+		#taking all comments , status and issues for a given
+		commentsFromSystem = Comments.objects.all()		
+		issuesStatusFromSystem = Issue_status.objects.all()
+		issue = Issue.objects.get(id = issue_id) 
 		
-		context = {'user':user,'contents':'singleissue',}
+		comments = []
+		status_log = []
+		
+		for comment in commentsFromSystem:
+			if comment.issue == issue:
+				comments.append(comment)		
+		
+		commentsTotal = len(comments)
+		context = {'user':user,'contents':'singleissue','issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
 
 		
