@@ -59,13 +59,36 @@
 		<div class = "row-fluid">
 			<!-- details for a given project -->
 			
-			<!-- for owner of projects -->
-			<div class = "span6">
+			
+			<div class = "span8">
 				<div class = "well">
-					{{project}}
+					projects details					
 				</div>				
 			</div>
+			<!-- for owner of projects -->
+			{% if user == project.project_owner %}
+			<div class = "span4">
+				<ul class="nav nav-list">
+					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>
+					<li><a href= "#"><i class ="icon-user">&#160;Add new collaborator </i></a></li>
+					<li><a href= "#"><i class ="icon-edit">&#160;Edit project </i></a></li>
+					<li><a href= "#"><i class ="icon-edit">&#160;Assign issue </i></a></li>
+					<li><a href= "#"><i class ="icon-remove">&#160;Delete project </i></a></li>
+				</ul>					
+			</div>
+			{% else %}			
 			<!-- for normal user of projects -->
+			<div class = "span4">
+				<ul class="nav nav-list">
+					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>					
+					<li><a href= "#"><i class ="icon-edit">&#160;Assign issue </i></a></li>
+					<li><a href= "#"><i class ="icon-remove">&#160;Remove collaboration</i></a></li>
+				</ul>					
+			</div>
+			{% endif %}
+			
+			
+			
 			
 		</div>
 		{% endif %}
@@ -187,14 +210,14 @@
 		
 		
 		
+	</div>
+</div>	
 		
 		
 		<!-- edit profile -->
 		
 		
-		
-	</div>
-</div>
+	
 
 
 
