@@ -70,6 +70,11 @@ padding:5px 7px;
 margin-top:15px;
 }
 .comments{
-overflow:scroll;
+overflow-y:scroll;
 height:200px;
+}
+.statusLog{
+overflow-y:scroll;
+height:300px;
+
 }
