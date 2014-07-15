@@ -205,7 +205,7 @@
 			<!-- details and comments for a given issue -->			
 			<div class = "span8">
 				<div class = "well">
-					<!-- deatails for a given issue-->
+					<!-- deatails for a given issue-- issueAssignee-->
 					<h4><u>{{ issue.title|title }}</u></h4>
 					<p>&nbsp;&nbsp;{{ issue.description }}<br>
 					<span class="pull-left" style = "color:#1E90FF;">
@@ -238,9 +238,19 @@
 			</div>
 			<!-- status details for a given issue-->
 			<div class = "span4">
-			status history<br>
-			{{status_log}}
-			
+				<div class = " well">
+					<h5 style= "text-align:center;">Status change log</h5>
+					<div class = "statusLog">
+						{% for status in status_log %}
+						<p>
+							Status changed to <i style = "color:#E11A1A;">{{status.status}}</i><br>
+							on <i style = "color:#256EB5;">{{status.date_of_change_status}}</i><br>
+							by <i style = "color:#256EB5;">{{status.status_changer}}</i>
+						</p>
+						<hr>
+						{% endfor %}					
+					</div>				
+				</div>
 			</div>
 		</div>
 		{% endif %}

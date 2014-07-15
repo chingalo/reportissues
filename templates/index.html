@@ -15,7 +15,7 @@
 				<span class = "pull-right">
 					<form class="form-inline"  action ="{% url 'login' %}" method = "POST" >
 						{% csrf_token %}
-						<input type="text" id = "email" onblur = "return chechEmail()" name = "email" class="input-medium" placeholder="Your e-mail">
+						<input type="text" id = "emaillogin" onblur = "return chechEmailLogin()" name = "email" class="input-medium" placeholder="Your e-mail">
 						<input type="password" name = "password" class="input-medium" placeholder="Your password">						  
 					    <input type="submit" value = "sign in " class = "btn">				  
 					</form>			
@@ -76,10 +76,10 @@
 				<div class="control-group">
 					<label class="control-label"  for="email">E-mail </label>	
 					<div class="controls">
-						<input type="text" id ='email' name="email" placeholder="example@xwys.com" class = "required" onblur = "return chechEmail()">
-					</div>			
-				</div>
-
+						<input type="text" id ='email' onblur = "return chechEmail()" name="email" placeholder="example@xwys.com" class = "required" >
+					</div>	
+				</div>	
+					
 				<div class="control-group">
 					<label class="control-label" for="password">Password </label>	
 					<div class="controls">
