@@ -16,7 +16,16 @@ function validateForm(){
 		
 	}
 
-
+function commentValidation(){
+	
+	var comment = document.getElementById('comments').value;
+	
+	if (comment == ""){
+		alert("You have not  enter any comment, please enter your comment first before submit");
+		return false;		
+		}	
+	
+	}
 	
 
 //e-mail validation on the form

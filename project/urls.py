@@ -19,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/singleProject/$', views.singleProject, name='singleProject'),
     #urls for individual issue
     url(r'^(?P<user_id>\d+)/(?P<issue_id>\d+)/singleIssue/$', views.singleIssue, name='singleIssue'),
+    url(r'^(?P<user_id>\d+)/(?P<issue_id>\d+)/comment/$', views.commentOnIssue, name='commentOnIssue'),
     
 )

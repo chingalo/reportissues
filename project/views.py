@@ -23,16 +23,26 @@ def signUp(request):
 	mobileNumber = form.getlist('mobileNumber')	
 	
 	newUser = Users()
-	newUser.name = firstName[0]+middleName[0]+lastName[0]
+	newUser.name = firstName[0] + " " + middleName[0]+ " " +lastName[0]
 	newUser.e_mail = email[0]
 	newUser.mobile_number = mobileNumber[0]
 	newUser.password = password[0]
-	
+	newUser.login_status = 'log_in'	
 	newUser.save()
-
+	
+	#list of projects for a given user	
+	assignedProjectsFromSystem = Project_assignment.objects.all();
+	allProjects = []
+	
+	for projectLink in assignedProjectsFromSystem:
+		if projectLink.project_member == newUser:
+			allProjects.append(projectLink.project)	
 		
-	context = {'word':"successfull save"}
-	return render(request,'index.html',context)
+	
+	userName = firstName[0]
+	
+	context = {'user':newUser,'userName':userName,'contents':'allProjects','allProjects':allProjects}
+	return render(request,'userFunction.html',context)
 	
 		
 	
@@ -64,9 +74,12 @@ def login(request):
 						allProjects.append(project)
 				for projectLink in assignedProjectsFromSystem:
 					if projectLink.project_member == user:
-						allProjects.append(projectLink.project)			
+						allProjects.append(projectLink.project)	
+				
+				nameList = user.name.split(" ")	
+				userName = 	nameList[0]		
 							
-				context = {'user':user,'contents':'allProjects','allProjects':allProjects}
+				context = {'user':user, 'userName':userName,'contents':'allProjects','allProjects':allProjects}
 				return render(request,'userFunction.html',context)
 			
 		#for not registered users
@@ -96,9 +109,11 @@ def allProjects(request,user_id):
 				allProjects.append(project)
 		for projectLink in assignedProjectsFromSystem:
 			if projectLink.project_member == user:
-				allProjects.append(projectLink.project)	
-				
-		context = {'user':user,'contents':'allProjects','allProjects':allProjects}	
+				allProjects.append(projectLink.project)
+					
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]			
+		context = {'user':user,'userName':userName,'contents':'allProjects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
 
 
@@ -120,8 +135,11 @@ def ownProjects(request,user_id):
 		for project in allProjectsFromSystem:
 			if project.project_owner == user:
 				allProjects.append(project)
+				
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
 						
-		context = {'user':user,'contents':'ownProjects','allProjects':allProjects}	
+		context = {'user':user,'userName':userName,'contents':'ownProjects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
 
 #collaborated projects
@@ -142,8 +160,11 @@ def collabiratedProjects(request,user_id):
 		for projectLink in assignedProjectsFromSystem:
 			if projectLink.project_member == user:
 				allProjects.append(projectLink.project)	
+		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
 				
-		context = {'user':user,'contents':'collaboprojects','allProjects':allProjects}	
+		context = {'user':user,'userName':userName,'contents':'collaboprojects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
 
 
@@ -161,8 +182,11 @@ def singleProject(request,user_id,project_id):
 		
 	else:	
 		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		
 		project = Project_details.objects.get(id = project_id)
-		context = {'user':user,'contents':'singleproject','project':project}
+		context = {'user':user,'userName':userName,'contents':'singleproject','project':project}
 		return render(request, 'userFunction.html',context)
 
 
@@ -190,8 +214,11 @@ def allIssues(request,user_id):
 		for issue in allAssignedIssuesFromSystem:
 			if issue.assignee == user:
 				issues.append(issue.issue)		
+		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
 				
-		context = {'user':user,'contents':'allIssues','allIssues':issues,}	
+		context = {'user':user,'userName':userName,'contents':'allIssues','allIssues':issues,}	
 		return render(request,'userFunction.html',context)
 
 
@@ -212,8 +239,11 @@ def assignedIssues(request,user_id):
 		for issue in allAssignedIssuesFromSystem:
 			if issue.assignee == user:
 				issues.append(issue.issue)		
+		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
 				
-		context = {'user':user,'contents':'assignedIssues','assignedIssues':issues}	
+		context = {'user':user,'userName':userName,'contents':'assignedIssues','assignedIssues':issues}	
 		return render(request,'userFunction.html',context)
 
 #view for assign to issues
@@ -234,9 +264,11 @@ def assignToIssues(request,user_id):
 		for issue in allOwnIssuesFromSystem:
 			if issue.assigner == user:
 				issues.append(issue)
+		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]			
 				
-				
-		context = {'user':user,'contents':'assignToIssues','assignToIssues':issues}	
+		context = {'user':user,'userName':userName,'contents':'assignToIssues','assignToIssues':issues}	
 		return render(request,'userFunction.html',context)
 		
 		
@@ -277,10 +309,63 @@ def singleIssue(request,user_id,issue_id):
 				status_log.append(status)
 				
 		commentsTotal = len(comments)
-		context = {'user':user,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
 
+
+#comments on issues
+def commentOnIssue(request,user_id,issue_id):
+	
+	user = Users.objects.get(id = user_id)
 		
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:
+		issue = Issue.objects.get(id = issue_id)
+		#taking c
+		commentForm = request.POST
+		comment = commentForm.getlist('comments')
+		
+		commentToIssue = Comments()
+		commentToIssue.issue = issue
+		commentToIssue.commenter = user
+		commentToIssue.description = comment[0]				
+		commentToIssue.save()
+			
+		#taking all comments & status for a given ready for page redirect
+		commentsFromSystem = Comments.objects.all()		
+		issuesStatusFromSystem = Issue_status.objects.all()		 
+		issuesAssignmentsFromSystem = Issue_assignment.objects.all()
+		issueAssignee = Users()
+		for issuesAssignment in issuesAssignmentsFromSystem:
+			if issuesAssignment.issue == issue:
+				issueAssignee = issuesAssignment.assignee
+		
+		comments = []
+		status_log = []
+		
+		
+		#comments for a given isssue
+		for comment in commentsFromSystem:
+			if comment.issue == issue:
+				comments.append(comment)		
+		
+		#status history
+		for status in issuesStatusFromSystem:
+			if status.issue == issue:
+				status_log.append(status)
+				
+		commentsTotal = len(comments)
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
+		return render(request, 'userFunction.html',context)
 
 #log out process
 def logout(request,user_id):
