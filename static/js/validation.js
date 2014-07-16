@@ -17,6 +17,24 @@ function validateForm(){
 	}
 
 
+//validation of form on submit if all required fields have been filled
+function editProfile(){
+	for(var i = 0;i < myform.elements.length;i++){	
+		if(myform.elements[i].className == "required" && myform.elements[i].value.length == 0){			
+			alert('Fail to create new account, please make sure you fill required fields ');
+			return false;			
+			}		
+		}
+	for(var i = 0;i < myform.elements.length;i++){	
+		if(myform.elements[i].className == "required" && myform.elements[i].value.length != 0){			
+			alert('You have successfull edit accoint ');
+			return true;			
+			}		
+		}	
+		
+	}
+
+
 // comment form validation 
 function commentValidation(){
 	

@@ -354,13 +354,62 @@
 		</div>
 		{% endif %}
 		
-		
+		<!-- edit profile -->
+		{%if contents == 'editProfile' %}
+		<div class = "well">
+		<div class = "headerforsignup">Edit your details</div>
+			<form class="form-horizontal"  method = "POST" action="{% url 'editProfile' user.id %}" name = "myform" onsubmit ="return editProfile()">
+				{% csrf_token %}
+				<div class="control-group">
+					<label class="control-label pull-right" for="first name">First name </label>	
+					<div class="controls">
+						<input type="text" name="firstName" value = "{{user.}}" placeholder="First name" class = "required">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="middle name">Middle name </label>	
+					<div class="controls">
+						<input type="text" name="middleName" placeholder="Middle name" value = "">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="last name">Last name </label>	
+					<div class="controls">
+						<input type="text"  name="lastName" placeholder="Last name" class = "required" value = "">
+					</div>			
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="password">Password </label>	
+					<div class="controls">
+						<input type="password" name="password" placeholder="password" class = "required" value = "{{user.password}}">
+					</div>			
+				</div>			
+
+				<div class="control-group">
+					<label class="control-label" for="mobile number">Mobile number </label>	
+					<div class="controls">
+						<input type="text" name="mobileNumber" placeholder="+255 687 168 637" value = "{{user.mobile_number}}">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<input type="submit" value = "edit Profile " class = "btn" >
+					</div>			
+				</div>				
+
+			</form>			
+		</div>
+		{% endif %}
 		
 	</div>
-</div>	
+	
+	</div>	
 		
 		
-		<!-- edit profile -->
 		
 		
 	

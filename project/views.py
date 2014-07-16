@@ -45,6 +45,38 @@ def signUp(request):
 	return render(request,'userFunction.html',context)
 	
 		
+#edit profile
+def editProfile(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:
+		#prepare contents for redirect
+		allProjects = Project_details.objects.filter(project_owner = user)
+			
+		if request.POST:		
+			form = request.POST
+				
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]
+				
+			context = {'user':user,'userName':userName,'contents':'ownProjects','allProjects':allProjects}	
+			return render(request,'userFunction.html',context)
+			
+		else:
+			
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]	
+				
+			context = {'user':user,'userName':userName,'contents':'editProfile',}
+			return render(request, 'userFunction.html',context)
+				
+
 	
 #processing login processs
 def login(request):
@@ -537,6 +569,8 @@ def reopenIssue(request,user_id,issue_id):
 		userName = 	nameList[0]	
 		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
+
+
 
 
 #log out process
