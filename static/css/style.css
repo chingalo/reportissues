@@ -78,3 +78,9 @@ overflow-y:scroll;
 height:300px;
 
 }
+.emptyProject{
+min-height:270px;
+}
+.emptyIssues{
+min-height:270px;
+}

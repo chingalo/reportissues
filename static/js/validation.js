@@ -26,7 +26,25 @@ function commentValidation(){
 		}	
 	
 	}
+
+function createProject(){
+	var title = document.getElementById('titleOfProject').value;
+	var desc = document.getElementById('descriptionOfProject').value;
 	
+	if(title == ""){
+		alert("Please fill the title of project");
+		return false;
+		}
+		
+	if(desc == ""){
+		alert("Please fill the description of project");
+		return false;
+		}
+	if(title != "" && desc != ""){
+		alert("You have successfully create new project !!");
+		return true;
+		}	
+	}	
 
 //e-mail validation on the form
 function chechEmailLogin(){
