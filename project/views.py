@@ -22,9 +22,16 @@ def signUp(request):
 	email = form.getlist('email')
 	mobileNumber = form.getlist('mobileNumber')	
 	
-	#newUser = User()
+	newUser = Users()
+	newUser.name = firstName[0]+middleName[0]+lastName[0]
+	newUser.e_mail = email[0]
+	newUser.mobile_number = mobileNumber[0]
+	newUser.password = password[0]
+	
+	newUser.save()
+
 		
-	context = {}
+	context = {'word':"successfull save"}
 	return render(request,'index.html',context)
 	
 		
@@ -249,16 +256,28 @@ def singleIssue(request,user_id,issue_id):
 		commentsFromSystem = Comments.objects.all()		
 		issuesStatusFromSystem = Issue_status.objects.all()
 		issue = Issue.objects.get(id = issue_id) 
+		issuesAssignmentsFromSystem = Issue_assignment.objects.all()
+		issueAssignee = Users()
+		for issuesAssignment in issuesAssignmentsFromSystem:
+			if issuesAssignment.issue == issue:
+				issueAssignee = issuesAssignment.assignee
 		
 		comments = []
 		status_log = []
 		
+		
+		#comments for a given isssue
 		for comment in commentsFromSystem:
 			if comment.issue == issue:
 				comments.append(comment)		
 		
+		#status history
+		for status in issuesStatusFromSystem:
+			if status.issue == issue:
+				status_log.append(status)
+				
 		commentsTotal = len(comments)
-		context = {'user':user,'contents':'singleissue','issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
+		context = {'user':user,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
 
 		

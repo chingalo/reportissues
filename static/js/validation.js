@@ -7,13 +7,13 @@ function validateForm(){
 			return false;			
 			}		
 		}
-	var email = document.getElementById('email').value;
-	var atpos = email.indexOf('@');
-	var atdot = email.lastIndexOf('.');
-
-	if(atpos < 1 || atdot < atpos+2 || atdot+2 >= email.length){
-		alert('incorrect email');
+	for(var i = 0;i < myform.elements.length;i++){	
+		if(myform.elements[i].className == "required" && myform.elements[i].value.length != 0){			
+			alert('You have successfull create accoint ');
+			return true;			
+			}		
 		}	
+		
 	}
 
 
