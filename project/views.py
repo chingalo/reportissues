@@ -366,6 +366,123 @@ def commentOnIssue(request,user_id,issue_id):
 		userName = 	nameList[0]	
 		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
+		
+#close issue
+def closeIssue(request,user_id,issue_id):
+	
+	user = Users.objects.get(id = user_id)
+		
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:		
+		issue = Issue.objects.get(id = issue_id)				
+		status_log = []
+		#previous status history
+		issuesStatusFromSystem = Issue_status.objects.all()	
+		for status in issuesStatusFromSystem:
+			if status.issue == issue:
+				status_log.append(status)
+		
+		numberOfStatus = len(status_log)
+		if(status_log[numberOfStatus - 1].status != "close"):
+			#change status of issue
+			statusChange = Issue_status()
+			statusChange.status_changer = user
+			statusChange.issue = issue
+			statusChange.status = "close"	
+			statusChange.save()
+			
+		#taking all comments & status for a given ready for page redirect
+		commentsFromSystem = Comments.objects.all()		
+		issuesStatusFromSystem = Issue_status.objects.all()		 
+		issuesAssignmentsFromSystem = Issue_assignment.objects.all()
+		issueAssignee = Users()
+		for issuesAssignment in issuesAssignmentsFromSystem:
+			if issuesAssignment.issue == issue:
+				issueAssignee = issuesAssignment.assignee
+		
+		comments = []
+		status_log = []
+		
+		
+		#comments for a given isssue
+		for comment in commentsFromSystem:
+			if comment.issue == issue:
+				comments.append(comment)		
+		
+		#new status history
+		for status in issuesStatusFromSystem:
+			if status.issue == issue:
+				status_log.append(status)
+				
+		commentsTotal = len(comments)
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
+		return render(request, 'userFunction.html',context)
+
+#reopen issue		
+def reopenIssue(request,user_id,issue_id):
+	
+	user = Users.objects.get(id = user_id)
+		
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:		
+		issue = Issue.objects.get(id = issue_id)				
+		status_log = []
+		#previous status history
+		issuesStatusFromSystem = Issue_status.objects.all()	
+		for status in issuesStatusFromSystem:
+			if status.issue == issue:
+				status_log.append(status)
+		
+		numberOfStatus = len(status_log)
+		if(status_log[numberOfStatus - 1].status != "reopen"):
+			#change status of issue
+			statusChange = Issue_status()
+			statusChange.status_changer = user
+			statusChange.issue = issue
+			statusChange.status = "reopen"	
+			statusChange.save()
+			
+		#taking all comments & status for a given ready for page redirect
+		commentsFromSystem = Comments.objects.all()		
+		issuesStatusFromSystem = Issue_status.objects.all()		 
+		issuesAssignmentsFromSystem = Issue_assignment.objects.all()
+		issueAssignee = Users()
+		for issuesAssignment in issuesAssignmentsFromSystem:
+			if issuesAssignment.issue == issue:
+				issueAssignee = issuesAssignment.assignee
+		
+		comments = []
+		status_log = []
+		
+		
+		#comments for a given isssue
+		for comment in commentsFromSystem:
+			if comment.issue == issue:
+				comments.append(comment)		
+		
+		#new status history
+		for status in issuesStatusFromSystem:
+			if status.issue == issue:
+				status_log.append(status)
+				
+		commentsTotal = len(comments)
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
+		return render(request, 'userFunction.html',context)
+
 
 #log out process
 def logout(request,user_id):
