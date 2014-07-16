@@ -229,9 +229,9 @@
 						{% endfor %}				
 					</div>	
 					<hr>
-					<form class="form-inline"  action ="" method = "POST" >
+					<form class="form-inline"  action ="{% url 'commentOnIssue' user.id issue.id %}" method = "POST" onsubmit = "return commentValidation()" >
 						{% csrf_token %}
-						<textarea rows="5"  name = "comments" placeholder = "Your comments on {{issue}}"></textarea>
+						<textarea rows="5" id = "comments" name = "comments" placeholder = "Your comments on {{issue}}"></textarea>
 						<input type="submit" value = "Comment " class = "btn">
 					</form>		
 				</div>			
@@ -239,6 +239,13 @@
 			<!-- status details for a given issue-->
 			<div class = "span4">
 				<div class = " well">
+					<!-- status changes on issue -->
+					<div class = "statusChange">
+						<a href="#">
+							<button class="btn" >Close issue</button>						
+						</a>					
+					</div>
+					<hr>
 					<h5 style= "text-align:center;">Status change log</h5>
 					<div class = "statusLog">
 						{% for status in status_log %}
