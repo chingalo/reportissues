@@ -240,10 +240,9 @@
 			<div class = "span4">
 				<div class = " well">
 					<!-- status changes on issue -->
-					<div class = "statusChange">
-						<a href="#">
-							<button class="btn" >Close issue</button>						
-						</a>					
+					<div class = "">
+						<button class="btn" onclick="window.location.href='{% url 'closeIssue' user.id issue.id %}'" >Close</button>						
+						<button class="btn" onclick="window.location.href='{% url 'reopenIssue' user.id issue.id %}'">Reopen</button> {{numberOfStatus}}
 					</div>
 					<hr>
 					<h5 style= "text-align:center;">Status change log</h5>
