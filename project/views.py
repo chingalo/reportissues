@@ -142,6 +142,8 @@ def ownProjects(request,user_id):
 		context = {'user':user,'userName':userName,'contents':'ownProjects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
 
+
+
 #collaborated projects
 def collabiratedProjects(request,user_id):
 	user = Users.objects.get(id = user_id)
@@ -167,6 +169,52 @@ def collabiratedProjects(request,user_id):
 		context = {'user':user,'userName':userName,'contents':'collaboprojects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
 
+
+
+#create new project
+def createProject(request,user_id):
+	user = Users.objects.get(id = user_id)
+		
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:	
+		
+		if request.POST:
+			
+			#taking values from form and create new project
+			form = request.POST		
+			titleOfTitle = form.getlist('title')
+			descriptionOfTitle = form.getlist('description')
+			
+			newProject = Project_details()
+			newProject.project_owner  = user		
+			newProject.title = titleOfTitle[0]
+			newProject.description = descriptionOfTitle[0]
+			newProject.save()			
+				
+			
+			#prepare contents for redirect
+			allProjects = Project_details.objects.filter(project_owner = user)
+			
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]
+			
+			context = {'user':user,'userName':userName,'contents':'ownProjects','allProjects':allProjects}	
+			return render(request,'userFunction.html',context)
+		
+		else:
+					
+		
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]	
+			
+			context = {'user':user,'userName':userName,'contents':'createPorject',}
+			return render(request, 'userFunction.html',context)
+	
 
 
 #view individual project
@@ -214,8 +262,11 @@ def allIssues(request,user_id):
 		for issue in allAssignedIssuesFromSystem:
 			if issue.assignee == user:
 				issues.append(issue.issue)		
+		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]			
 
-		context = {'user':user,'contents':'allIssues','allIssues':issues,}	
+		context = {'user':user,'userName':userName,'contents':'allIssues','allIssues':issues,}	
 		return render(request,'userFunction.html',context)
 
 
@@ -237,7 +288,10 @@ def assignedIssues(request,user_id):
 			if issue.assignee == user:
 				issues.append(issue.issue)		
 
-		context = {'user':user,'contents':'assignedIssues','assignedIssues':issues}	
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		
+		context = {'user':user,'userName':userName,'contents':'assignedIssues','assignedIssues':issues}	
 		return render(request,'userFunction.html',context)
 
 
@@ -260,8 +314,10 @@ def assignToIssues(request,user_id):
 			if issue.assigner == user:
 				issues.append(issue)
 
-
-		context = {'user':user,'contents':'assignToIssues','assignToIssues':issues}	
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		
+		context = {'user':user,'userName':userName,'contents':'assignToIssues','assignToIssues':issues}	
 		return render(request,'userFunction.html',context)
 		
 		
