@@ -194,13 +194,13 @@ def singleProject(request,user_id,project_id):
 #view all issues
 def allIssues(request,user_id):
 	user = Users.objects.get(id = user_id)
-	
+
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
 		context = {'word':word,}	
 		return render(request,'index.html',context)
-		
+
 	else:		
 		#list issues
 		allOwnIssuesFromSystem = Issue.objects.all()
@@ -210,28 +210,25 @@ def allIssues(request,user_id):
 		for issue in allOwnIssuesFromSystem:
 			if issue.assigner == user:
 				issues.append(issue)
-		
+
 		for issue in allAssignedIssuesFromSystem:
 			if issue.assignee == user:
 				issues.append(issue.issue)		
-		
-		nameList = user.name.split(" ")	
-		userName = 	nameList[0]	
-				
-		context = {'user':user,'userName':userName,'contents':'allIssues','allIssues':issues,}	
+
+		context = {'user':user,'contents':'allIssues','allIssues':issues,}	
 		return render(request,'userFunction.html',context)
 
 
 #view assigned issues
 def assignedIssues(request,user_id):
 	user = Users.objects.get(id = user_id)
-	
+
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
 		context = {'word':word,}	
 		return render(request,'index.html',context)
-		
+
 	else:		
 		#list issues
 		allAssignedIssuesFromSystem = Issue_assignment.objects.all()
@@ -239,36 +236,32 @@ def assignedIssues(request,user_id):
 		for issue in allAssignedIssuesFromSystem:
 			if issue.assignee == user:
 				issues.append(issue.issue)		
-		
-		nameList = user.name.split(" ")	
-		userName = 	nameList[0]	
-				
-		context = {'user':user,'userName':userName,'contents':'assignedIssues','assignedIssues':issues}	
+
+		context = {'user':user,'contents':'assignedIssues','assignedIssues':issues}	
 		return render(request,'userFunction.html',context)
+
 
 #view for assign to issues
 def assignToIssues(request,user_id):
 	user = Users.objects.get(id = user_id)
-	
+
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
 		context = {'word':word,}	
 		return render(request,'index.html',context)
-		
+
 	else:		
 		#list issues
 		allOwnIssuesFromSystem = Issue.objects.all()		
 		issues = []
-		
+
 		for issue in allOwnIssuesFromSystem:
 			if issue.assigner == user:
 				issues.append(issue)
-		
-		nameList = user.name.split(" ")	
-		userName = 	nameList[0]			
-				
-		context = {'user':user,'userName':userName,'contents':'assignToIssues','assignToIssues':issues}	
+
+
+		context = {'user':user,'contents':'assignToIssues','assignToIssues':issues}	
 		return render(request,'userFunction.html',context)
 		
 		
@@ -284,33 +277,26 @@ def singleIssue(request,user_id,issue_id):
 		return render(request,'index.html',context)
 		
 	else:		
-		#taking all comments , status and issues for a given
-		commentsFromSystem = Comments.objects.all()		
-		issuesStatusFromSystem = Issue_status.objects.all()
+		#taking all comments , status and issues for a given		
 		issue = Issue.objects.get(id = issue_id) 
+		commentsFromSystem = Comments.objects.filter(issue = issue)		
+		issuesStatusFromSystem = Issue_status.objects.filter(issue = issue).order_by('-date_of_change_status')		 
 		issuesAssignmentsFromSystem = Issue_assignment.objects.all()
-		issueAssignee = Users()
+			
+		
+		comments = commentsFromSystem
+		status_log = issuesStatusFromSystem	
+		
+		issuesAssignmentsFromSystem = issuesAssignmentsFromSystem = Issue_assignment.objects.all()
 		for issuesAssignment in issuesAssignmentsFromSystem:
 			if issuesAssignment.issue == issue:
-				issueAssignee = issuesAssignment.assignee
-		
-		comments = []
-		status_log = []
-		
-		
-		#comments for a given isssue
-		for comment in commentsFromSystem:
-			if comment.issue == issue:
-				comments.append(comment)		
-		
-		#status history
-		for status in issuesStatusFromSystem:
-			if status.issue == issue:
-				status_log.append(status)
+				issueAssignee = issuesAssignment.assignee		
 				
 		commentsTotal = len(comments)
 		nameList = user.name.split(" ")	
-		userName = 	nameList[0]	
+		userName = 	nameList[0]		
+		
+		
 		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
 
@@ -339,27 +325,18 @@ def commentOnIssue(request,user_id,issue_id):
 		commentToIssue.save()
 			
 		#taking all comments & status for a given ready for page redirect
-		commentsFromSystem = Comments.objects.all()		
-		issuesStatusFromSystem = Issue_status.objects.all()		 
+		commentsFromSystem = Comments.objects.filter(issue = issue)		
+		issuesStatusFromSystem = Issue_status.objects.filter(issue = issue).order_by('-date_of_change_status')		 
 		issuesAssignmentsFromSystem = Issue_assignment.objects.all()
-		issueAssignee = Users()
+			
+		
+		comments = commentsFromSystem
+		status_log = issuesStatusFromSystem	
+		
+		issuesAssignmentsFromSystem = issuesAssignmentsFromSystem = Issue_assignment.objects.all()
 		for issuesAssignment in issuesAssignmentsFromSystem:
 			if issuesAssignment.issue == issue:
-				issueAssignee = issuesAssignment.assignee
-		
-		comments = []
-		status_log = []
-		
-		
-		#comments for a given isssue
-		for comment in commentsFromSystem:
-			if comment.issue == issue:
-				comments.append(comment)		
-		
-		#status history
-		for status in issuesStatusFromSystem:
-			if status.issue == issue:
-				status_log.append(status)
+				issueAssignee = issuesAssignment.assignee		
 				
 		commentsTotal = len(comments)
 		nameList = user.name.split(" ")	
@@ -397,27 +374,18 @@ def closeIssue(request,user_id,issue_id):
 			statusChange.save()
 			
 		#taking all comments & status for a given ready for page redirect
-		commentsFromSystem = Comments.objects.all()		
-		issuesStatusFromSystem = Issue_status.objects.all()		 
+		commentsFromSystem = Comments.objects.filter(issue = issue)		
+		issuesStatusFromSystem = Issue_status.objects.filter(issue = issue).order_by('-date_of_change_status')		 
 		issuesAssignmentsFromSystem = Issue_assignment.objects.all()
-		issueAssignee = Users()
+			
+		
+		comments = commentsFromSystem
+		status_log = issuesStatusFromSystem	
+		
+		issuesAssignmentsFromSystem = issuesAssignmentsFromSystem = Issue_assignment.objects.all()
 		for issuesAssignment in issuesAssignmentsFromSystem:
 			if issuesAssignment.issue == issue:
-				issueAssignee = issuesAssignment.assignee
-		
-		comments = []
-		status_log = []
-		
-		
-		#comments for a given isssue
-		for comment in commentsFromSystem:
-			if comment.issue == issue:
-				comments.append(comment)		
-		
-		#new status history
-		for status in issuesStatusFromSystem:
-			if status.issue == issue:
-				status_log.append(status)
+				issueAssignee = issuesAssignment.assignee		
 				
 		commentsTotal = len(comments)
 		nameList = user.name.split(" ")	
@@ -455,27 +423,16 @@ def reopenIssue(request,user_id,issue_id):
 			statusChange.save()
 			
 		#taking all comments & status for a given ready for page redirect
-		commentsFromSystem = Comments.objects.all()		
-		issuesStatusFromSystem = Issue_status.objects.all()		 
-		issuesAssignmentsFromSystem = Issue_assignment.objects.all()
-		issueAssignee = Users()
+		commentsFromSystem = Comments.objects.filter(issue = issue)		
+		issuesStatusFromSystem = Issue_status.objects.filter(issue = issue).order_by('-date_of_change_status')		 
+		issuesAssignmentsFromSystem = Issue_assignment.objects.all()	
+		
+		comments = commentsFromSystem
+		status_log = issuesStatusFromSystem			
+		issuesAssignmentsFromSystem = issuesAssignmentsFromSystem = Issue_assignment.objects.all()
 		for issuesAssignment in issuesAssignmentsFromSystem:
 			if issuesAssignment.issue == issue:
 				issueAssignee = issuesAssignment.assignee
-		
-		comments = []
-		status_log = []
-		
-		
-		#comments for a given isssue
-		for comment in commentsFromSystem:
-			if comment.issue == issue:
-				comments.append(comment)		
-		
-		#new status history
-		for status in issuesStatusFromSystem:
-			if status.issue == issue:
-				status_log.append(status)
 				
 		commentsTotal = len(comments)
 		nameList = user.name.split(" ")	
