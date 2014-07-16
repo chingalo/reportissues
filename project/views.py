@@ -217,6 +217,48 @@ def createProject(request,user_id):
 	
 
 
+#edit project
+def editProject(request,user_id,project_id):
+	
+	user = Users.objects.get(id = user_id)
+		
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:	
+		project = Project_details.objects.get(id = project_id)
+		
+		if request.POST:						
+						 
+			#taking values from form and create new project
+			form = request.POST		
+			titleOfTitle = form.getlist('title')
+			descriptionOfTitle = form.getlist('description')			
+					
+			project.title = titleOfTitle[0]
+			project.description = descriptionOfTitle[0]
+						
+			project.save()
+			
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]	
+			
+			context = {'user':user,'userName':userName,'contents':'singleproject','project':project}
+			return render(request, 'userFunction.html',context)
+			
+		else:	
+		
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]	
+			
+			context = {'user':user,'userName':userName,'contents':'editPorject','project':project,}
+			return render(request, 'userFunction.html',context)
+
+
+
 #view individual project
 def singleProject(request,user_id,project_id):
 	

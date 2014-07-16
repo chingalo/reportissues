@@ -92,7 +92,7 @@
 				<ul class="nav nav-list">
 					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>
 					<li><a href= "#"><i class ="icon-user">&#160;Add new collaborator </i></a></li>
-					<li><a href= "#"><i class ="icon-edit">&#160;Edit project </i></a></li>
+					<li><a href= "{% url 'editProject' user.id project.id %}"><i class ="icon-edit">&#160;Edit project </i></a></li>
 					<li><a href= "#"><i class ="icon-edit">&#160;Create issue </i></a></li>
 					<li><a href= "#"><i class ="icon-remove">&#160;Delete project </i></a></li>
 				</ul>					
@@ -138,21 +138,23 @@
 		</div>
 		{% endif %}
 		
-		<!--    craete new project ----->
+		
+		
+		<!--    edit exist project ----->
 		{%if contents == 'editPorject' %}
 		<div class = "well" style= "text-align:justify;">
-			<form class="form-horizontal"  method = "POST" action ="{% url 'createProject' user.id project.id %}" onsubmit = "return editProject()">
+			<form class="form-horizontal"  method = "POST" action ="{% url 'editProject' user.id project.id %}" onsubmit = "return editProject()">
 				{% csrf_token %}
 			  <div class="control-group">
 				<label class="control-label" for="title of project">Title of project:</label>
 				<div class="controls">
-				  <input type="text" class = "input-xlarge" name="title" id="titleOfProject" placeholder="Title of project">
+				  <input type="text" class = "input-xlarge" name="title" id="titleOfProject" value = "{{project.title}}" >
 				</div>
 			  </div>
 			  <div class="control-group">
 				<label class="control-label" for="description">Description of project:</label>
 				<div class="controls">
-				  <textarea rows="10" class = "input-xlarge" id = "descriptionOfProject" name = "description" placeholder = "What a project is about"></textarea>
+				  <textarea rows="10" class = "input-xlarge" id = "descriptionOfProject" name = "description" >{{project.description}}</textarea>
 				</div>
 			  </div>
 			  <div class="control-group">				
