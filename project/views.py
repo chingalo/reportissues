@@ -71,9 +71,10 @@ def editProfile(request,user_id):
 		else:
 			
 			nameList = user.name.split(" ")	
+			nameListCounter = len(nameList)
 			userName = 	nameList[0]	
 				
-			context = {'user':user,'userName':userName,'contents':'editProfile',}
+			context = {'user':user,'nameList':nameList,'nameListCounter':nameListCounter,'userName':userName,'contents':'editProfile',}
 			return render(request, 'userFunction.html',context)
 				
 

@@ -359,27 +359,66 @@
 		<div class = "well">
 		<div class = "headerforsignup">Edit your details</div>
 			<form class="form-horizontal"  method = "POST" action="{% url 'editProfile' user.id %}" name = "myform" onsubmit ="return editProfile()">
-				{% csrf_token %}
+				{% csrf_token %}				
+				{%if nameListCounter == 2 %}
 				<div class="control-group">
 					<label class="control-label pull-right" for="first name">First name </label>	
 					<div class="controls">
-						<input type="text" name="firstName" value = "{{user.}}" placeholder="First name" class = "required">
+						<input type="text" name="firstName"  class = "required" value = "{{nameList[0]}}">
 					</div>			
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="middle name">Middle name </label>	
 					<div class="controls">
-						<input type="text" name="middleName" placeholder="Middle name" value = "">
+						<input type="text" name="middleName" placeholder = "Middle name">
 					</div>			
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="last name">Last name </label>	
 					<div class="controls">
-						<input type="text"  name="lastName" placeholder="Last name" class = "required" value = "">
+						<input type="text"  name="lastName" value = "{{nameList[1]}}" class = "required">
 					</div>			
 				</div>
+
+				<div class="control-group">
+					<label class="control-label"  for="email">E-mail </label>	
+					<div class="controls">
+						<input type="text" id ='email' onblur = "return chechEmail()" name="email" placeholder="example@xwys.com" class = "required" >
+					</div>	
+				</div>	
+					{% else %}
+				<div class="control-group">
+					<label class="control-label pull-right" for="first name">First name </label>	
+					<div class="controls">
+						<input type="text" name="firstName"  class = "required" value = "{{nameList[0]}}">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="middle name">Middle name </label>	
+					<div class="controls">
+						<input type="text" name="middleName" value = "{{nameList[1]}}">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="last name">Last name </label>	
+					<div class="controls">
+						<input type="text"  name="lastName" value = "{{nameList[2]}}" class = "required">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<label class="control-label"  for="email">E-mail </label>	
+					<div class="controls">
+						<input type="text" id ='email' onblur = "return chechEmail()" name="email" placeholder="example@xwys.com" class = "required" >
+					</div>	
+				</div>	
+					
+				{% endif %}
+					
 				
 				<div class="control-group">
 					<label class="control-label" for="password">Password </label>	
