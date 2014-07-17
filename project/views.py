@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404, render
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
+import json 
 from project.models import *
 from project.forms import *
 
@@ -348,7 +349,14 @@ def singleProject(request,user_id,project_id):
 #add collaborator in the project
 def addCollaborator(request,user_id,project_id):
 	user = Users.objects.get(id = user_id)
+	
+	users = Users.objects.all()
+	userListData = []
+	
+	for userInList in users:
+		userListData.append(userInList.name)
 		
+	userList = json.dumps(userListData)	
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
@@ -362,16 +370,25 @@ def addCollaborator(request,user_id,project_id):
 		project = Project_details.objects.get(id = project_id)	
 		
 		if request.POST:
-			form = request.POST
+			form = request.POST			
+			nameOfFrom = form.getlist('nameOfCollaborator')
 			
-			nameOfCollaborator = form.getlist('nameOfCollaborator')
+			nameOfCollaborator = Users.objects.get(name = nameOfFrom[0])
+			mewProjectAssignment = Project_assignment()
+			mewProjectAssignment.project = project
+			mewProjectAssignment.project_member = nameOfCollaborator
+			mewProjectAssignment.save()	
 			
-			context = {'word':nameOfCollaborator[0]}
-			return render(request,'index.html',context)
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]
+			
+			context = {'user':user,'userName':userName,'contents':'singleproject','project':project}
+			return render(request, 'userFunction.html',context)		
+			
 		else:	
 			
 			
-			context = {'user':user,'userName':userName,'contents':'addCollaborator','project':project}
+			context = {'user':user,'userName':userName,'contents':'addCollaborator','project':project,'userList':userList}
 			return render(request, 'userFunction.html',context)
 
 
