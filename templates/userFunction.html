@@ -143,7 +143,7 @@
 		{%if contents == 'addCollaborator' %}
 		<div class = "well addCollaborator">
 			<h5>Add collaborator to : {{project}} project</h5>
-			<form class="form-horizontal" action = "{% url 'addCollaborator' user.id project.id %}" method = "POST" onsubmit = "return addCollaborator()">
+			<form class="form-horizontal" action = "{% url 'addCollaborator' user.id project.id %}" method = "POST"  onsubmit ="return addCollaborator()">
 				{% csrf_token %}
 				<div class="control-group">
 					<label class="control-label" for="name of collaborator">Name Of Collaborator </label>
@@ -153,7 +153,7 @@
 				</div>
 				<div class = "control-group" >
 					<div class="controls">						
-					  <input type = "submit" value = "Add Collaborator" class = "btn">					  
+					  <input type = "submit"  value = "Add Collaborator" class = "btn">					  
 					</div>
 				</div>
 				

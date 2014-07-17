@@ -17,6 +17,7 @@ function validateForm(){
 	}
 
 
+
 //validation of form on submit if all required fields have been filled
 function editProfile(){
 	for(var i = 0;i < myform.elements.length;i++){	
