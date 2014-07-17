@@ -96,3 +96,20 @@ margin:5px;
 .profile h5{
 text-align:center;
 }
+
+.addCollaborator h5{
+text-align:center;
+}
+
+.addCollaborator form{
+border:1px solid #E5E5E5;
+padding:10px;
+padding-top:20px;
+margin:5px;
+border-radius:7px;
+}
+
+
+
+
+
