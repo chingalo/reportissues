@@ -345,6 +345,34 @@ def singleProject(request,user_id,project_id):
 		return render(request, 'userFunction.html',context)
 
 
+#add collaborator in the project
+def addCollaborator(request,user_id,project_id):
+	user = Users.objects.get(id = user_id)
+		
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+		
+	else:
+		#for login user	
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]
+		project = Project_details.objects.get(id = project_id)	
+		
+		if request.POST:
+			form = request.POST
+			
+			
+			context = {'word':form}
+			return render(request,'index.html',context)
+		else:	
+			
+			
+			context = {'user':user,'userName':userName,'contents':'addCollaborator','project':project}
+			return render(request, 'userFunction.html',context)
+
 
 #view all issues
 def allIssues(request,user_id):
