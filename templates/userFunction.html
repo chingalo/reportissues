@@ -103,7 +103,7 @@
 					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>
 					<li><a href= "{% url 'addCollaborator' user.id project.id %}"><i class ="icon-user">&#160;Add new collaborator </i></a></li>
 					<li><a href= "{% url 'editProject' user.id project.id %}"><i class ="icon-edit">&#160;Edit project </i></a></li>
-					<li><a href= "#"><i class ="icon-edit">&#160;Create issue </i></a></li>
+					<li><a href= "{% url 'createIssue' user.id project.id %}"><i class ="icon-edit">&#160;Create issue </i></a></li>
 					<li><a href= "#"><i class ="icon-remove">&#160;Delete project </i></a></li>
 				</ul>					
 			</div>
@@ -112,7 +112,7 @@
 			<div class = "span4">
 				<ul class="nav nav-list">
 					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>					
-					<li><a href= "#"><i class ="icon-edit">&#160;Create issue </i></a></li>
+					<li><a href= "{% url 'createIssue' user.id project.id %}"><i class ="icon-edit">&#160;Create issue </i></a></li>
 					<li><a href= "#"><i class ="icon-remove">&#160;Remove collaboration</i></a></li>
 				</ul>					
 			</div>
@@ -323,6 +323,70 @@
 		</div>	
 				
 		{% endif %}
+		
+		<!----- craete and assign issue to user -->
+		{% if contents == 'createIssue' %}
+		<div class = "well">
+			<p style = "text-align:center;">Fill the folowing fields to create and assign new issue to a user</p>
+			<hr>			
+			<form class="form-horizontal"  method = "POST" action ="{% url 'createIssue' user.id project.id %}" onsubmit = "return createNewIssue()" >
+					{% csrf_token %}
+				  <div class="control-group">
+					<label class="control-label" for="title of project">Title of project:</label>
+					<div class="controls">
+					  <input type="text" class = "input-large" name="title" id="titleOfIssue" placeholder="Title of Issue">
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="description">Description of issue:</label>
+					<div class="controls">
+					  <textarea rows="5" id = "descriptionOfProject" name = "description" placeholder = "What a project is about"></textarea>
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="name of assignee">Name of Assignee:</label>					
+					  <div class="controls">
+						<select name="assignee">
+							{% for member in memberList %} 
+							<option value="{{member}}" name="assignee">{{member}}</option>
+							{% endfor %}	
+						</select>					
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="priority of issue">Priority of Issue:</label>
+					<div class="controls">
+						<select name="priority">
+							<option value="critical" name="priority">critical</option>
+							<option value="blocked" name="priority">blocked</option>
+							<option value="minor" name="priority">minor</option>
+							<option value="major" name="priority">major</option>	
+							<option value="trivial" name="priority">trivial</option>
+						</select>					  
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="type of issue">Type of Issue:</label>
+					<div class="controls">
+						<select name="type">
+							<option value="bug" name="type">bug</option>
+							<option value="enhancement" name="type">enhancement</option>
+							<option value="proposal" name="type">proposal</option>
+							<option value="task" name="type">task</option>
+						</select>					  
+					</div>
+				  </div>
+				  <div class="control-group">
+					<div class="controls">
+					  <input type="submit" value = "Create issue">
+					</div>
+				  </div>				  
+			</form>
+		</div>
+		{% endif %}
+		
+		
+		
 		
 		<!--    single issue view ---->
 		{% if contents == 'singleissue' %} 

@@ -520,10 +520,10 @@ def createIssue(request,user_id,project_id):
 			newIssue = Issue()
 			newIssue.project = project
 			newIssue.assigner = user
-			newIssue.title = typeOfIssue[0]
+			newIssue.title = titleOfIssue[0]
 			newIssue.description = descriptionOfIssue[0]
 			newIssue.type_of_issue = typeOfIssue[0]
-			newIssue.priority
+			newIssue.priority = priority[0]
 			newIssue.save()
 			
 			#new issue status
@@ -539,13 +539,14 @@ def createIssue(request,user_id,project_id):
 			newAssignment.issue = newIssue
 			newAssignment.save()
 			
+			#prepare redirect process
+			issues = Issue.objects.filter(assigner = user)
 			
-
 			nameList = user.name.split(" ")	
 			userName = 	nameList[0]
 
-			context = {'word':aasignedUser.e_mail}
-			return render(request, 'index.html',context)		
+			context = {'user':user,'userName':userName,'contents':'assignToIssues','assignToIssues':issues}	
+			return render(request,'userFunction.html',context)		
 
 		else:	
 
