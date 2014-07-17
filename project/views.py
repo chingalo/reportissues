@@ -341,8 +341,14 @@ def singleProject(request,user_id,project_id):
 		nameList = user.name.split(" ")	
 		userName = 	nameList[0]	
 		
-		project = Project_details.objects.get(id = project_id)
-		context = {'user':user,'userName':userName,'contents':'singleproject','project':project}
+		project = Project_details.objects.get(id = project_id)		
+		assignmentList = Project_assignment.objects.filter(project = project)
+		memberList = []
+		
+		for assignment in assignmentList:
+			memberList.append(assignment.project_member)
+		
+		context = {'user':user,'userName':userName,'memberList':memberList,'contents':'singleproject','project':project}
 		return render(request, 'userFunction.html',context)
 
 
