@@ -479,6 +479,80 @@ def assignToIssues(request,user_id):
 		context = {'user':user,'userName':userName,'contents':'assignToIssues','assignToIssues':issues}	
 		return render(request,'userFunction.html',context)
 		
+
+#craete new issue and assign to user
+def createIssue(request,user_id,project_id):
+	user = Users.objects.get(id = user_id)
+	
+	
+
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		word = 'You have not login in the system, please login first!'
+		context = {'word':word,}	
+		return render(request,'index.html',context)
+
+	else:
+		#for login user	
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]
+		project = Project_details.objects.get(id = project_id)	
+		memberList = []
+		 
+		memberList.append(project.project_owner)
+		
+		assignmentList = Project_assignment.objects.filter(project = project)
+		for assignment in assignmentList:
+			memberList.append(assignment.project_member)
+
+		if request.POST:
+			form = request.POST	
+			
+			assignee = form.getlist('assignee')		
+			aasignedUser = Users.objects.get(name = assignee[0])
+			typeOfIssue = form.getlist('type')
+			priority = form.getlist('priority')
+			titleOfIssue = form.getlist('title')
+			descriptionOfIssue = form.getlist('description')
+			
+			#new issue
+			newIssue = Issue()
+			newIssue.project = project
+			newIssue.assigner = user
+			newIssue.title = typeOfIssue[0]
+			newIssue.description = descriptionOfIssue[0]
+			newIssue.type_of_issue = typeOfIssue[0]
+			newIssue.priority
+			newIssue.save()
+			
+			#new issue status
+			newStatus = Issue_status()
+			newStatus.status_changer = user
+			newStatus.issue = newIssue
+			newStatus.status = "new"
+			newStatus.save()
+			
+			#new issue assignments
+			newAssignment = Issue_assignment()
+			newAssignment.assignee = aasignedUser
+			newAssignment.issue = newIssue
+			newAssignment.save()
+			
+			
+
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]
+
+			context = {'word':aasignedUser.e_mail}
+			return render(request, 'index.html',context)		
+
+		else:	
+
+
+			context = {'user':user,'userName':userName,'contents':'createIssue','project':project,'memberList':memberList}
+			return render(request, 'userFunction.html',context)
+
 		
 #view individual issue
 def singleIssue(request,user_id,issue_id):

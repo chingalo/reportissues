@@ -38,6 +38,7 @@ class Issue(models.Model):
 	description = models.TextField(max_length = 20000)
 	type_of_issue = models.CharField(max_length = 20)
 	priority = models.CharField(max_length = 20)
+	#date_of_issue_creation = models.DateTimeField(default=timezone.now)
 	
 	def __unicode__(self):
 		return self.title
