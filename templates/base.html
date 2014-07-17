@@ -36,9 +36,15 @@
 					if(users[i] == name){
 						result = 1;
 						}						
-					}								
-				alert(result);
-				return false;				
+					}
+				if(result == 1){
+					alert("Ready to add "+ name + " in your project");
+					return true;
+					}	
+				else{
+					alert("The user is not registered in the system...");
+					return false;
+					}							
 				}
       	</script>
 	</head>
