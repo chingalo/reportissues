@@ -91,7 +91,7 @@
 			<div class = "span4">
 				<ul class="nav nav-list">
 					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>
-					<li><a href= "#"><i class ="icon-user">&#160;Add new collaborator </i></a></li>
+					<li><a href= "{% url 'addCollaborator' user.id project.id %}"><i class ="icon-user">&#160;Add new collaborator </i></a></li>
 					<li><a href= "{% url 'editProject' user.id project.id %}"><i class ="icon-edit">&#160;Edit project </i></a></li>
 					<li><a href= "#"><i class ="icon-edit">&#160;Create issue </i></a></li>
 					<li><a href= "#"><i class ="icon-remove">&#160;Delete project </i></a></li>
@@ -135,6 +135,14 @@
 				  <input type="submit" value = "Create project" >
 				</div>
 			  </div>
+		</div>
+		{% endif %}
+		
+		
+		<!-- add addCollaborator in the project -->		
+		{%if contents == 'addCollaborator' %}
+		<div class = "">
+		ok ready to start form
 		</div>
 		{% endif %}
 		

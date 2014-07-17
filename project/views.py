@@ -364,8 +364,9 @@ def addCollaborator(request,user_id,project_id):
 		if request.POST:
 			form = request.POST
 			
+			nameOfCollaborator = form.getlist('nameOfCollaborator')
 			
-			context = {'word':form}
+			context = {'word':nameOfCollaborator[0]}
 			return render(request,'index.html',context)
 		else:	
 			
