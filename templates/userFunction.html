@@ -356,7 +356,36 @@
 		
 		
 		<!-- view profile ----->
-		{%if contents == 'viewProfile' %}{% endif %}
+		{%if contents == 'viewProfile' %}
+		<div class = "profile">
+			<h5>Account Profile's details</h5>
+			<table class = "table table-hover"> 
+				<thead></thead>
+				<tbody>
+					<tr>
+						<td>Your name </td>
+						<td>{{user.name}}</td>
+					</tr>
+					<tr>
+						<td>Your e-mail </td>
+						<td>{{user.e_mail}}</td>
+					</tr>
+					<tr>
+						<td>Your Mobile Number </td>
+						<td>{{user.mobile_number}}</td>
+					</tr>
+					<tr>
+						<td>Your password </td>
+						<td>{{user.password}}</td>
+					</tr>
+					<tr>
+						<td>Your account was craeted on </td>
+						<td>{{user.entry_date}}</td>
+					</tr>				
+				</tbody>
+			</table>			
+		</div>
+		{% endif %}
 		
 		
 		
