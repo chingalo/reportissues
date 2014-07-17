@@ -80,8 +80,18 @@
 				<div class = "well">
 					<h4>{{ project.title|title }}</h4>
 					<p class = "">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>{{ project.description }}</i>						
-					<p></p>	
-					<span class="pull-right">
+					<hr>
+					{% if memberList %}
+					<h5 style = "text-align:center;">Collaborators in {{project}}</h5>
+					<div class = "collaboratorList">
+						{% for member in memberList %}
+						{{member}}<br>
+						{% endfor %}
+						{% endif %}
+					</div>
+					
+					</p>	
+					<span class="pull-right" >
 						<i>creaated on </i>{{project.date_of_creation|date:"D d M Y"}}
 					</span>				
 				</div>				
