@@ -84,3 +84,15 @@ min-height:270px;
 .emptyIssues{
 min-height:270px;
 }
+.profile{
+margin:5px;
+padding:2px;
+background:#E5E5E5;
+border-radius:5px;
+}
+.profile table{
+margin:5px;
+}
+.profile h5{
+text-align:center;
+}
