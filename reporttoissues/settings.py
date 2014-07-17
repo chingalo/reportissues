@@ -50,7 +50,18 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.doc.XViewMiddleware',   
-)    
+)
+
+#E-mail sending configuration
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_IMAP_HOST = 'imap.gmail.com'
+EMAIL_PORT = "587"
+EMAIL_HOST_USER = 'josephchingalo@gmail.com'
+EMAIL_HOST_PASSWORD = '0687168637'
+EMAIL_USE_TLS = True
+EMAIL_SENDER = 'josephchingalo@gmail.com'
+EMAIL_SSL = True
+    
 ROOT_URLCONF = 'reporttoissues.urls'
 WSGI_APPLICATION = 'reporttoissues.wsgi.application'
 TEMPLATE_DIRS = (
