@@ -17,6 +17,32 @@ function validateForm(){
 	}
 
 
+//  validation of new issues creation and assign to user
+function createNewIssue(){
+	title = document.getElementById('titleOfIssue').value;
+	desc = document.getElementById('descriptionOfProject').value;
+	if(title == ""){
+		alert("Fill the Title of issue....");
+		return false;
+		}
+	
+	else{
+		if(desc == ""){
+			alert("Please decribe issue....");
+			return false;
+			}
+		else{
+			alert("You have successfull create new issue");
+			return true;
+			
+			}
+		
+		}
+	
+	}
+
+
+
 
 //validation of form on submit if all required fields have been filled
 function editProfile(){
