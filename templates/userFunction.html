@@ -141,8 +141,23 @@
 		
 		<!-- add addCollaborator in the project -->		
 		{%if contents == 'addCollaborator' %}
-		<div class = "">
-		ok ready to start form
+		<div class = "well addCollaborator">
+			<h5>Add collaborator to : {{project}} project</h5>
+			<form class="form-horizontal" action = "{% url 'addCollaborator' user.id project.id %}" method = "POST" onsubmit = "return addCollaborator()">
+				{% csrf_token %}
+				<div class="control-group">
+					<label class="control-label" for="name of collaborator">Name Of Collaborator </label>
+					<div class="controls">
+					  <input type="text" name = "nameOfCollaborator" id="name" placeholder="type name of any user" class = "input-xlarge">					  
+					</div>									
+				</div>
+				<div class = "control-group" >
+					<div class="controls">						
+					  <input type = "submit" value = "Add Collaborator" class = "btn">					  
+					</div>
+				</div>
+				
+			</form>	
 		</div>
 		{% endif %}
 		
