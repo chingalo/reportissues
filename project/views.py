@@ -44,6 +44,22 @@ def signUp(request):
 	context = {'user':newUser,'userName':userName,'contents':'allProjects','allProjects':allProjects}
 	return render(request,'userFunction.html',context)
 	
+	
+	
+#view  profile
+def editProfile(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	nameList = user.name.split(" ")	
+	userName = nameList[0]
+	
+	context = {'user':newUser,'userName':userName,'contents':'viewProfile',}
+	return render(request,'userFunction.html',context)	
+
+
+
+
+
 		
 #edit profile
 def editProfile(request,user_id):
@@ -61,7 +77,18 @@ def editProfile(request,user_id):
 			
 		if request.POST:		
 			form = request.POST
-				
+			
+			firstName  = form.getlist('firstName')
+			middleName = form.getlist('middleName')
+			lastName = form.getlist('lastName')
+			password = form.getlist('password')
+			mobileNumber = form.getlist('mobileNumber')
+			
+			user.name = firstName[0] + " " + middleName[0]+ " " +lastName[0]			
+			user.mobile_number = mobileNumber[0]
+			user.password = password[0]	
+			user.save()
+			
 			nameList = user.name.split(" ")	
 			userName = 	nameList[0]
 				
@@ -72,9 +99,16 @@ def editProfile(request,user_id):
 			
 			nameList = user.name.split(" ")	
 			nameListCounter = len(nameList)
+			middleName = ''
+			
+			if nameListCounter == 2:
+				lastName = nameList[1]
+			else:
+				middleName = nameList[1]
+				lastName = nameList[2]	
 			userName = 	nameList[0]	
 				
-			context = {'user':user,'nameList':nameList,'nameListCounter':nameListCounter,'userName':userName,'contents':'editProfile',}
+			context = {'user':user,'lastName':lastName,'middleName':middleName,'nameList':nameList,'nameListCounter':nameListCounter,'userName':userName,'contents':'editProfile',}
 			return render(request, 'userFunction.html',context)
 				
 
