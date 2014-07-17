@@ -47,13 +47,13 @@ def signUp(request):
 	
 	
 #view  profile
-def editProfile(request,user_id):
+def viewProfile(request,user_id):
 	user = Users.objects.get(id = user_id)
 	
 	nameList = user.name.split(" ")	
 	userName = nameList[0]
 	
-	context = {'user':newUser,'userName':userName,'contents':'viewProfile',}
+	context = {'user':user,'userName':userName,'contents':'viewProfile',}
 	return render(request,'userFunction.html',context)	
 
 
@@ -72,9 +72,7 @@ def editProfile(request,user_id):
 		return render(request,'index.html',context)
 		
 	else:
-		#prepare contents for redirect
-		allProjects = Project_details.objects.filter(project_owner = user)
-			
+		#prepare contents for redirect			
 		if request.POST:		
 			form = request.POST
 			
@@ -90,9 +88,9 @@ def editProfile(request,user_id):
 			user.save()
 			
 			nameList = user.name.split(" ")	
-			userName = 	nameList[0]
-				
-			context = {'user':user,'userName':userName,'contents':'ownProjects','allProjects':allProjects}	
+			userName = nameList[0]
+			
+			context = {'user':user,'userName':userName,'contents':'viewProfile',}
 			return render(request,'userFunction.html',context)
 			
 		else:

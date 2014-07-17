@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     url(r'^signup/$', views.signUp, name='signUp'),
     url(r'^login/$', views.login, name='login'),
     url(r'^(?P<user_id>\d+)/editProfile/$', views.editProfile, name='editProfile'),
+    url(r'^(?P<user_id>\d+)/viewProfile/$', views.viewProfile, name='viewProfile'),
     url(r'^(?P<user_id>\d+)/logout/$', views.logout, name='logout'),
     #urls for projects view
     url(r'^(?P<user_id>\d+)/allprojects/$', views.allProjects, name='allProjects'),
