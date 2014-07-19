@@ -1,20 +1,34 @@
 
 //validation of form on submit if all required fields have been filled
 function validateForm(){
+	var test = 0;
 	for(var i = 0;i < myform.elements.length;i++){	
 		if(myform.elements[i].className == "required" && myform.elements[i].value.length == 0){			
 			alert('Fail to create new account, please make sure you fill required fields ');
 			return false;			
 			}		
 		}
+		
 	for(var i = 0;i < myform.elements.length;i++){	
-		if(myform.elements[i].className == "required" && myform.elements[i].value.length != 0){			
-			alert('You have successfull create accoint ');
-			return true;			
+		if(myform.elements[i].className == "required" && myform.elements[i].value.length != 0 ){			
+			test = 1;			
 			}		
+		}
+	
+	var captcha  = document.getElementById('captcha').value;
+	var captchaConf  = document.getElementById('captchaConfimation').value;
+		
+	if(test == 1 && captcha == captchaConf){				
+		alert('You have successfull create account ');
+		return false;
+		}
+	else{
+		alert('PLease check cature value.....');
+		return false;
 		}	
 		
 	}
+	
 
 
 //  validation of new issues creation and assign to user
@@ -124,7 +138,7 @@ function chechEmailLogin(){
 	var atdot = email.lastIndexOf('.');
 
 	if(atpos < 1 || atdot < atpos+2 || atdot+2 >= email.length){
-		alert('incorrect email');
+		alert('Incorrect email');
 		}	
 	}
 	
@@ -135,5 +149,6 @@ function chechEmail(){
 
 	if(atpos < 1 || atdot < atpos+2 || atdot+2 >= email.length){
 		alert('incorrect email');
+		document.getElementById('email').focus();
 		}	
 	}	
