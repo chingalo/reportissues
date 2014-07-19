@@ -146,6 +146,7 @@ function chechEmailLogin(){
 
 	if(atpos < 1 || atdot < atpos+2 || atdot+2 >= email.length){
 		alert('Incorrect email');
+		document.getElementById('emaillogin').focus();
 		}	
 	}
 	
