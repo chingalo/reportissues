@@ -14,6 +14,13 @@ function validateForm(){
 			test = 1;			
 			}		
 		}
+	var password = document.getElementById('password').value;
+	var passwordConf = document.getElementById('passwordConfirmation').value;	
+	
+	if (password != passwordConf){
+		alert('Password does not match...');
+		return false;
+		}	
 	
 	var captcha  = document.getElementById('captcha').value;
 	var captchaConf  = document.getElementById('captchaConfimation').value;
