@@ -5,12 +5,15 @@ from django.core.urlresolvers import reverse
 import json 
 from project.models import *
 from project.forms import *
+from random import randrange
 
 #return the home page for the site
-def index(request):
-			
-	context = {}
+def index(request):		
+	
+	captureValue = randrange(100000,999999)	
+	context = {'captureValue':captureValue}	
 	return render(request,'index.html',context)
+
 	
 #sign up for new account
 def signUp(request):
@@ -23,9 +26,13 @@ def signUp(request):
 	email = form.getlist('email')
 	mobileNumber = form.getlist('mobileNumber')	
 	
+	#activationCodeFromSystem = randrange(100000,999999)	
+	#disable
 	newUser = Users()
 	newUser.name = firstName[0] + " " + middleName[0]+ " " +lastName[0]
 	newUser.e_mail = email[0]
+	newUser
+	newUser
 	newUser.mobile_number = mobileNumber[0]
 	newUser.password = password[0]
 	newUser.login_status = 'log_in'	
@@ -69,7 +76,8 @@ def editProfile(request,user_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -161,7 +169,8 @@ def allProjects(request,user_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -190,7 +199,8 @@ def ownProjects(request,user_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -217,7 +227,8 @@ def collabiratedProjects(request,user_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -244,7 +255,8 @@ def createProject(request,user_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:	
@@ -291,7 +303,8 @@ def editProject(request,user_id,project_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:	
@@ -333,7 +346,8 @@ def singleProject(request,user_id,project_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:	
@@ -366,7 +380,8 @@ def addCollaborator(request,user_id,project_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -405,7 +420,8 @@ def allIssues(request,user_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 
 	else:		
@@ -436,7 +452,8 @@ def assignedIssues(request,user_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 
 	else:		
@@ -461,7 +478,8 @@ def assignToIssues(request,user_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 
 	else:		
@@ -483,14 +501,13 @@ def assignToIssues(request,user_id):
 #craete new issue and assign to user
 def createIssue(request,user_id,project_id):
 	user = Users.objects.get(id = user_id)
-	
-	
 
 	
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 
 	else:
@@ -563,7 +580,8 @@ def singleIssue(request,user_id,issue_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:		
@@ -599,7 +617,8 @@ def commentOnIssue(request,user_id,issue_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -642,7 +661,8 @@ def closeIssue(request,user_id,issue_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:		
@@ -691,7 +711,8 @@ def reopenIssue(request,user_id,issue_id):
 	#checking if current user has login first
 	if user.login_status =='log_out':
 		word = 'You have not login in the system, please login first!'
-		context = {'word':word,}	
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue}	
 		return render(request,'index.html',context)
 		
 	else:		
