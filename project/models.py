@@ -9,6 +9,8 @@ class Users(models.Model):
 	password = models.CharField(max_length = 200)
 	mobile_number = models.CharField(max_length = 200,blank=True)
 	entry_date = models.DateTimeField(default=timezone.now)
+	activationCode= models.CharField(max_length = 200)
+	activationStatus = models.CharField(max_length = 100,  default = 'disable')	
 	login_status = models.CharField(max_length = 100,  default = 'log_out')
 	
 	def __unicode__(self):
@@ -38,7 +40,7 @@ class Issue(models.Model):
 	description = models.TextField(max_length = 20000)
 	type_of_issue = models.CharField(max_length = 20)
 	priority = models.CharField(max_length = 20)
-	#date_of_issue_creation = models.DateTimeField(default=timezone.now)
+	date_of_issue_creation = models.DateTimeField(default=timezone.now)
 	
 	def __unicode__(self):
 		return self.title
