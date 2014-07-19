@@ -40,67 +40,86 @@
 	<!-- sign up form and some important issues to the new user of syatem-->
 	<div class = "row-fluid signup">
 		<!--important info-->
-		<div class = "span6 importantinfoOrAnimation">
-			<p>
+		<div class = "span5 ">
+			<div class = "importantinfoOrAnimation well">
+				<p>
 				important infos or logs or animations for the site
-			</p>
-
+				</p>
+			</div>
 		</div>
 
 		<!-- signup form -->
 		<div class = "span6 ">
-			<div class = "headerforsignup">For new users to sign up</div>
-			<form class="form-horizontal"  method = "POST" action="{% url 'signUp' %}" name = "myform" onsubmit ="return validateForm()" >
-				{% csrf_token %}
-				<div class="control-group">
-					<label class="control-label pull-right" for="first name">First name </label>	
-					<div class="controls">
-						<input type="text" name="firstName" placeholder="First name" class = "required" >
-					</div>			
-				</div>
+			<div class = "well" style = "border-radius:10px;border:1px solid #BFBFBF;">
+				<div class = "headerforsignup">For new users to sign up</div>
+				<form class="form-horizontal" style = "text-align:justify;" method = "POST" action="{% url 'signUp' %}" name = "myform" onsubmit ="return validateForm()" >
+					{% csrf_token %}
+					<div class="control-group">
+						<label class="control-label pull-right" for="first name">First name </label>	
+						<div class="controls">
+							<input type="text" name="firstName" placeholder="First name" class = "required" >
+						</div>			
+					</div>
 
-				<div class="control-group">
-					<label class="control-label" for="middle name">Middle name </label>	
-					<div class="controls">
-						<input type="text" name="middleName" placeholder="Middle name">
-					</div>			
-				</div>
+					<div class="control-group">
+						<label class="control-label" for="middle name">Middle name </label>	
+						<div class="controls">
+							<input type="text" name="middleName" placeholder="Middle name">
+						</div>			
+					</div>
 
-				<div class="control-group">
-					<label class="control-label" for="last name">Last name </label>	
-					<div class="controls">
-						<input type="text"  name="lastName" placeholder="Last name" class = "required">
-					</div>			
-				</div>
+					<div class="control-group">
+						<label class="control-label" for="last name">Last name </label>	
+						<div class="controls">
+							<input type="text"  name="lastName" placeholder="Last name" class = "required">
+						</div>			
+					</div>
 
-				<div class="control-group">
-					<label class="control-label"  for="email">E-mail </label>	
-					<div class="controls">
-						<input type="text" id ='email' onblur = "return chechEmail()" name="email" placeholder="example@xwys.com" class = "required" >
+					<div class="control-group">
+						<label class="control-label"  for="email">E-mail </label>	
+						<div class="controls">
+							<input type="text" id ='email' onblur = "return chechEmail()" name="email" placeholder="example@xwys.com" class = "required" >
+						</div>	
 					</div>	
-				</div>	
+						
+					<div class="control-group">
+						<label class="control-label" for="password">Password </label>	
+						<div class="controls">
+							<input type="password" id = "password" name="password" placeholder="password" class = "required">
+						</div>			
+					</div>
 					
-				<div class="control-group">
-					<label class="control-label" for="password">Password </label>	
-					<div class="controls">
-						<input type="password" name="password" placeholder="password" class = "required">
-					</div>			
-				</div>			
+					<div class="control-group">
+						<label class="control-label" for="password confirmation">Password confirmation </label>	
+						<div class="controls">
+							<input type="password" id = "passwordConfirmation" name="passwordConfirmation" placeholder="Re type password" class = "required">
+						</div>			
+					</div>	
+					
+					<div class="control-group">
+						<label class="control-label" for="mobile number">Mobile number </label>	
+						<div class="controls">
+							<input type="text" name="mobileNumber" placeholder="+255 687 168 637">
+						</div>			
+					</div>
+					
+					<div class="control-group"><br>
+						<p style ="text-align:justify; color:#0096FF;font-style:italic;">Re-type the number correctly if you are human not robot</p>
+						<input class="control-label" type="text" id = "captchaConfimation" name="captcha" disabled value= "{{captureValue}}" >						
+						<div class="controls">
+							<input  type="text" id = "captcha" name="captcha" placeholder = "Type above number" >						
+						</div>			
+					</div>	<br>			
+					
 
-				<div class="control-group">
-					<label class="control-label" for="mobile number">Mobile number </label>	
-					<div class="controls">
-						<input type="text" name="mobileNumber" placeholder="+255 687 168 637">
-					</div>			
-				</div>
+					<div class="control-group">
+						<div class="controls">
+							<input type="submit" value = "Sign up " class = "btn" >
+						</div>			
+					</div>				
 
-				<div class="control-group">
-					<div class="controls">
-						<input type="submit" value = "Sign up " class = "btn" >
-					</div>			
-				</div>				
-
-			</form>			
+				</form>			
+			</div>				
 		</div>
 	</div>
 
