@@ -5,6 +5,7 @@ from project import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^signup/$', views.signUp, name='signUp'),
+    url(r'^(?P<user_id>\d+)/acctivationAccount/$', views.acctivationAccount, name='acctivationAccount'),
     url(r'^login/$', views.login, name='login'),
     url(r'^(?P<user_id>\d+)/editProfile/$', views.editProfile, name='editProfile'),
     url(r'^(?P<user_id>\d+)/viewProfile/$', views.viewProfile, name='viewProfile'),

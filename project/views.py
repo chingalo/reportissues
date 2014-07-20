@@ -12,7 +12,7 @@ def index(request):
 	
 	captureValue = randrange(100000,999999)	
 	context = {'captureValue':captureValue}	
-	return render(request,'activation.html',context)
+	return render(request,'index.html',context)
 
 	
 #sign up for new account
@@ -26,33 +26,54 @@ def signUp(request):
 	email = form.getlist('email')
 	mobileNumber = form.getlist('mobileNumber')	
 	
-	#activationCodeFromSystem = randrange(100000,999999)	
-	#disable
+	
 	newUser = Users()
 	newUser.name = firstName[0] + " " + middleName[0]+ " " +lastName[0]
 	newUser.e_mail = email[0]
-	newUser
-	newUser
+	newUser.activationCode = randrange(99999,99999999)	
 	newUser.mobile_number = mobileNumber[0]
-	newUser.password = password[0]
-	newUser.login_status = 'log_in'	
+	newUser.password = password[0]	
 	newUser.save()
+	
+	#email for activation codes
+	
+	
 	
 	#list of projects for a given user	
 	assignedProjectsFromSystem = Project_assignment.objects.all();
 	allProjects = []
-	
+
 	for projectLink in assignedProjectsFromSystem:
 		if projectLink.project_member == newUser:
 			allProjects.append(projectLink.project)	
-		
-	
+
+
 	userName = firstName[0]
-	
+
 	context = {'user':newUser,'userName':userName,'contents':'allProjects','allProjects':allProjects}
 	return render(request,'userFunction.html',context)
 	
+
+#activate account
+def acctivationAccount(request,user_id):
+	user = Users.objects.get(id = user_id)
+	form = request.POST
 	
+	activationCode = form.getlist('activationcode')
+	if user.activationCode == activationCode[0]:
+		user.activationStatus = 'enable'
+		
+		nameList = user.name.split(" ")	
+		userName = nameList[0]
+		context = {'user':newUser,'userName':userName,'contents':'allProjects','allProjects':allProjects}
+		return render(request,'userFunction.html',context)
+		
+	else:
+		context = {'user':user,}
+		return(request,'activation.html'.context)
+		
+		
+			
 	
 #view  profile
 def viewProfile(request,user_id):
