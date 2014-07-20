@@ -33,15 +33,15 @@ def signUp(request):
 	newUser.e_mail = email[0]
 	newUser.activationCode = randrange(99999,99999999)	
 	newUser.mobile_number = mobileNumber[0]
-	newUser.password = password[0]	
+	newUser.password = password[0]
+	newUser.login_status = 'log_in'	
 	newUser.save()
 	
 	#email for activation codes
 	subject = "WELCOME TO PROJECT MANAGEMENT SYSTEM"
-	message = "hi, "+newUser.name+"\nYou hava successfully create new account in Project management system.\nTo activate your account please login into your account, click on activation account link and fill activation codes below.\nActivation code : "+newUser.activationCode
-	recipient_list = []
-	recipient_list.append(newUser.e_mail)
-	from_email = 'no-reply@project.org'
+	message = "hi, "+newUser.name+"\nYou hava successfully create new account in Project management system.\nTo activate your account please login into your account, click on activation account link and fill activation codes below.\nActivation code : "+str(newUser.activationCode)
+	recipient_list = [newUser.e_mail]	
+	from_email = 'josephchingalo@gmail.com'
 	send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 	
 	
@@ -63,29 +63,35 @@ def signUp(request):
 #activate account
 def acctivationAccount(request,user_id):
 	user = Users.objects.get(id = user_id)
-	form = request.POST
 	
-	activationCode = form.getlist('activationcode')
-	if user.activationCode == activationCode[0]:
-		user.activationStatus = 'enable'
-		user.save()
-		#send activation complete email
-		subject = "SUCCESSFULLY ACTIVATION"
-		message = "Hi ,"+user.name +"\nYou have successfully activate your account."
-		recipient_list = []
-		recipient_list.append(user.e_mail)
-		from_email = 'no-reply@project.org'
-		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+	if request.POST:		
+		form = request.POST
 		
-		
-		nameList = user.name.split(" ")	
-		userName = nameList[0]
-		context = {'user':newUser,'userName':userName,'contents':'allProjects','allProjects':allProjects}
-		return render(request,'userFunction.html',context)
+		activationCode = form.getlist('activationcode')
+		if user.activationCode == activationCode[0]:
+			user.activationStatus = 'enable'			
+			user.save()
+			#send activation complete email
+			subject = "SUCCESSFULLY ACTIVATION"
+			message = "Hi ,"+user.name +"\nYou have successfully activate your account."
+			recipient_list = []
+			recipient_list.append(user.e_mail)
+			from_email = 'no-reply@project.org'
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
+			
+			nameList = user.name.split(" ")	
+			userName = nameList[0]
+			context = {'user':user,'userName':userName,'contents':'allProjects','allProjects':allProjects}
+			return render(request,'userFunction.html',context)
+		else:
+			context = {'user':user,'word':"Activation key does not match"}
+			return render(request,'activation.html'.context)
+			
 		
 	else:
 		context = {'user':user,}
-		return(request,'activation.html'.context)
+		return render(request,'activation.html',context)
 		
 		
 			
@@ -316,9 +322,9 @@ def createProject(request,user_id):
 			subject = "NEW PROJECT"
 			message = "Hi, "+user.name+"\nYour have successfully create new project.\nFor easy management of your project you can add more collaborators and assign some issues."
 			recipient_list = []
-			recipient_listappend(user.e_mail)
+			recipient_list.append(user.e_mail)
 			from_email = 'no-reply@project.org'
-			#send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 			
 				
 			
@@ -712,8 +718,8 @@ def commentOnIssue(request,user_id,issue_id):
 		commentToIssue.save()
 		
 		assigner = issue.assigner
-		assignee = Issue_assignment.objects.get(issue = issue)
-			
+		assigneeAss = Issue_assignment.objects.get(issue = issue)
+		assignee = assigneeAss.assignee	
 		
 		#send email after comment on the isssue
 		subject = "COMMENT ON "+ issue.title
@@ -785,18 +791,19 @@ def closeIssue(request,user_id,issue_id):
 			subject = "STATUS CHANGES ON "+issue.title
 						
 			assigner = issue.assigner
-			assignee = Issue_assignment.objects.get(issue = issue)	
+			assigneeAss = Issue_assignment.objects.get(issue = issue)
+			assignee = assigneeAss.assignee		
 					
 			if(user == assigner):
-				message = "Hi, " assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				message = "Hi, " +assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
 				recipient_list = []
 				recipient_list.append(assignee.e_mail)
 				from_email = 'no-reply@project.org'
 				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 			else:
-				message = "Hi, " .name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				message = "Hi, " +assigner.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
 				recipient_list = []
-				recipient_list.append(.e_mail)
+				recipient_list.append(assigner.e_mail)
 				from_email = 'no-reply@project.org'
 				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 			
@@ -856,18 +863,19 @@ def reopenIssue(request,user_id,issue_id):
 			subject = "STATUS CHANGES ON "+issue.title
 						
 			assigner = issue.assigner
-			assignee = Issue_assignment.objects.get(issue = issue)	
+			assigneeAss = Issue_assignment.objects.get(issue = issue)
+			assignee = assigneeAss.assignee		
 					
 			if(user == assigner):
-				message = "Hi, " assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				message = "Hi, " +assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
 				recipient_list = []
 				recipient_list.append(assignee.e_mail)
 				from_email = 'no-reply@project.org'
 				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 			else:
-				message = "Hi, " .name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				message = "Hi, " +assigner.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
 				recipient_list = []
-				recipient_list.append(.e_mail)
+				recipient_list.append(assigner.e_mail)
 				from_email = 'no-reply@project.org'
 				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 			

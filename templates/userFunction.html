@@ -105,10 +105,9 @@
 					<div class = "collaboratorList">
 						{% for member in memberList %}
 						{{member}}<br>
-						{% endfor %}
-						{% endif %}
+						{% endfor %}						
 					</div>
-					
+					{% endif %}
 					</p>	
 					<span class="pull-right" >
 						<i>creaated on </i>{{project.date_of_creation|date:"D d M Y"}}
