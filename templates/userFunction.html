@@ -8,6 +8,7 @@
 		
 		<!-- all projects for successfully login user -->
 		{% if contents == 'allProjects' %}
+		{% if user.activationStatus == 'enable' %}
 		{% if allProjects %}		
 		<ul class="nav nav-stacked nav-tabs">
 			{% for project in allProjects %}
@@ -24,11 +25,17 @@
 		<div class = "well emptyProject">
 		You have no project at this time.
 		</div>
-		{% endif %}		
+		{% endif %}
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}		
 		{% endif %}
 		
 		<!-- own projects -->
 		{% if contents == 'ownProjects' %}
+		{% if user.activationStatus == 'enable' %}
 		{% if allProjects %}
 		<ul class="nav nav-stacked nav-tabs">
 			{% for project in allProjects %}
@@ -45,12 +52,18 @@
 		<div class = "well emptyProject">
 		You have no project at this time.
 		</div>
-		{% endif %}		
+		{% endif %}	
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}	
 		{% endif %}
 		
 		
 		<!--	collaborated projects	-->
 		{% if contents == 'collaboprojects' %}
+		{% if user.activationStatus == 'enable' %}
 		{% if  allProjects %}
 		<ul class="nav nav-stacked nav-tabs">
 			{% for project in allProjects %}
@@ -67,13 +80,19 @@
 		<div class = "well emptyProject">
 		You have no project at this time.
 		</div>
-		{% endif %}	
+		{% endif %}
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}	
 		{% endif %}
 		
 		
 		
 		<!--- ---------single project----------------------->
 		{% if contents == 'singleproject' %} 
+		{% if user.activationStatus == 'enable' %}
 		<div class = "row-fluid">
 			<!-- details for a given project -->			
 			<div class = "span8">
@@ -118,6 +137,11 @@
 			</div>
 			{% endif %}
 		</div>
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}			
 		{% endif %}
 		
 		
@@ -125,6 +149,7 @@
 				
 		<!--    craete new project ----->
 		{%if contents == 'createPorject' %}
+		{% if user.activationStatus == 'enable' %}
 		<div class = "well" style= "text-align:justify;">
 			<form class="form-horizontal"  method = "POST" action ="{% url 'createProject' user.id %}" onsubmit = "return createProject()">
 				{% csrf_token %}
@@ -146,11 +171,17 @@
 				</div>
 			  </div>
 		</div>
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}
 		{% endif %}
 		
 		
-		<!-- add addCollaborator in the project -->		
+		<!-- add addCollaborator in the project -->				
 		{%if contents == 'addCollaborator' %}
+		{% if user.activationStatus == 'enable' %}
 		<div class = "well addCollaborator">
 			<h5>Add collaborator to : {{project}} project</h5>
 			<form class="form-horizontal" action = "{% url 'addCollaborator' user.id project.id %}" method = "POST"  onsubmit ="return addCollaborator()">
@@ -169,12 +200,18 @@
 				
 			</form>	
 		</div>
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}
 		{% endif %}
 		
 		
 		
 		<!--    edit exist project ----->
 		{%if contents == 'editPorject' %}
+		{% if user.activationStatus == 'enable' %}
 		<div class = "well" style= "text-align:justify;">
 			<form class="form-horizontal"  method = "POST" action ="{% url 'editProject' user.id project.id %}" onsubmit = "return editProject()">
 				{% csrf_token %}
@@ -196,6 +233,11 @@
 				</div>
 			  </div>
 		</div>
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}
 		{% endif %}
 		
 		
@@ -205,6 +247,7 @@
 		
 		<!-- all issues -->
 		{% if contents == 'allIssues' %} 
+		{% if user.activationStatus == 'enable' %}
 		<div class = "well emptyIssues">
 			{% if allIssues %}
 			<table class="table table-striped">
@@ -238,11 +281,19 @@
 				You have no issue this time			
 			</div>	
 			{% endif %}			
-		</div>						
+		</div>
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}						
 		{% endif %}
+		
+		
 		
 		<!--assigned issues -->
 		{% if contents == 'assignedIssues' %}
+		{% if user.activationStatus == 'enable' %}
 		<div class = "well emptyIssues">
 			{% if assignedIssues %}
 			<table class="table table-striped">
@@ -278,12 +329,17 @@
 				You have no issue this time			
 			</div>	
 			{% endif %}				
-		</div>					
+		</div>
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}					
 		{% endif %}
 		
 		<!-- assign to issues -->
 		{% if contents == 'assignToIssues' %}
-		
+		{% if user.activationStatus == 'enable' %}
 		<div class = "well emptyIssues">
 			{% if assignToIssues %}
 			<table class="table table-striped">
@@ -321,11 +377,18 @@
 			</div>	
 			{% endif %}				
 		</div>	
-				
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}		
 		{% endif %}
+		
+		
 		
 		<!----- craete and assign issue to user -->
 		{% if contents == 'createIssue' %}
+		{% if user.activationStatus == 'enable' %}
 		<div class = "well">
 			<p style = "text-align:center;">Fill the folowing fields to create and assign new issue to a user</p>
 			<hr>			
@@ -383,6 +446,11 @@
 				  </div>				  
 			</form>
 		</div>
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}
 		{% endif %}
 		
 		
@@ -390,6 +458,7 @@
 		
 		<!--    single issue view ---->
 		{% if contents == 'singleissue' %} 
+		{% if user.activationStatus == 'enable' %}
 		<div class = "row-fluid">
 			<!-- details and comments for a given issue -->			
 			<div class = "span8">
@@ -449,6 +518,11 @@
 				</div>
 			</div>
 		</div>
+		{% else %}
+		<div class = "well">
+			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+		</div>
+		{% endif%}
 		{% endif %}
 		
 		
@@ -474,6 +548,10 @@
 					<tr>
 						<td>Your password </td>
 						<td>{{user.password}}</td>
+					</tr>
+					<tr>
+						<td>Your account activation status</td>
+						<td>{{user.activationStatus}}</td>
 					</tr>
 					<tr>
 						<td>Your account was craeted on </td>
@@ -542,11 +620,6 @@
 	
 	</div>	
 		
-		
-		
-		
-	
-
 
 
 {% endblock %}
