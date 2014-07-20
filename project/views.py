@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404, render
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 import json 
+from django.core.mail import send_mail
 from project.models import *
 from project.forms import *
 from random import randrange
@@ -36,7 +37,12 @@ def signUp(request):
 	newUser.save()
 	
 	#email for activation codes
-	
+	subject = "WELCOME TO PROJECT MANAGEMENT SYSTEM"
+	message = "hi, "+newUser.name+"\nYou hava successfully create new account in Project management system.\nTo activate your account please login into your account, click on activation account link and fill activation codes below.\nActivation code : "+newUser.activationCode
+	recipient_list = []
+	recipient_list.append(newUser.e_mail)
+	from_email = 'no-reply@project.org'
+	send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 	
 	
 	#list of projects for a given user	
@@ -62,6 +68,15 @@ def acctivationAccount(request,user_id):
 	activationCode = form.getlist('activationcode')
 	if user.activationCode == activationCode[0]:
 		user.activationStatus = 'enable'
+		user.save()
+		#send activation complete email
+		subject = "SUCCESSFULLY ACTIVATION"
+		message = "Hi ,"+user.name +"\nYou have successfully activate your account."
+		recipient_list = []
+		recipient_list.append(user.e_mail)
+		from_email = 'no-reply@project.org'
+		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+		
 		
 		nameList = user.name.split(" ")	
 		userName = nameList[0]
@@ -158,7 +173,8 @@ def login(request):
 			if user.e_mail == emailListPosted[0] and user.password == passwordPosted[0]:
 				#for registered user				
 				user.login_status = "log_in"
-				user.save()
+				user.save()				
+				
 				allProjects = []
 				
 				#list of projects for a given user
@@ -294,7 +310,16 @@ def createProject(request,user_id):
 			newProject.project_owner  = user		
 			newProject.title = titleOfTitle[0]
 			newProject.description = descriptionOfTitle[0]
-			newProject.save()			
+			newProject.save()
+			
+			#send email after create new project			
+			subject = "NEW PROJECT"
+			message = "Hi, "+user.name+"\nYour have successfully create new project.\nFor easy management of your project you can add more collaborators and assign some issues."
+			recipient_list = []
+			recipient_listappend(user.e_mail)
+			from_email = 'no-reply@project.org'
+			#send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
 				
 			
 			#prepare contents for redirect
@@ -416,11 +441,26 @@ def addCollaborator(request,user_id,project_id):
 			form = request.POST			
 			nameOfFrom = form.getlist('nameOfCollaborator')
 			
-			nameOfCollaborator = Users.objects.get(name = nameOfFrom[0])
+			Collaborator = Users.objects.get(name = nameOfFrom[0])
 			mewProjectAssignment = Project_assignment()
 			mewProjectAssignment.project = project
-			mewProjectAssignment.project_member = nameOfCollaborator
+			mewProjectAssignment.project_member =Collaborator
 			mewProjectAssignment.save()	
+			
+			#send email after add collaborator in the project
+			subject = "COLLABORATION ON "+project.title
+			message = "Hi, "+Collaborator.name+"\nYou have been add as collaborator on "+project.title+" project"
+			recipient_list = []
+			recipient_list.append(Collaborator.e_mail)
+			from_email = 'no-reply@project.org'
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+						
+			message = "Hi, "+user.name+"\nYou have successfully add "+Collaborator.name+" as collaborator on "+project.title+" project"
+			recipient_list = []
+			recipient_list.append(user.e_mail)
+			from_email = 'no-reply@project.org'
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
 			
 			nameList = user.name.split(" ")	
 			userName = 	nameList[0]
@@ -578,6 +618,22 @@ def createIssue(request,user_id,project_id):
 			newAssignment.issue = newIssue
 			newAssignment.save()
 			
+			
+			#send email after create and assign issue
+			subject = "ISSUE CREATION ON "+ newIssue.title
+			message = "Hi, "+user.name+ "\nYou have successfully create new issue and assign to "+aasignedUser.name +" on "+project.title +" project"
+			recipient_list = []
+			recipient_list.append(user.e_mail)
+			from_email = 'no-reply@project.org'
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
+			message = "Hi , " +aasignedUser.name+ "\nYou have assign to "+ newIssue.title+ " issue on "+project.title +" project"
+			recipient_list = []
+			recipient_list.append(aasignedUser.e_mail)
+			from_email = 'no-reply@project.org'
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
+			
 			#prepare redirect process
 			issues = Issue.objects.filter(assigner = user)
 			
@@ -654,6 +710,25 @@ def commentOnIssue(request,user_id,issue_id):
 		commentToIssue.commenter = user
 		commentToIssue.description = comment[0]				
 		commentToIssue.save()
+		
+		assigner = issue.assigner
+		assignee = Issue_assignment.objects.get(issue = issue)
+			
+		
+		#send email after comment on the isssue
+		subject = "COMMENT ON "+ issue.title
+		from_email = 'no-reply@project.org'
+		if(assigner == user):
+			message = "Hi, "+assignee.name+"\n"+user.name +" has commented on "+issue.title +" as \""+commentToIssue.description+"\""
+			recipient_list = []	
+			recipient_list.append(assignee.e_mail)	
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+		else:
+			message = "Hi, "+assigner.name+"\n"+user.name +" has commented on "+issue.title +" as \""+commentToIssue.description+"\""
+			recipient_list = []	
+			recipient_list.append(assigner.e_mail)	
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
 			
 		#taking all comments & status for a given ready for page redirect
 		commentsFromSystem = Comments.objects.filter(issue = issue)		
@@ -699,11 +774,32 @@ def closeIssue(request,user_id,issue_id):
 		numberOfStatus = len(status_log)
 		if(status_log[numberOfStatus - 1].status != "close"):
 			#change status of issue
+			previousStatus = status_log[numberOfStatus - 1].status
+			
 			statusChange = Issue_status()
 			statusChange.status_changer = user
 			statusChange.issue = issue
 			statusChange.status = "close"	
 			statusChange.save()
+			#send email after close an issue:
+			subject = "STATUS CHANGES ON "+issue.title
+						
+			assigner = issue.assigner
+			assignee = Issue_assignment.objects.get(issue = issue)	
+					
+			if(user == assigner):
+				message = "Hi, " assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				recipient_list = []
+				recipient_list.append(assignee.e_mail)
+				from_email = 'no-reply@project.org'
+				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			else:
+				message = "Hi, " .name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				recipient_list = []
+				recipient_list.append(.e_mail)
+				from_email = 'no-reply@project.org'
+				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
 			
 		#taking all comments & status for a given ready for page redirect
 		commentsFromSystem = Comments.objects.filter(issue = issue)		
@@ -747,13 +843,35 @@ def reopenIssue(request,user_id,issue_id):
 				status_log.append(status)
 		
 		numberOfStatus = len(status_log)
-		if(status_log[numberOfStatus - 1].status != "reopen"):
+		if(status_log[numberOfStatus - 1].status == "close"):
+			previousStatus = status_log[numberOfStatus - 1].status
 			#change status of issue
 			statusChange = Issue_status()
 			statusChange.status_changer = user
 			statusChange.issue = issue
 			statusChange.status = "reopen"	
 			statusChange.save()
+			
+			#send email upon reopen an issue
+			subject = "STATUS CHANGES ON "+issue.title
+						
+			assigner = issue.assigner
+			assignee = Issue_assignment.objects.get(issue = issue)	
+					
+			if(user == assigner):
+				message = "Hi, " assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				recipient_list = []
+				recipient_list.append(assignee.e_mail)
+				from_email = 'no-reply@project.org'
+				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			else:
+				message = "Hi, " .name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				recipient_list = []
+				recipient_list.append(.e_mail)
+				from_email = 'no-reply@project.org'
+				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
+			
 			
 		#taking all comments & status for a given ready for page redirect
 		commentsFromSystem = Comments.objects.filter(issue = issue)		
