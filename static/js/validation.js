@@ -27,7 +27,7 @@ function validateForm(){
 		
 	if(test == 1 && captcha == captchaConf){				
 		alert('You have successfull create account ');
-		return false;
+		return true;
 		}
 	else{
 		alert('PLease check cature value.....');
