@@ -179,7 +179,8 @@ def login(request):
 			
 		#for not registered users
 	word = 'Fail to login, if you are registered user try to login again else signup for new user account'		
-	context = {'word':word,}
+	captureValue = randrange(100000,999999)	
+	context = {'word':word,'captureValue':captureValue}	
 	return render(request,'index.html',context)
 
 
