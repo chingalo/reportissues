@@ -4,9 +4,10 @@
 
 
 <div class = "row-fluid" style = "margin-top:20px;" >
+	
 	<div class = "well" style = "text-align:center;padding-top: 100px;padding-bottom:100px;width:70%; margin:auto">
 		<p><i style = "color:#1E90FF;">please, check your e-mail account and take confirmation key and enter in field beleow to activate your account</i></p>
-		<form class="form-inline"  action ="" method = "POST" >
+		<form class="form-inline"  action ="{% url 'acctivationAccount' user.id %}" method = "POST" >
 		{% csrf_token %}
 			<input type="text" id = "emaillogin" onblur = "return chechEmailLogin()" name = "email" value = "{{user.e_mail}}" class="input-large" placeholder="Your e-mail to be activated" >
 			<input type="text" name = "activationcode" class="input-xlarge" placeholder="Enter your activation code sent to your e-mail">						  

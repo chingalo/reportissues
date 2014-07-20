@@ -12,7 +12,7 @@ def index(request):
 	
 	captureValue = randrange(100000,999999)	
 	context = {'captureValue':captureValue}	
-	return render(request,'index.html',context)
+	return render(request,'activation.html',context)
 
 	
 #sign up for new account
