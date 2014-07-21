@@ -1,6 +1,19 @@
-report to issues
-================
-
+project management system
+==========================
+It aim on project management on any project.
+Its capabilities are :-
+	-login for registered users
+	-sign up for new user
+	-validate for all required fields before submitttion of signup form
+	-checking for correct email
+	-list all projects concerned him or her
+	-list all issues for a given user
+	-create new project
+	-add collaboration for a given project
+	-create issue on a project and assign to user
+	-comment on issue
+	-change status like new, close and reopen
+	-send e-mail during signup,activation of account, creation of new project or issue,assignment of issue, status change and comment on issue
 
 How to install this site:
 ====================================
