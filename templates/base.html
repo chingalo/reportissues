@@ -25,7 +25,26 @@
 					 source: availableTutorials
 					});
 				});	
-      	</script>      	
+      	</script>  
+      	<script>
+			function chechEmail(){
+				var emailList = {{userEmailData|safe}};
+				var email = document.getElementById('email').value;
+				var atpos = email.indexOf('@');
+				var atdot = email.lastIndexOf('.');
+
+				if(atpos < 1 || atdot < atpos+2 || atdot+2 >= email.length){
+					alert('incorrect email');
+					document.getElementById('email').focus();
+					}
+				for(var i = 0; i < emailList.length ; i++){
+					if(emailList[i] == email){
+						alert("user exist");
+						}
+					}		
+				}	    	
+      	
+      	</script>    	
       	<script>
 			function addCollaborator(){
 				var users = {{userList|safe}};
