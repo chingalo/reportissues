@@ -10,9 +10,14 @@ from random import randrange
 
 #return the home page for the site
 def index(request):		
-	
+	users = Users.objects.all()
+	userList = []
+	for user in users:
+		userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 	captureValue = randrange(100000,999999)	
-	context = {'captureValue':captureValue,}	
+	context = {'captureValue':captureValue,'userEmailData':userEmailData}	
 	return render(request,'index.html',context)
 
 	
@@ -115,11 +120,19 @@ def viewProfile(request,user_id):
 def editProfile(request,user_id):
 	user = Users.objects.get(id = user_id)
 	
+	
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+			userEmailData = json.dumps(userList)
+		
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -164,6 +177,11 @@ def editProfile(request,user_id):
 	
 #processing login processs
 def login(request):
+	users = Users.objects.all()
+	userList = []
+	for user in users:
+		userList.append(user.e_mail)
+	userEmailData = json.dumps(userList)
 	
 	userFromSystem = Users.objects.all()
 	word = ''	
@@ -200,9 +218,14 @@ def login(request):
 				return render(request,'userFunction.html',context)
 			
 		#for not registered users
+	
+		word = 'You have not login in the system, please login first!'
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData,}	
+		return render(request,'index.html',context)	
 	word = 'Fail to login, if you are registered user try to login again else signup for new user account'		
 	captureValue = randrange(100000,999999)	
-	context = {'word':word,'captureValue':captureValue}	
+	context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 	return render(request,'index.html',context)
 
 
@@ -212,9 +235,15 @@ def allProjects(request,user_id):
 	
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -242,9 +271,15 @@ def ownProjects(request,user_id):
 	
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -270,9 +305,15 @@ def collabiratedProjects(request,user_id):
 	
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -298,9 +339,15 @@ def createProject(request,user_id):
 		
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:	
@@ -355,9 +402,15 @@ def editProject(request,user_id,project_id):
 		
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:	
@@ -398,9 +451,15 @@ def singleProject(request,user_id,project_id):
 		
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:	
@@ -432,9 +491,15 @@ def addCollaborator(request,user_id,project_id):
 	userList = json.dumps(userListData)	
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -487,9 +552,15 @@ def allIssues(request,user_id):
 
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 
 	else:		
@@ -519,9 +590,15 @@ def assignedIssues(request,user_id):
 
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 
 	else:		
@@ -545,9 +622,15 @@ def assignToIssues(request,user_id):
 
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 
 	else:		
@@ -573,9 +656,15 @@ def createIssue(request,user_id,project_id):
 	
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 
 	else:
@@ -663,9 +752,15 @@ def singleIssue(request,user_id,issue_id):
 		
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:		
@@ -700,9 +795,15 @@ def commentOnIssue(request,user_id,issue_id):
 		
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:
@@ -763,9 +864,15 @@ def closeIssue(request,user_id,issue_id):
 		
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:		
@@ -835,9 +942,15 @@ def reopenIssue(request,user_id,issue_id):
 		
 	#checking if current user has login first
 	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
 		word = 'You have not login in the system, please login first!'
 		captureValue = randrange(100000,999999)	
-		context = {'word':word,'captureValue':captureValue}	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 		
 	else:		
