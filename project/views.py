@@ -12,7 +12,7 @@ from random import randrange
 def index(request):		
 	
 	captureValue = randrange(100000,999999)	
-	context = {'captureValue':captureValue}	
+	context = {'captureValue':captureValue,}	
 	return render(request,'index.html',context)
 
 	

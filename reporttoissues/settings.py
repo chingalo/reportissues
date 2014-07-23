@@ -56,10 +56,10 @@ MIDDLEWARE_CLASSES = (
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_IMAP_HOST = 'imap.gmail.com'
 EMAIL_PORT = "587"
-EMAIL_HOST_USER = 'josephchingalo@gmail.com'
-EMAIL_HOST_PASSWORD = '0687168637'
+EMAIL_HOST_USER = 'projecmanagementspprt@gmail.com'
+EMAIL_HOST_PASSWORD = 'projectmanagement'
 EMAIL_USE_TLS = True
-EMAIL_SENDER = 'josephchingalo@gmail.com'
+EMAIL_SENDER = 'projecmanagementspprt@gmail.com'
 EMAIL_SSL = True
     
 ROOT_URLCONF = 'reporttoissues.urls'
