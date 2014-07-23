@@ -150,13 +150,3 @@ function chechEmailLogin(){
 		}	
 	}
 	
-function chechEmail(){
-	var email = document.getElementById('email').value;
-	var atpos = email.indexOf('@');
-	var atdot = email.lastIndexOf('.');
-
-	if(atpos < 1 || atdot < atpos+2 || atdot+2 >= email.length){
-		alert('incorrect email');
-		document.getElementById('email').focus();
-		}	
-	}	
