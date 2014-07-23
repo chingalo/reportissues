@@ -33,10 +33,11 @@ color:#F20C1D;
 font-style:italic;
 }
 .importantinfoOrAnimation{
+
 padding-left:5px;
 border-radius:10px;
 border:1px solid #BFBFBF;
-min-height:400px;
+height:360px;
 }
 
 .headerforsignup{
