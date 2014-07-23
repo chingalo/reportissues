@@ -8,6 +8,8 @@ from project.models import *
 from project.forms import *
 from random import randrange
 
+
+
 #return the home page for the site
 def index(request):		
 	users = Users.objects.all()
@@ -19,6 +21,8 @@ def index(request):
 	captureValue = randrange(100000,999999)	
 	context = {'captureValue':captureValue,'userEmailData':userEmailData}	
 	return render(request,'index.html',context)
+
+
 
 	
 #sign up for new account
@@ -65,6 +69,8 @@ def signUp(request):
 	return render(request,'userFunction.html',context)
 	
 
+
+
 #activate account
 def acctivationAccount(request,user_id):
 	user = Users.objects.get(id = user_id)
@@ -98,6 +104,7 @@ def acctivationAccount(request,user_id):
 		context = {'user':user,}
 		return render(request,'activation.html',context)
 		
+
 		
 			
 	
@@ -174,6 +181,9 @@ def editProfile(request,user_id):
 			return render(request, 'userFunction.html',context)
 				
 
+
+
+
 	
 #processing login processs
 def login(request):
@@ -229,6 +239,10 @@ def login(request):
 	return render(request,'index.html',context)
 
 
+
+
+
+
 #all projects in the system
 def allProjects(request,user_id):
 	user = Users.objects.get(id = user_id)
@@ -265,6 +279,8 @@ def allProjects(request,user_id):
 		return render(request,'userFunction.html',context)
 
 
+
+
 #own projects
 def ownProjects(request,user_id):
 	user = Users.objects.get(id = user_id)
@@ -299,6 +315,8 @@ def ownProjects(request,user_id):
 
 
 
+
+
 #collaborated projects
 def collabiratedProjects(request,user_id):
 	user = Users.objects.get(id = user_id)
@@ -330,6 +348,8 @@ def collabiratedProjects(request,user_id):
 				
 		context = {'user':user,'userName':userName,'contents':'collaboprojects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
+
+
 
 
 
@@ -392,6 +412,7 @@ def createProject(request,user_id):
 			
 			context = {'user':user,'userName':userName,'contents':'createPorject',}
 			return render(request, 'userFunction.html',context)
+
 	
 
 
@@ -444,6 +465,8 @@ def editProject(request,user_id,project_id):
 
 
 
+
+
 #view individual project
 def singleProject(request,user_id,project_id):
 	
@@ -478,15 +501,19 @@ def singleProject(request,user_id,project_id):
 		return render(request, 'userFunction.html',context)
 
 
+
+
 #add collaborator in the project
 def addCollaborator(request,user_id,project_id):
 	user = Users.objects.get(id = user_id)
+	project = Project_details.objects.get(id = project_id)	
 	
 	users = Users.objects.all()
-	userListData = []
-	
-	for userInList in users:
-		userListData.append(userInList.name)
+	projectAssigments = Project_assignment.objects.all()
+	userListData = []	
+	for userInList in users:		
+		if user != userInList:
+			userListData.append(userInList.name)			
 		
 	userList = json.dumps(userListData)	
 	#checking if current user has login first
@@ -505,8 +532,7 @@ def addCollaborator(request,user_id,project_id):
 	else:
 		#for login user	
 		nameList = user.name.split(" ")	
-		userName = 	nameList[0]
-		project = Project_details.objects.get(id = project_id)	
+		userName = 	nameList[0]		
 		
 		if request.POST:
 			form = request.POST			
@@ -546,6 +572,8 @@ def addCollaborator(request,user_id,project_id):
 			return render(request, 'userFunction.html',context)
 
 
+
+
 #view all issues
 def allIssues(request,user_id):
 	user = Users.objects.get(id = user_id)
@@ -582,6 +610,8 @@ def allIssues(request,user_id):
 
 		context = {'user':user,'userName':userName,'contents':'allIssues','allIssues':issues,}	
 		return render(request,'userFunction.html',context)
+
+
 
 
 #view assigned issues
@@ -648,6 +678,9 @@ def assignToIssues(request,user_id):
 		context = {'user':user,'userName':userName,'contents':'assignToIssues','assignToIssues':issues}	
 		return render(request,'userFunction.html',context)
 		
+
+
+
 
 #craete new issue and assign to user
 def createIssue(request,user_id,project_id):
@@ -744,6 +777,9 @@ def createIssue(request,user_id,project_id):
 			context = {'user':user,'userName':userName,'contents':'createIssue','project':project,'memberList':memberList}
 			return render(request, 'userFunction.html',context)
 
+
+
+
 		
 #view individual issue
 def singleIssue(request,user_id,issue_id):
@@ -786,6 +822,8 @@ def singleIssue(request,user_id,issue_id):
 		
 		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
+
+
 
 
 #comments on issues
@@ -856,6 +894,9 @@ def commentOnIssue(request,user_id,issue_id):
 		userName = 	nameList[0]	
 		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
+
+
+
 		
 #close issue
 def closeIssue(request,user_id,issue_id):
@@ -934,6 +975,9 @@ def closeIssue(request,user_id,issue_id):
 		userName = 	nameList[0]	
 		context = {'user':user,'userName':userName,'contents':'singleissue','issueAssignee':issueAssignee,'issue':issue,'commentsTotal':commentsTotal,'status_log':status_log,'comments':comments}
 		return render(request, 'userFunction.html',context)
+
+
+
 
 #reopen issue		
 def reopenIssue(request,user_id,issue_id):
