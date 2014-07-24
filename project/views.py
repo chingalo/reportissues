@@ -540,8 +540,7 @@ def deleteConfirmProject(request,user_id,project_id):
 
 #delete project
 def deleteProject(request,user_id,project_id):
-	user = Users.objects.get(id = user_id)
-	project = Project_details.objects.get(id = project_id)	
+	user = Users.objects.get(id = user_id)		
 	
 	#checking if current user has login first
 	if user.login_status =='log_out':
@@ -557,14 +556,16 @@ def deleteProject(request,user_id,project_id):
 		return render(request,'index.html',context)
 	else:
 		#delete project codes
+		project = Project_details.objects.get(id = project_id)
+		project.delete()
 		
 		nameList = user.name.split(" ")	
 		userName = 	nameList[0]
 		
-		context = {'user':user,'userName':userName,'contents':'deleteProject','project':project}
-		return render(request, 'deleteConfirm.html',context)	
-		#context = {'user':user,'userName':userName,'contents':'singleproject','project':project}
-		#return render(request, 'userFunction.html',context)	
+		allProjects = Project_details.objects.filter(project_owner = user)
+		
+		context = {'user':user,'userName':userName,'contents':'ownProjects','allProjects':allProjects}	
+		return render(request,'userFunction.html',context)	
 		
 
 
