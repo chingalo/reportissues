@@ -497,8 +497,77 @@ def singleProject(request,user_id,project_id):
 		for assignment in assignmentList:
 			memberList.append(assignment.project_member)
 		
-		context = {'user':user,'userName':userName,'memberList':memberList,'contents':'singleproject','project':project}
+		projectOwner = project.project_owner
+				
+		context = {'user':user,'projectOwner':projectOwner,'userName':userName,'memberList':memberList,'contents':'singleproject','project':project}
 		return render(request, 'userFunction.html',context)
+
+
+
+
+
+
+#confirm delete project
+def deleteConfirmProject(request,user_id,project_id):
+	user = Users.objects.get(id = user_id)
+	project = Project_details.objects.get(id = project_id)	
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
+		word = 'You have not login in the system, please login first!'
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
+		return render(request,'index.html',context)
+	else:
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		
+		context = {'user':user,'userName':userName,'contents':'deleteConfirmProject','project':project}
+		return render(request, 'deleteConfirm.html',context)
+		
+			
+
+
+
+
+
+
+#delete project
+def deleteProject(request,user_id,project_id):
+	user = Users.objects.get(id = user_id)
+	project = Project_details.objects.get(id = project_id)	
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
+		word = 'You have not login in the system, please login first!'
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
+		return render(request,'index.html',context)
+	else:
+		#delete project codes
+		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]
+		
+		context = {'user':user,'userName':userName,'contents':'deleteProject','project':project}
+		return render(request, 'deleteConfirm.html',context)	
+		#context = {'user':user,'userName':userName,'contents':'singleproject','project':project}
+		#return render(request, 'userFunction.html',context)	
+		
+
+
 
 
 

@@ -23,6 +23,8 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/singleProject/$', views.singleProject, name='singleProject'),
     url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/editProject/$', views.editProject, name='editProject'),
     url(r'^(?P<user_id>\d+)/createProject/$', views.createProject, name='createProject'),
+    url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/deleteProject/$', views.deleteProject, name='deleteProject'),
+    url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/deleteConfirmProject/$', views.deleteConfirmProject, name='deleteConfirmProject'),
     #urls for individual issue
     url(r'^(?P<user_id>\d+)/(?P<issue_id>\d+)/singleIssue/$', views.singleIssue, name='singleIssue'),
     url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/createIssue/$', views.createIssue, name='createIssue'),
