@@ -572,6 +572,59 @@ def deleteProject(request,user_id,project_id):
 
 
 
+#delete project confirmation
+def deleteColaborationOnProjectConfirmation(request,user_id,project_id):
+	user = Users.objects.get(id = user_id)
+	project = Project_details.objects.get(id = project_id)	
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
+		word = 'You have not login in the system, please login first!'
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
+		return render(request,'index.html',context)
+	else:
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+		
+		context = {'user':user,'userName':userName,'contents':'deleteColaborationOnProjectConfirmation','project':project}
+		return render(request, 'deleteConfirm.html',context)
+
+
+
+
+
+
+#delete project collaboration 
+def deleteColaborationOnProject(request,user_id,project_id):
+	user = Users.objects.get(id = user_id)
+	project = Project_details.objects.get(id = project_id)	
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
+		word = 'You have not login in the system, please login first!'
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
+		return render(request,'index.html',context)
+	else:
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]	
+
+
+
+
 
 #add collaborator in the project
 def addCollaborator(request,user_id,project_id):
