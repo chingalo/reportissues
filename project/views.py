@@ -7,7 +7,8 @@ from django.core.mail import send_mail
 from project.models import *
 from project.forms import *
 from random import randrange
-
+from datetime import datetime
+# time   str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 
 #return the home page for the site
@@ -387,7 +388,7 @@ def createProject(request,user_id):
 			
 			#send email after create new project			
 			subject = "NEW PROJECT"
-			message = "Hi, "+user.name+"\nYour have successfully create new project.\nFor easy management of your project you can add more collaborators and assign some issues."
+			message = "Hi, "+user.name+"\nYour have successfully create new project at"+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+".\nFor easy management of your project you can add more collaborators and assign some issues."
 			recipient_list = []
 			recipient_list.append(user.e_mail)
 			from_email = 'no-reply@project.org'
@@ -451,8 +452,12 @@ def editProject(request,user_id,project_id):
 			
 			nameList = user.name.split(" ")	
 			userName = 	nameList[0]	
+			for assignment in assignmentList:
+				memberList.append(assignment.project_member)
 			
-			context = {'user':user,'userName':userName,'contents':'singleproject','project':project}
+			projectOwner = project.project_owner
+			
+			context = {'user':user,'projectOwner':projectOwner,'memberList':memberList,'userName':userName,'contents':'singleproject','project':project}
 			return render(request, 'userFunction.html',context)
 			
 		else:	
@@ -460,6 +465,7 @@ def editProject(request,user_id,project_id):
 			nameList = user.name.split(" ")	
 			userName = 	nameList[0]	
 			
+						
 			context = {'user':user,'userName':userName,'contents':'editPorject','project':project,}
 			return render(request, 'userFunction.html',context)
 
@@ -537,7 +543,6 @@ def deleteConfirmProject(request,user_id,project_id):
 
 
 
-
 #delete project
 def deleteProject(request,user_id,project_id):
 	user = Users.objects.get(id = user_id)		
@@ -555,9 +560,27 @@ def deleteProject(request,user_id,project_id):
 		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 	else:
-		#delete project codes
 		project = Project_details.objects.get(id = project_id)
+		
+		#send email to user:
+		subject = "successfully deletion of "+project.title+" project"
+		recipient_list = []
+		recipient_list.append(user.e_mail)
+		from_email = 'no-reply@project.org'
+		message = "Hi ,"+user.name +"\nYou have succefull deleted "+project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+		#to all collaborator
+		
+		projectAssignmentList = Project_assignment.objects.filter(project = project)
+		recipient_list = []
+		for projectAssignment in projectAssignmentList:
+			recipient_list.append(projectAssignment.project_member.e_mail)			
+		message = "Hi ,\n"+user.name +" have deleted "+project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')) +".\nYou are no longer any more as collaborator."		
+		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+		
+		#delete project codes 		
 		project.delete()
+		
 		
 		nameList = user.name.split(" ")	
 		userName = 	nameList[0]
@@ -621,7 +644,40 @@ def deleteColaborationOnProject(request,user_id,project_id):
 	else:
 		nameList = user.name.split(" ")	
 		userName = 	nameList[0]	
+		
+		#send emails		
+		subject = "Collaboration on "+project.title + "project completely removal"		
+		from_email = 'no-reply@project.org'
+		recipient_list = []
+		recipient_list.append(user.e_mail)		
+		message = "Hi ,"+user.name +"\nYu have succefully remove your collaboration on " + project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+		
+		recipient_list = []
+		recipient_list.append(project.project_owner.e_mail)		
+		message = "Hi ,"+project.project_owner.name +"\n" + user.name + " have removed collaboration on "+project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+		
+		
+		#delete collaboration on project  project_member = user and 
+		collaborationList = Project_assignment.objects.filter(project = project)
+		
+		for collaboration in collaborationList:
+			if collaboration.project_member == user:
+				collarationToBeRemoved = collaboration
+				collarationToBeRemoved.delete()	
+				break		
+			
+		assignedProjectsFromSystem = Project_assignment.objects.all()
+		allProjects = []		
+		for projectLink in assignedProjectsFromSystem:
+			if projectLink.project_member == user:
+				allProjects.append(projectLink.project)	
 
+				
+		context = {'user':user,'userName':userName,'contents':'collaboprojects','allProjects':allProjects}	
+		return render(request,'userFunction.html',context)
+		
 
 
 
@@ -669,13 +725,13 @@ def addCollaborator(request,user_id,project_id):
 			
 			#send email after add collaborator in the project
 			subject = "COLLABORATION ON "+project.title
-			message = "Hi, "+Collaborator.name+"\nYou have been add as collaborator on "+project.title+" project"
+			message = "Hi, "+Collaborator.name+"\nYou have been add as collaborator on "+project.title+" project" 
 			recipient_list = []
 			recipient_list.append(Collaborator.e_mail)
 			from_email = 'no-reply@project.org'
 			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 						
-			message = "Hi, "+user.name+"\nYou have successfully add "+Collaborator.name+" as collaborator on "+project.title+" project"
+			message = "Hi, "+user.name+"\nYou have successfully add "+Collaborator.name+" as collaborator on "+project.title+" project" + "by " +user.name
 			recipient_list = []
 			recipient_list.append(user.e_mail)
 			from_email = 'no-reply@project.org'
@@ -685,7 +741,14 @@ def addCollaborator(request,user_id,project_id):
 			nameList = user.name.split(" ")	
 			userName = 	nameList[0]
 			
-			context = {'user':user,'userName':userName,'contents':'singleproject','project':project}
+			projectOwner = project.project_owner
+			assignmentList = Project_assignment.objects.filter(project = project)
+			memberList = []
+			
+			for assignment in assignmentList:
+				memberList.append(assignment.project_member)
+			
+			context = {'user':user,'memberList':memberList,'projectOwner':projectOwner,'userName':userName,'contents':'singleproject','project':project}
 			return render(request, 'userFunction.html',context)		
 			
 		else:	
@@ -693,6 +756,7 @@ def addCollaborator(request,user_id,project_id):
 			
 			context = {'user':user,'userName':userName,'contents':'addCollaborator','project':project,'userList':userList}
 			return render(request, 'userFunction.html',context)
+
 
 
 

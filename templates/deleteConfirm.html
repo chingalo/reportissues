@@ -4,7 +4,8 @@
 
 <div class = "span8">
 	<div class = "well "style = "min-height:300px;">
-			<!-- delete project--->
+		
+			<!-- delete project confirmation--->
 		{% if contents == 'deleteConfirmProject' %}
 		{% if user.activationStatus == 'enable' %}
 		<p style="width:75%;margin:auto;color:#0E556C;margin-top:10px;"><strong><i>{{project|title}}</i>&#160;project deletion Confirmation</strong></p><hr>
@@ -21,7 +22,11 @@
 		</div>				
 		
 		{% endif %}		
-		{% endif %}	
+		{% endif %}
+		
+		
+		
+			
 		
 		<!-- delete collaboration confirmation -->
 		{% if contents == 'deleteColaborationOnProjectConfirmation' %}
