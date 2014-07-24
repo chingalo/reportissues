@@ -55,6 +55,7 @@ class Comments(models.Model):
 	issue = models.ForeignKey('Issue',on_delete = models.CASCADE)
 	commenter = models.ForeignKey('Users',on_delete = models.CASCADE)
 	description = models.TextField(max_length = 20000)
+	date_of_comment = models.DateTimeField(default=timezone.now)
 		
 
 class Issue_status(models.Model):
