@@ -1,0 +1,46 @@
+{% extends "user.html" %}
+
+{% block functionalities_of_user %}
+
+<div class = "span8">
+	<div class = "well "style = "min-height:300px;">
+			<!-- delete project--->
+		{% if contents == 'deleteConfirmProject' %}
+		{% if user.activationStatus == 'enable' %}
+		<p style="width:75%;margin:auto;color:#0E556C;margin-top:10px;"><strong><i>{{project}}</i>&#160;project Confirmation</strong></p><hr>
+		<div style = "width:75%;margin:auto;color:red;margin-top:50px;">
+			<p><i>Are you sure that you want to delete</i>&#160;<strong>{{project}}</strong>&#160;<i>project?</i></p>				
+		</div>		
+		<div style = "text-align:center; padding:10px;">
+			<span style = " padding:10px;">
+				<button onclick="window.location.href='{% url 'deleteProject' user.id project.id %}'" class = "btn btn-warning btn-small">Accept</button>
+			</span>
+			<span style = " padding:10px;">
+				<button onclick="window.location.href='{% url 'singleProject' user.id project.id %}'" class = "btn btn-info btn-small">Decline</button>
+			</span>			
+		</div>				
+		
+		{% endif %}		
+		{% endif %}	
+		
+		{% if contents == 'deleteProject' %}
+		{% if user.activationStatus == 'enable' %}
+		delete project ready<br>
+		user = {{user}}<br>
+		project = {{project}}<br>
+		project owner = {{project.project_owner}}<br>
+		
+		{% endif %}		
+		{% endif %}	
+	</div>
+
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+

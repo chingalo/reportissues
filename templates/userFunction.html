@@ -98,7 +98,8 @@
 			<div class = "span8">
 				<div class = "well">
 					<h4>{{ project.title|title }}</h4>
-					<p class = "">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>{{ project.description }}</i>						
+					<p class = "">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>{{ project.description }}</i>
+					<p style = "color:#0E556C;font-style:italic;">Project owner : {{projectOwner}}</p>						
 					<hr>
 					{% if memberList %}
 					<h5 style = "text-align:center;">Collaborators in {{project}}</h5>
@@ -122,7 +123,7 @@
 					<li><a href= "{% url 'addCollaborator' user.id project.id %}"><i class ="icon-user">&#160;Add new collaborator </i></a></li>
 					<li><a href= "{% url 'editProject' user.id project.id %}"><i class ="icon-edit">&#160;Edit project </i></a></li>
 					<li><a href= "{% url 'createIssue' user.id project.id %}"><i class ="icon-edit">&#160;Create issue </i></a></li>
-					<li><a href= "#"><i class ="icon-remove">&#160;Delete project </i></a></li>
+					<li><a href= "{% url 'deleteConfirmProject' user.id project.id %}"><i class ="icon-remove">&#160;Delete project </i></a></li>
 				</ul>					
 			</div>
 			{% else %}			
@@ -142,6 +143,7 @@
 		</div>
 		{% endif%}			
 		{% endif %}
+		
 		
 		
 		
@@ -176,6 +178,9 @@
 		</div>
 		{% endif%}
 		{% endif %}
+		
+		
+		
 		
 		
 		<!-- add addCollaborator in the project -->				
@@ -290,6 +295,8 @@
 		
 		
 		
+		
+		
 		<!--assigned issues -->
 		{% if contents == 'assignedIssues' %}
 		{% if user.activationStatus == 'enable' %}
@@ -335,6 +342,9 @@
 		</div>
 		{% endif%}					
 		{% endif %}
+		
+		
+		
 		
 		<!-- assign to issues -->
 		{% if contents == 'assignToIssues' %}
