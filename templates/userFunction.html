@@ -33,6 +33,10 @@
 		{% endif%}		
 		{% endif %}
 		
+		
+		
+		
+		
 		<!-- own projects -->
 		{% if contents == 'ownProjects' %}
 		{% if user.activationStatus == 'enable' %}
@@ -61,6 +65,10 @@
 		{% endif %}
 		
 		
+		
+		
+		
+		
 		<!--	collaborated projects	-->
 		{% if contents == 'collaboprojects' %}
 		{% if user.activationStatus == 'enable' %}
@@ -87,6 +95,10 @@
 		</div>
 		{% endif%}	
 		{% endif %}
+		
+		
+		
+		
 		
 		
 		
@@ -132,7 +144,7 @@
 				<ul class="nav nav-list">
 					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>					
 					<li><a href= "{% url 'createIssue' user.id project.id %}"><i class ="icon-edit">&#160;Create issue </i></a></li>
-					<li><a href= "#"><i class ="icon-remove">&#160;Remove collaboration</i></a></li>
+					<li><a href= "{% url 'deleteColaborationOnProjectConfirmation' user.id project.id %}"><i class ="icon-remove">&#160;Remove collaboration</i></a></li>
 				</ul>					
 			</div>
 			{% endif %}
@@ -183,6 +195,7 @@
 		
 		
 		
+		
 		<!-- add addCollaborator in the project -->				
 		{%if contents == 'addCollaborator' %}
 		{% if user.activationStatus == 'enable' %}
@@ -210,6 +223,8 @@
 		</div>
 		{% endif%}
 		{% endif %}
+		
+		
 		
 		
 		
@@ -245,9 +260,10 @@
 		{% endif %}
 		
 		
-		<!-- ----------- issues -------- ----->
 		
 		
+		
+		<!-- ----------- issues -------- ----->		
 		
 		<!-- all issues -->
 		{% if contents == 'allIssues' %} 
@@ -292,6 +308,7 @@
 		</div>
 		{% endif%}						
 		{% endif %}
+		
 		
 		
 		
@@ -346,6 +363,8 @@
 		
 		
 		
+		
+		
 		<!-- assign to issues -->
 		{% if contents == 'assignToIssues' %}
 		{% if user.activationStatus == 'enable' %}
@@ -392,6 +411,9 @@
 		</div>
 		{% endif%}		
 		{% endif %}
+		
+		
+		
 		
 		
 		
@@ -461,6 +483,7 @@
 		</div>
 		{% endif%}
 		{% endif %}
+		
 		
 		
 		
@@ -535,6 +558,9 @@
 		{% endif %}
 		
 		
+		
+		
+		
 		<!-- view profile ----->
 		{%if contents == 'viewProfile' %}
 		<div class = "profile">
@@ -570,6 +596,9 @@
 			</table>			
 		</div>
 		{% endif %}
+		
+		
+		
 		
 		
 		
