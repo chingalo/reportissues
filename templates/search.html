@@ -1,9 +1,11 @@
 {% extends "user.html" %}
 {% block functionalities_of_user %}
 <div class = "span9" >
+	
+	<!---   select project for create new issue ---->
 	{% if contents == 'selectProject'%}
 	{% if user.activationStatus == 'enable' %}
-	<div class = "well" style = "max-width:90%;" >		
+	<div class = "well" style = "max-width:80%;" >		
 		<p style = "color: #1E90FF;">Please type name of project and select exactly name of project upon typing</p>
 		<form class="form-horizontal" style = "margin-top:5%;" action = "" method = "POST"  onsubmit ="return selectProject() ">
 				{% csrf_token %}
@@ -22,8 +24,46 @@
 	</div>
 	{% endif %}
 	{% endif %}
+	
+	
+	
+	<!---   results from selected project     -->
+	{% if contents == 'selectedProject'%}
+	{% if user.activationStatus == 'enable' %}
+	<div class = "well" style = "max-width:80%;" >		
+		<h4>{{ project.title|title }}</h4>
+		<p class = "">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>{{ project.description }}</i>
+		<p style = "color:#0E556C;font-style:italic;">Project owner : {{project.project_owner}}</p>
+		<hr>
+		{% if collaboratorOfProject %}
+		<h5 style = "text-align:center;">Collaborators in {{project}}</h5>
+		<div class = "collaboratorList">
+		{% for member in collaboratorOfProject %}
+		{{member}}<br>
+		{% endfor %}
+		</div>
+		{% endif %}		
+		<span class="pull-right" >
+			<i>creaated on </i>{{project.date_of_creation|date:"D d M Y"}}
+		</span>
+		<br>
+		<hr>
+		<button onclick="window.location.href='{% url 'createIssue' user.id project.id %}'">Create Issue</button>	
+	</div>
+	{% endif %}
+	{% endif %}
 </div>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
 
 

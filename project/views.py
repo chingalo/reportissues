@@ -530,18 +530,39 @@ def search(request,user_id):
 		return render(request,'index.html',context)
 		
 	else:
-		allProjectsFromSystem = Project_details.objects.all()
-		projectList = []
-		for project in allProjectsFromSystem:
-			projectList.append(project.title)
-		
-		allProjects = json.dumps(projectList)
-		
-		nameList = user.name.split(" ")	
-		userName = 	nameList[0]
-		
-		context = {'user':user,'userName':userName,'contents':'selectProject','allProjects':allProjects}
-		return render(request,'search.html',context)
+		if request.POST:
+			
+			form = request.POST
+			nameOfProjectList = form.getlist('nameOfProject')
+			
+			project = Project_details.objects.get(title = nameOfProjectList[0])	
+			
+			collaboratorOfProject = []
+			allProjectAssignments = Project_assignment.objects.all()
+			
+			for assignment in allProjectAssignments:
+				if assignment.project == project:
+					collaboratorOfProject.append(assignment.project_member)
+			
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]
+			
+			context = {'user':user,'userName':userName,'contents':'selectedProject','collaboratorOfProject':collaboratorOfProject,'project':project}
+			return render(request,'search.html',context)
+				
+		else:
+			allProjectsFromSystem = Project_details.objects.all()
+			projectList = []
+			for project in allProjectsFromSystem:
+				projectList.append(project.title)
+			
+			allProjects = json.dumps(projectList)
+			
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]
+			
+			context = {'user':user,'userName':userName,'contents':'selectProject','allProjects':allProjects}
+			return render(request,'search.html',context)
 
 
 
