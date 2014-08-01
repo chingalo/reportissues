@@ -13,7 +13,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'ims',                     
         'USER': 'ims',
-        'PASSWORD': 'ims*',
+        'PASSWORD': 'IMS*',
     }
 }
 ALLOWED_HOSTS = ['*']

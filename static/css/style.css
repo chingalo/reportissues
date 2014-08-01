@@ -14,10 +14,13 @@ border:1px solid #E6E6FA;
 }
 
 .login{
-margin-top:10px;
-padding:2px 10px;
+margin-top:3px;
+padding-bottom:0px;
 }
-
+.newpassword{
+padding-bottom:3px;
+text-align:center;
+}
 .signup{
 padding-left:35px;
 }

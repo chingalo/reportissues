@@ -7,9 +7,10 @@
   <div class="navbar-inner">  
     <div class="container-fluid"> 
 		
-		<a class="brand" href = "#">Project Management System</a>  
+		  
 
 		<div class = "row-fluid">
+			<a class="brand" href = "#">Project Management System</a>
 			<div class = "login">		
 				<!-- login form -->
 				<span class = "pull-right">
@@ -17,8 +18,11 @@
 						{% csrf_token %}
 						<input type="text" id = "emaillogin" onblur = "return chechEmailLogin()" name = "email" class="input-medium" placeholder="Your e-mail">
 						<input type="password" name = "password" class="input-medium" placeholder="Your password">						  
-					    <input type="submit" value = "sign in " class = "btn">				  
-					</form>			
+					    <input type="submit" value = "sign in " class = "btn">						   			  
+					</form>	
+					<div class = "newpassword ">
+						<a href = "#">Fogot password?</a>
+					</div>		
 				</span>
 				<!--
 				<span class = "pull-right">

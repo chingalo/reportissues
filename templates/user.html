@@ -8,18 +8,13 @@
 		
 		<a class="brand" href="#">Project Management System</a>  
 		
-		<!-- search form  for projects, log out and user information--->		
-		<form class="form-search pull-right" method = "POST" action = "">
-			 {% csrf_token %} 
-		  <div class="input-append">
-			<input type="text" class="span2 search-query" placeholder = "search for project to view">
-			<button type="submit" class="btn">Search</button>
-		  </div>		  
-	    </form>
+		<!--  log out and user information--->		
+		<span class = "pull-right useInformation">
+			<a href= "{% url 'logout' user.id %}"><i class = "icon-off">&#160;logout</i></a>
+	    </span>	
 	    <span class = "pull-right useInformation">
 			<i class = "icon-white icon-user">&#160;<i style = "color:#1E90FF;">welecome, </i>{{userName|title}}</i>&#160;					    
-	    </span>
-	    		    
+	    </span>    
     </div>  
   </div>  
 </div>
@@ -43,7 +38,8 @@
 			</ul>
 			<ul class="nav nav-list">
 				<li class="nav-header"><i class = "icon-wrench">&#160;Management of projects</i></li>
-				<li><a href= "{% url 'createProject' user.id %}"><i class ="icon-edit">&#160;Create project </i></a></li>				
+				<li><a href= "{% url 'createProject' user.id %}"><i class ="icon-edit">&#160;Create project </i></a></li>
+				<li><a href= "#"><i class ="icon-edit">&#160;Search and create issue </i></a></li>				
 			</ul>
 			<ul class="nav nav-list">
 				<li class="nav-header"><i class = "icon-wrench">&#160;Setting</i></li>

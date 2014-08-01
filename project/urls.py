@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/allprojects/$', views.allProjects, name='allProjects'),
     url(r'^(?P<user_id>\d+)/ownprojects/$', views.ownProjects, name='ownprojects'),
     url(r'^(?P<user_id>\d+)/collaboprojects/$', views.collabiratedProjects, name='collaboratedprojects'),
+    url(r'^(?P<user_id>\d+)/search/$', views.search, name='search'),
     #urls for issues view  
     url(r'^(?P<user_id>\d+)/allissues/$', views.allIssues, name='allIssues'),
     url(r'^(?P<user_id>\d+)/assignedissues/$', views.assignedIssues, name='assignedIssues'),
