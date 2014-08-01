@@ -35,6 +35,32 @@
 					 source: availableProjects
 					});
 				});	
+      	</script>
+      	<script>
+			function selectProject(){
+				var availableProjects = {{allProjects|safe}};
+				var nameOfProject  = document.getElementById('nameOfProject').value;
+				if(nameOfProject == ''){
+					alert('Please enter the name of project before submit');
+					return false;
+					}
+				else{
+					var tester = 0;
+					for(var i = 0;i < availableProjects.length; i++){
+						if (availableProjects[i] == nameOfProject){
+							tester = 1;
+							}
+						}
+					if(tester == 0){
+						alert('project doesnt exist');
+						return false;
+						}
+					else{ 
+						alert('Ok ready to submit');
+						return false;
+						}
+					}				
+				}
       	</script> 
       	<script>
 			function chechEmail(){

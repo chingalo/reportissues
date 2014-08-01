@@ -540,7 +540,7 @@ def search(request,user_id):
 		nameList = user.name.split(" ")	
 		userName = 	nameList[0]
 		
-		context = {'user':user,'userName':userName,'contents':'allProjects','allProjects':allProjects}
+		context = {'user':user,'userName':userName,'contents':'selectProject','allProjects':allProjects}
 		return render(request,'search.html',context)
 
 
