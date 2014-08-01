@@ -1,6 +1,24 @@
 {% extends "user.html" %}
 {% block functionalities_of_user %}
-
+<div class = "span9" >
+	<div class = "well" style = "max-width:90%;" >
+		<p style = "color: #1E90FF;">Please type name of project and select exactly name of project upon typing</p>
+		<form class="form-horizontal" style = "margin-top:5%;" action = "" method = "POST"  onsubmit ="return ">
+				{% csrf_token %}
+			<div class="control-group">
+				<label class="control-label" for="name of project">Name Of Project </label>
+				<div class="controls">
+					 <input type ="text" name = "nameOfProject" id = "nameOfProject" placeholder="type name of project" class = "input-xlarge">					  
+				</div>									
+			</div>
+			<div class = "control-group" >
+				<div class="controls">						
+					 <input type = "submit"  value = "Select This Project" class = "btn">					  
+				</div>
+			</div>
+		</form>		
+	</div>
+</div>
 
 {% endblock %}
 

@@ -6,9 +6,7 @@
 <div class="navbar navigation">  
   <div class="navbar-inner">  
     <div class="container-fluid"> 
-		
-		  
-
+				  
 		<div class = "row-fluid">
 			<a class="brand" href = "#">Project Management System</a>
 			<div class = "login">		
@@ -21,15 +19,9 @@
 					    <input type="submit" value = "sign in " class = "btn">						   			  
 					</form>	
 					<div class = "newpassword ">
-						<a href = "#">Fogot password?</a>
+						<a href = "#">Forgot password?</a>
 					</div>		
 				</span>
-				<!--
-				<span class = "pull-right">
-					Today is :&#160;<em>{% now "jS F Y" %}</em>&#160;&#160;		
-				</span> -->
-
-
 			</div>	
 		</div>
 	</div>
@@ -38,7 +30,7 @@
 
 	<!--- end log in form and date for the page-->
 	
-	<div class = "warninginfo">		
+	<div class = "warninginfo" style = "max-width:90%;">		
 		<marquee behavior="alternate" scrollamount="3">{{word}}</marquee>		
 	</div>
 	<!-- sign up form and some important issues to the new user of syatem-->
@@ -87,7 +79,7 @@
 
 		<!-- signup form -->
 		<div class = "span6 ">
-			<div class = "well" style = "border-radius:10px;border:1px solid #BFBFBF;">
+			<div class = "well" style = "border-radius:10px;border:1px solid #BFBFBF; max-width:90%;">
 				<div class = "headerforsignup">For new users to sign up</div>
 				<form class="form-horizontal" style = "text-align:justify;" method = "POST" action="{% url 'signUp' %}" name = "myform" onsubmit ="return validateForm()" >
 					{% csrf_token %}

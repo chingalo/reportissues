@@ -15,6 +15,7 @@ from datetime import datetime
 def index(request):		
 	users = Users.objects.all()
 	userList = []
+	userEmailData =[]
 	for user in users:
 		userList.append(user.e_mail)
 		userEmailData = json.dumps(userList)
@@ -98,7 +99,7 @@ def acctivationAccount(request,user_id):
 			return render(request,'userFunction.html',context)
 		else:
 			context = {'user':user,'word':"Activation key does not match"}
-			return render(request,'activation.html'.context)
+			return render(request,'activation.html',context)
 			
 		
 	else:
@@ -135,7 +136,7 @@ def editProfile(request,user_id):
 		userList = []
 		for user in users:
 			userList.append(user.e_mail)
-			userEmailData = json.dumps(userList)
+		userEmailData = json.dumps(userList)
 		
 		
 		word = 'You have not login in the system, please login first!'
@@ -508,6 +509,39 @@ def singleProject(request,user_id,project_id):
 		context = {'user':user,'projectOwner':projectOwner,'userName':userName,'memberList':memberList,'contents':'singleproject','project':project}
 		return render(request, 'userFunction.html',context)
 
+
+
+
+#search and create new issue
+def search(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
+		word = 'You have not login in the system, please login first!'
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
+		return render(request,'index.html',context)
+		
+	else:
+		allProjectsFromSystem = Project_details.objects.all()
+		projectList = []
+		for project in allProjectsFromSystem:
+			projectList.append(project.title)
+		
+		allProjects = json.dumps(projectList)
+		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]
+		
+		context = {'user':user,'userName':userName,'contents':'allProjects','allProjects':allProjects}
+		return render(request,'search.html',context)
 
 
 
