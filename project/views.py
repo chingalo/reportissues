@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 import json 
 from django.core.mail import send_mail
 from project.models import *
-from project.forms import *
 from random import randrange
 from datetime import datetime
 # time   str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
