@@ -11,9 +11,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': { 
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'reportissues',                     
-        'USER': 'reportissues',
-        'PASSWORD': 'reportissues',
+        'NAME': 'ims',                     
+        'USER': 'ims',
+        'PASSWORD': 'ims*',
     }
 }
 ALLOWED_HOSTS = ['*']
