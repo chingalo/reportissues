@@ -99,6 +99,8 @@ def changePassword(request,user_id):
 
 
 
+
+
 	
 #sign up for new account
 def signUp(request):
@@ -809,6 +811,88 @@ def deleteColaborationOnProject(request,user_id,project_id):
 				
 		context = {'user':user,'userName':userName,'contents':'collaboprojects','allProjects':allProjects}	
 		return render(request,'userFunction.html',context)
+
+
+
+		
+
+
+
+#send invitation for collaboration
+def sendInvitation(request,user_id,project_id):
+	user = Users.objects.get(id = user_id)
+	project = Project_details.objects.get(id = project_id)	
+	
+	users = Users.objects.all()
+	projectAssigments = Project_assignment.objects.all()
+	userListData = []	
+	for userInList in users:		
+		if user != userInList:
+			userListData.append(userInList.name)			
+		
+	userList = json.dumps(userListData)	
+	#checking if current user has login first
+	if user.login_status =='log_out':
+		users = Users.objects.all()
+		userList = []
+		for user in users:
+			userList.append(user.e_mail)
+		userEmailData = json.dumps(userList)
+		
+		word = 'You have not login in the system, please login first!'
+		captureValue = randrange(100000,999999)	
+		context = {'word':word,'captureValue':captureValue,'userEmailData':userEmailData}	
+		return render(request,'index.html',context)
+		
+	else:
+		#for login user	
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]
+		if request.POST:
+			form = request.POST
+			inviteeEmail = form.getlist('emailOfInvitee')
+			newUser = Users()
+			newUser.name = " "
+			newUser.e_mail = inviteeEmail[0]
+			newUser.mobile_number = ""
+			newUser.password = randrange(1000,9999)	
+			newUser.activationCode = randrange(100000,999999)	
+			newUser.save()
+			
+			#send email after add collaborator in the project
+			subject = "COLLABORATION INVITATION ON "+project.title
+			message = "Hi, \nWelcome to IMS system. Its tracking issue system aims to facilitates easy management of software development as well as software maintenance.\nYou have been invited as collaborator on "+project.title+" project" +"by "+ user.name+ "\nYour default password : "+ str(newUser.password) + "\nYour activation codes: " + str(newUser.activationCode)
+			recipient_list = []
+			recipient_list.append(inviteeEmail[0])
+			from_email = 'no-reply@project.org'
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+
+			message = "Hi, "+user.name+"\nYou have successfully invite  "+ inviteeEmail[0] +" as collaborator on "+project.title+" project"
+			recipient_list = []
+			recipient_list.append(user.e_mail)
+			from_email = 'no-reply@project.org'
+			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+			
+			nameList = user.name.split(" ")	
+			userName = 	nameList[0]
+
+			projectOwner = project.project_owner
+			assignmentList = Project_assignment.objects.filter(project = project)
+			memberList = []
+
+			for assignment in assignmentList:
+				memberList.append(assignment.project_member)
+
+			context = {'user':user,'memberList':memberList,'projectOwner':projectOwner,'userName':userName,'contents':'singleproject','project':project}
+			return render(request, 'userFunction.html',context)
+		
+		else:
+			context = {'user':user,'userName':userName,'contents':'addCollaborator','project':project,'userList':userList}
+			return render(request, 'userFunction.html',context)		
+		
+		
+		
+		
 		
 
 
@@ -888,6 +972,8 @@ def addCollaborator(request,user_id,project_id):
 			
 			context = {'user':user,'userName':userName,'contents':'addCollaborator','project':project,'userList':userList}
 			return render(request, 'userFunction.html',context)
+
+
 
 
 

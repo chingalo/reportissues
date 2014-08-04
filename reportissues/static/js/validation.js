@@ -21,6 +21,12 @@ function changePassword(){
 	}
 
 
+//
+function sendInvitation(){
+	
+	
+	}
+
 
 //validation of form on submit if all required fields have been filled
 function validateForm(){

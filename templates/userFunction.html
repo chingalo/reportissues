@@ -314,6 +314,22 @@
 				</div>
 				
 			</form>	
+			<p>In cases Collaborator does n't exist in system, pleases fill and submit for below for invitation into IMS</p>			
+			<form class="form-horizontal" action = "{% url 'sendInvitation' user.id project.id %}" method = "POST"  onsubmit ="return sendInvitation()">
+				{% csrf_token %}
+				<div class="control-group">
+					<label class="control-label" for="email of invitee">E-mail of invitee</label>
+					<div class="controls">
+					  <input type ="text" name = "emailOfInvitee" id = "emailOfInvitee" placeholder="type email of invitee" class = "input-xlarge">					  
+					</div>									
+				</div>
+				<div class = "control-group" >
+					<div class="controls">						
+					  <input type = "submit"  value = "Send invitation" class = "btn">					  
+					</div>
+				</div>
+				
+			</form>
 		</div>
 		{% else %}
 		<div class = "well" style = "max-width:90%;margin:auto;">
