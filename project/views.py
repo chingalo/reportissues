@@ -41,7 +41,8 @@ def forgetPassword(request):
 		form = request.POST
 		emailForRequestNewPassword = form.getlist('emailForRequestNewPassword')
 		userRequestNewPassword = Users.objects.get(e_mail = emailForRequestNewPassword[0])
-			
+		#send emils for request new password
+		send_mail('Subject', 'http://localhost:8000/'+str(user.id)+'/changePassword/', 'from@example.com',[emailForRequestNewPassword[0]], fail_silently=False)	
 		
 		context = {'word':userRequestNewPassword}
 		return render(request,'index.html',context)
@@ -51,6 +52,18 @@ def forgetPassword(request):
 		return render(request,'newpassword.html',context)
 	
 
+
+
+
+
+#chenge password
+def changePassword(request,user_id):
+	
+	user = Users.objects.get(id = user_id)
+	
+	context = {'contents':'changePassword','user':user}
+	return render(request,'newpassword.html',context)
+		
 
 
 

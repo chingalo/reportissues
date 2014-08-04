@@ -1,3 +1,16 @@
+//change password
+function changePassword(){
+	newPassword = document.getElementById('newPassword').value;
+	newPasswordConfirmation = document.getElementById('newPasswordConfirm').value;
+	
+	if(newPassword == "" || newPasswordConfirmation == ""){
+		alert('Please fill all fields');
+		return false;
+		}
+	
+	}
+
+
 
 //validation of form on submit if all required fields have been filled
 function validateForm(){
