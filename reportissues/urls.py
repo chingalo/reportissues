@@ -6,8 +6,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     
+    url(r'', include('project.urls')),
     url(r'^admin/', include(admin.site.urls)),
-  #  url(r'^', include('cms.urls')),
     
     
 )+ staticfiles_urlpatterns()
