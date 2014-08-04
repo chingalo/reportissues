@@ -29,9 +29,27 @@ def index(request):
 
 #request change password
 def forgetPassword(request):
+	users = Users.objects.all()
+	allUserEmails = []
+	allemails = []
+	for user in users:
+		allUserEmails.append(user.e_mail)
+		allemails = json.dumps(allUserEmails)
+		
+	if request.POST:
+		
+		form = request.POST
+		emailForRequestNewPassword = form.getlist('emailForRequestNewPassword')
+		userRequestNewPassword = Users.objects.get(e_mail = emailForRequestNewPassword[0])
+			
+		
+		context = {'word':userRequestNewPassword}
+		return render(request,'index.html',context)
 	
-	context = {'contents':'forgetPassword'}
-	return render(request,'newpassword.html',context)
+	else:
+		context = {'contents':'forgetPassword','allemails':allemails}
+		return render(request,'newpassword.html',context)
+	
 
 
 
