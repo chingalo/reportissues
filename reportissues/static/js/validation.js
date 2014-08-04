@@ -1,3 +1,19 @@
+//validate form for request new password
+function newPasswordRequest(){
+	var emailForNewPasswordRequest = document.getElementById('emailForRequestNewPassword').value;
+	var atpos = emailForNewPasswordRequest.indexOf('@');
+	var atdot = emailForNewPasswordRequest.lastIndexOf('.');
+
+	if(atpos < 1 || atdot < atpos+2 || atdot+2 >= emailForNewPasswordRequest.length){
+		alert('Incorrect email');
+		return false;
+		}	
+	}
+	
+	
+
+
+
 
 //validation of form on submit if all required fields have been filled
 function validateForm(){

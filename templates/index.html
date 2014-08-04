@@ -17,10 +17,10 @@
 						<input type="text" id = "emaillogin" onblur = "return chechEmailLogin()" name = "email" class="input-medium" placeholder="Your e-mail">
 						<input type="password" name = "password" onpaste="return false;"  class="input-medium" placeholder="Your password">						  
 					    <input type="submit" value = "sign in " class = "btn">						   			  
-					</form>	<!--
+					</form>	
 					<div class = "newpassword ">
-						<a href = "#">Forgot password?</a>
-					</div>	-->	
+						<a href = "{% url 'forgetPassword' %}">Forgot password?</a>
+					</div>		
 				</span>
 			</div>	
 		</div>

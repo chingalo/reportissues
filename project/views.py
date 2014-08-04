@@ -25,6 +25,18 @@ def index(request):
 
 
 
+
+
+#request change password
+def forgetPassword(request):
+	
+	context = {'contents':'forgetPassword'}
+	return render(request,'newpassword.html',context)
+
+
+
+
+
 	
 #sign up for new account
 def signUp(request):
