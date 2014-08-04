@@ -10,7 +10,7 @@ function changePassword(){
 	else{
 		if(newPassword == newPasswordConfirmation){
 			alert('You have successfull change your password');
-		return false;
+		return true;
 			}
 		else{
 			alert("Please make sure password and confirmation password are the same");
