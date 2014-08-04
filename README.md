@@ -37,9 +37,9 @@ The following are couple of commands for operating under virtual env:
 After creating and activating virtualenv, while inside virtualenv folder,
 clone this site's source codes:
 	
-	$ git clone https://github.com/chingalo/reportissues.git
+	$ https://github.com/chingalo/issuesmanagementsystem.git
 	or
-	$ git clone https://chingalo@bitbucket.org/chingalo/reportissues.git
+	$ https://chingalo@bitbucket.org/chingalo/issue-management-sytem.git
 
 Inside reportissues directory, install project dependencies inside: requirements.txt
 	

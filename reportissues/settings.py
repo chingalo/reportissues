@@ -59,12 +59,10 @@ WSGI_APPLICATION = 'reportissues.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dcsvqcro55ts0a',
-        'HOST': 'ec2-54-204-43-200.compute-1.amazonaws.com',
-        'PASSWORD':'REZQm4v374ulgH2yRh3ahKwcmd',
-        'PORT':'5432',
-        'USER':'aeglmpmexabvnl',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ims',
+        'PASSWORD':'IMS*',
+        'USER':'ims',
          
     }
 }
@@ -86,12 +84,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
-
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

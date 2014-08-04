@@ -1,11 +1,11 @@
 {% extends "user.html" %}
 {% block functionalities_of_user %}
-<div class = "span9" >
+<div class = "span9" style = "max-width:98%;margin:auto;margin-top:5%;">
 	
 	<!---   select project for create new issue ---->
 	{% if contents == 'selectProject'%}
 	{% if user.activationStatus == 'enable' %}
-	<div class = "well" style = "max-width:80%;" >		
+	<div class = "well">		
 		<p style = "color: #1E90FF;">Please type name of project and select exactly name of project upon typing</p>
 		<form class="form-horizontal" style = "margin-top:5%;" action = "" method = "POST"  onsubmit ="return selectProject() ">
 				{% csrf_token %}
@@ -29,8 +29,8 @@
 	
 	<!---   results from selected project     -->
 	{% if contents == 'selectedProject'%}
-	{% if user.activationStatus == 'enable' %}
-	<div class = "well" style = "max-width:80%;" >		
+	{% if user.activationStatus == 'enable' %}	
+	<div class = "well" >		
 		<h4>{{ project.title|title }}</h4>
 		<p class = "">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>{{ project.description }}</i>
 		<p style = "color:#0E556C;font-style:italic;">Project owner : {{project.project_owner}}</p>

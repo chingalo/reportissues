@@ -450,12 +450,16 @@ def editProject(request,user_id,project_id):
 						
 			project.save()
 			
+			assignmentList = Project_assignment.objects.filter(project = project)
+			
+			memberList = []
 			nameList = user.name.split(" ")	
 			userName = 	nameList[0]	
 			for assignment in assignmentList:
 				memberList.append(assignment.project_member)
 			
 			projectOwner = project.project_owner
+			
 			
 			context = {'user':user,'projectOwner':projectOwner,'memberList':memberList,'userName':userName,'contents':'singleproject','project':project}
 			return render(request, 'userFunction.html',context)

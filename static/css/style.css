@@ -2,6 +2,7 @@ body{
 margin:0px;
 padding:0px;
 background:;
+text-align:justify;
 }
 
 .body_page{
@@ -22,7 +23,9 @@ padding-bottom:3px;
 text-align:center;
 }
 .signup{
-padding-left:35px;
+padding-left:0px;
+max-width:95%;
+margin:auto;
 }
 
 .signup form{
@@ -30,14 +33,13 @@ margin-bottom:10px;
 padding:2px 5px;
 }
 .warninginfo{
-padding:;
+padding:2px;
 text-align:center;
 color:#F20C1D;
 font-style:italic;
 }
 .importantinfoOrAnimation{
-
-padding:20px;
+padding:10px;
 border-radius:10px;
 border:1px solid #BFBFBF;
 height:360px;

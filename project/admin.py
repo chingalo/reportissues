@@ -10,4 +10,3 @@ admin.site.register(Issue)
 admin.site.register(Comments)
 admin.site.register(Issue_assignment)
 admin.site.register(Issue_status)
-

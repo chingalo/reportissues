@@ -9,18 +9,30 @@
 		<!-- all projects for successfully login user -->
 		{% if contents == 'allProjects' %}
 		{% if user.activationStatus == 'enable' %}
-		{% if allProjects %}		
-		<ul class="nav nav-stacked nav-tabs">
+		{% if allProjects %}	
+		<p style = "max-width:90%;text-align:justify;margin:auto;color:#1E90FF;;">List of all projects</p>	
+		<!--  for desktop view -->	
+		<ul class="nav nav-stacked nav-tabs visible-desktop">			
 			{% for project in allProjects %}
-			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
+			<li style="text-align: left; padding: 3px; border-bottom-width: 2px;border-bottom-color:blue">
 				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}
 					<span class="pull-right">creaated on 						
 						{{project.date_of_creation|date:"D d M Y"}}
 					</span>
-				</a>
+				</a>				
 			</li>
 			{% endfor %}
 		</ul>
+		
+		<!-- for smart phones and tablets -->
+		<ul class="nav nav-stacked nav-tabs hidden-desktop">			
+			{% for project in allProjects %}
+			<li style="text-align: left; padding: 3px; border-bottom-width: 2px;border-bottom-color:blue">
+				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}</a>				
+			</li>
+			{% endfor %}
+		</ul>
+		
 		{% else %}
 		<div class = "well emptyProject">
 		You have no project at this time.
@@ -41,17 +53,29 @@
 		{% if contents == 'ownProjects' %}
 		{% if user.activationStatus == 'enable' %}
 		{% if allProjects %}
-		<ul class="nav nav-stacked nav-tabs">
+		<p style = "max-width:90%;text-align:justify;margin:auto;color:#1E90FF;">List of all own projects</p>
+		<!--  for desktop view -->	
+		<ul class="nav nav-stacked nav-tabs visible-desktop">			
 			{% for project in allProjects %}
-			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
+			<li style="text-align: left; padding: 3px; border-bottom-width: 2px;border-bottom-color:blue">
 				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}
 					<span class="pull-right">creaated on 						
 						{{project.date_of_creation|date:"D d M Y"}}
 					</span>
-				</a>
+				</a>				
 			</li>
 			{% endfor %}
 		</ul>
+		
+		<!-- for smart phones and tablets -->
+		<ul class="nav nav-stacked nav-tabs hidden-desktop">			
+			{% for project in allProjects %}
+			<li style="text-align: left; padding: 3px; border-bottom-width: 2px;border-bottom-color:blue">
+				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}</a>				
+			</li>
+			{% endfor %}
+		</ul>
+		
 		{% else %}
 		<div class = "well emptyProject">
 		You have no project at this time.
@@ -69,13 +93,15 @@
 		
 		
 		
-		<!--	collaborated projects	-->
+	<!--	collaborated projects	-->
 		{% if contents == 'collaboprojects' %}
 		{% if user.activationStatus == 'enable' %}
 		{% if  allProjects %}
-		<ul class="nav nav-stacked nav-tabs">
+		<p style = "max-width:90%;text-align:justify;margin:auto;color:#1E90FF;">List of all collaborated projects</p>
+		<!--  for desktop view -->	
+		<ul class="nav nav-stacked nav-tabs visible-desktop">			
 			{% for project in allProjects %}
-			<li style="text-align: left; padding: 6px; border-bottom-width: 2px;border-bottom-color:blue">
+			<li style="text-align: left; padding: 3px; border-bottom-width: 2px;border-bottom-color:blue">
 				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}
 					<span class="pull-right">creaated on 						
 						{{project.date_of_creation|date:"D d M Y"}}
@@ -83,15 +109,28 @@
 				</a>				
 			</li>
 			{% endfor %}
+		</ul>
+		
+		<!-- for smart phones and tablets -->
+		<ul class="nav nav-stacked nav-tabs hidden-desktop">			
+			{% for project in allProjects %}
+			<li style="text-align: left; padding: 3px; border-bottom-width: 2px;border-bottom-color:blue">
+				<a href = "{% url 'singleProject' user.id project.id %}"><i class="icon-th"></i> {{ project.title|title }}</a>				
+			</li>
+			{% endfor %}
 		</ul>	
 		{% else %}
 		<div class = "well emptyProject">
-		You have no project at this time.
+			<div style = "max-width:98%;margin:auto;">
+				You have no project at this time.
+			</div>		
 		</div>
 		{% endif %}
 		{% else %}
 		<div class = "well">
-			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+			<div style = "max-width:98%;margin:auto;">
+				<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
+			</div>	
 		</div>
 		{% endif%}	
 		{% endif %}
@@ -106,7 +145,10 @@
 		{% if contents == 'singleproject' %} 
 		{% if user.activationStatus == 'enable' %}
 		<div class = "row-fluid">
-			<!-- details for a given project -->			
+			<!-- details for a given project -->
+			
+			<!-- for desktop --->
+			<div class = "visible-desktop">	
 			<div class = "span8">
 				<div class = "well">
 					<h4>{{ project.title|title }}</h4>
@@ -148,11 +190,64 @@
 				</ul>					
 			</div>
 			{% endif %}
+			</div>
 		</div>
+		
+		<!-- for smart phones and tablets --->
+		<div class = "hidden-desktop projectSetting" style = "margin-bottom:5%;max-width:98%;background:#EDEDEF;margin:auto;border-radius:5px;border:1px solid #BFBFBF;text-align:center;" >			
+				Setting for the project				
+			</div>		
+		<div class = "projectSettingDetails">
+			<!-- for owner of projects -->
+			{% if user == project.project_owner %}
+			<div class = "span4">
+				<ul class="nav nav-list">
+					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>
+					<li><a href= "{% url 'addCollaborator' user.id project.id %}"><i class ="icon-user">&#160;Add new collaborator </i></a></li>
+					<li><a href= "{% url 'editProject' user.id project.id %}"><i class ="icon-edit">&#160;Edit project </i></a></li>
+					<li><a href= "{% url 'createIssue' user.id project.id %}"><i class ="icon-edit">&#160;Create issue </i></a></li>
+					<li><a href= "{% url 'deleteConfirmProject' user.id project.id %}"><i class ="icon-remove">&#160;Delete project </i></a></li>
+				</ul>					
+			</div>
+			{% else %}			
+			<!-- for normal user of projects -->
+			<div class = "span4">
+				<ul class="nav nav-list">
+					<li class="nav-header"><i class = "icon-wrench">&#160;setting for project</i></li>					
+					<li><a href= "{% url 'createIssue' user.id project.id %}"><i class ="icon-edit">&#160;Create issue </i></a></li>
+					<li><a href= "{% url 'deleteColaborationOnProjectConfirmation' user.id project.id %}"><i class ="icon-remove">&#160;Remove collaboration</i></a></li>
+				</ul>					
+			</div>
+			{% endif %}	
+		
+		</div>
+		
+		<div class ="row-fluid hidden-desktop" style = "max-width:98%;margin:auto;margin-top:5%">
+			<div class = "well" >
+				<h4>{{ project.title|title }}</h4>
+				<p class = "">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>{{ project.description }}</i>
+				<p style = "color:#0E556C;font-style:italic;">Project owner : {{projectOwner}}</p>						
+				<hr>
+				{% if memberList %}
+				<h5 style = "text-align:center;">Collaborators in {{project}}</h5>
+				<div class = "collaboratorList">
+					{% for member in memberList %}
+					{{member}}<br>
+					{% endfor %}						
+				</div>
+					{% endif %}
+					</p>	
+					<span class="pull-right" >
+						<i>creaated on </i>{{project.date_of_creation|date:"D d M Y"}}
+					</span>			
+			</div>					
+		</div>
+		
 		{% else %}
-		<div class = "well">
+		<div class = "well" style = "max-width:90%;margin:auto;">
 			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
 		</div>
+		
 		{% endif%}			
 		{% endif %}
 		
@@ -163,29 +258,32 @@
 		<!--    craete new project ----->
 		{%if contents == 'createPorject' %}
 		{% if user.activationStatus == 'enable' %}
-		<div class = "well" style= "text-align:justify;">
-			<form class="form-horizontal"  method = "POST" action ="{% url 'createProject' user.id %}" onsubmit = "return createProject()">
-				{% csrf_token %}
-			  <div class="control-group">
-				<label class="control-label" for="title of project">Title of project:</label>
-				<div class="controls">
-				  <input type="text" class = "input-xlarge" name="title" id="titleOfProject" placeholder="Title of project">
-				</div>
-			  </div>
-			  <div class="control-group">
-				<label class="control-label" for="description">Description of project:</label>
-				<div class="controls">
-				  <textarea rows="10" class = "input-xlarge" id = "descriptionOfProject" name = "description" placeholder = "What a project is about"></textarea>
-				</div>
-			  </div>
-			  <div class="control-group">				
-				<div class="controls">
-				  <input type="submit" value = "Create project" >
-				</div>
-			  </div>
+		<div style= "text-align:justify; max-width:98%;margin:auto;">
+			<div class = "well" >
+				<form class="form-horizontal"  method = "POST" action ="{% url 'createProject' user.id %}" onsubmit = "return createProject()">
+					{% csrf_token %}
+				  <div class="control-group">
+					<label class="control-label" for="title of project">Title of project:</label>
+					<div class="controls">
+					  <input type="text" class = "input-xlarge" name="title" id="titleOfProject" placeholder="Title of project">
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="description">Description of project:</label>
+					<div class="controls">
+					  <textarea rows="10" class = "input-xlarge" id = "descriptionOfProject" name = "description" placeholder = "What a project is about"></textarea>
+					</div>
+				  </div>
+				  <div class="control-group">				
+					<div class="controls">
+					  <input type="submit" value = "Create project" >
+					</div>
+				  </div>
+			</div>		
 		</div>
+		
 		{% else %}
-		<div class = "well">
+		<div class = "well" style = "max-width:90%;margin:auto;">
 			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
 		</div>
 		{% endif%}
@@ -199,7 +297,7 @@
 		<!-- add addCollaborator in the project -->				
 		{%if contents == 'addCollaborator' %}
 		{% if user.activationStatus == 'enable' %}
-		<div class = "well addCollaborator">
+		<div class = "well addCollaborator " style = "max-width:80%;margin:auto;">
 			<h5>Add collaborator to : {{project}} project</h5>
 			<form class="form-horizontal" action = "{% url 'addCollaborator' user.id project.id %}" method = "POST"  onsubmit ="return addCollaborator()">
 				{% csrf_token %}
@@ -218,7 +316,7 @@
 			</form>	
 		</div>
 		{% else %}
-		<div class = "well">
+		<div class = "well" style = "max-width:90%;margin:auto;">
 			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
 		</div>
 		{% endif%}
@@ -268,7 +366,8 @@
 		<!-- all issues -->
 		{% if contents == 'allIssues' %} 
 		{% if user.activationStatus == 'enable' %}
-		<div class = "well emptyIssues">
+		<!-- desktop views -->
+		<div class = "well emptyIssues visible-desktop">
 			{% if allIssues %}
 			<table class="table table-striped">
 				<thead>
@@ -302,8 +401,35 @@
 			</div>	
 			{% endif %}			
 		</div>
+		<!-- smart and tablets -->
+		<div class = "well emptyIssues hidden-desktop" style = "max-width:80%;margin:auto;">
+			{% if allIssues %}
+			<table class="table table-striped" >
+				<thead>
+					<th>Title</th>					
+					<th>priority</th>																		
+				</thead>
+				<tbody>
+					{% for issue in allIssues %}					
+					<tr>												
+					<td>			
+						<a href = "{% url 'singleIssue' user.id issue.id %}">#&nbsp;&nbsp;{{issue}}</a>						
+					</td>					
+					<td>
+						{{issue.priority}}
+					</td>																
+					</tr>
+					{% endfor %}									
+				</tbody>
+			</table>
+			{% else%}
+			<div >
+				You have no issue this time			
+			</div>	
+			{% endif %}			
+		</div>
 		{% else %}
-		<div class = "well">
+		<div class = "well" style = "max-width:90%;margin:auto;">
 			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
 		</div>
 		{% endif%}						
@@ -317,7 +443,8 @@
 		<!--assigned issues -->
 		{% if contents == 'assignedIssues' %}
 		{% if user.activationStatus == 'enable' %}
-		<div class = "well emptyIssues">
+		<!--desktop view--->
+		<div class = "well emptyIssues visible-desktop">
 			{% if assignedIssues %}
 			<table class="table table-striped">
 				<thead>
@@ -344,7 +471,7 @@
 					</tr>
 					</ol>	
 					{% endfor %}
-													
+
 				</tbody>
 			</table>
 			{% else%}
@@ -353,8 +480,37 @@
 			</div>	
 			{% endif %}				
 		</div>
+		<!--smart phone and tablets---->
+		<div class = "well emptyIssues hidden-desktop">
+			{% if assignedIssues %}
+			<table class="table table-striped">
+				<thead>
+					<th>Title</th>
+					<th>priority</th>				
+				</thead>
+				<tbody>					
+					{% for issue in assignedIssues %}					
+					<tr>												
+					<td>			
+						<a href = "{% url 'singleIssue' user.id issue.id %}">#&nbsp;&nbsp;{{issue}}</a>								
+					</td>
+					<td>
+						{{issue.priority}}
+					</td>											
+					</tr>
+					</ol>	
+					{% endfor %}
+													
+				</tbody>
+			</table>
+			{% else%}			
+			<div style = "max-width:90%;margin:auto;">
+				You have no issue this time			
+			</div>	
+			{% endif %}				
+		</div>
 		{% else %}
-		<div class = "well">
+		<div class = "well" style = "max-width:90%;margin:auto;">
 			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
 		</div>
 		{% endif%}					
@@ -368,7 +524,8 @@
 		<!-- assign to issues -->
 		{% if contents == 'assignToIssues' %}
 		{% if user.activationStatus == 'enable' %}
-		<div class = "well emptyIssues">
+		<!-- desktop view -->
+		<div class = "well emptyIssues visible-desktop">
 			{% if assignToIssues %}
 			<table class="table table-striped">
 				<thead>
@@ -405,8 +562,39 @@
 			</div>	
 			{% endif %}				
 		</div>	
+		
+		<!--  smart phones and tablets---->
+		<div class = "well emptyIssues hidden-desktop">
+			{% if assignToIssues %}
+			<table class="table table-striped">
+				<thead>
+					<th>Title</th>
+					<th>priority</th>				
+				</thead>
+				<tbody>
+					<tr>
+						{% for issue in assignToIssues %}
+					<tr>												
+					<td>			
+						<a href = "{% url 'singleIssue' user.id issue.id %}">#&nbsp;&nbsp;{{issue}}</a>								
+					</td>
+					<td>
+						{{issue.priority}}
+					</td>						
+					</tr>
+					</ol>	
+					{% endfor %}
+					</tr>									
+				</tbody>
+			</table>
+			{% else%}
+			<div style = "max-width:90%;margin:auto;">
+				You have no issue this time			
+			</div>	
+			{% endif %}				
+		</div>	
 		{% else %}
-		<div class = "well">
+		<div class = "well" style = "max-width:90%;margin:auto;">
 			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
 		</div>
 		{% endif%}		
@@ -420,21 +608,21 @@
 		<!----- craete and assign issue to user -->
 		{% if contents == 'createIssue' %}
 		{% if user.activationStatus == 'enable' %}
-		<div class = "well">
+		<div class = "well" style = "max-width:80%;">
 			<p style = "text-align:center;">Fill the folowing fields to create and assign new issue to a user</p>
 			<hr>			
 			<form class="form-horizontal"  method = "POST" action ="{% url 'createIssue' user.id project.id %}" onsubmit = "return createNewIssue()" >
 					{% csrf_token %}
 				  <div class="control-group">
-					<label class="control-label" for="title of project">Title of project:</label>
+					<label class="control-label" for="title of issue">Title of Issue:</label>
 					<div class="controls">
-					  <input type="text" class = "input-large" name="title" id="titleOfIssue" value = "{{project}}" disabled >
+					  <input type="text" class = "input-large" name="title" id="titleOfIssue" placeholder = "type type of your issue" >
 					</div>
 				  </div>
 				  <div class="control-group">
 					<label class="control-label" for="description">Description of issue:</label>
 					<div class="controls">
-					  <textarea rows="5" id = "descriptionOfProject" name = "description" placeholder = "What a project is about"></textarea>
+					  <textarea rows="5"  id = "descriptionOfProject" name = "description" placeholder = "What a project is about"></textarea>
 					</div>
 				  </div>
 				  <div class="control-group">
@@ -442,7 +630,7 @@
 					  <div class="controls">
 						<select name="assignee">
 							{% for member in memberList %} 
-							<option value="{{member}}" name="assignee">{{member}}</option>
+							<option   value="{{member}}" name="assignee">{{member}}</option>
 							{% endfor %}	
 						</select>					
 					</div>
@@ -491,10 +679,40 @@
 		<!--    single issue view ---->
 		{% if contents == 'singleissue' %} 
 		{% if user.activationStatus == 'enable' %}
-		<div class = "row-fluid">
-			<!-- details and comments for a given issue -->			
+		<!--- -- for smart phones and tablests on status and status logs----->
+		<div class = "hidden-desktop status" style = "margin-bottom:5%;max-width:98%;background:#EDEDEF;margin:auto;border-radius:5px;border:1px solid #BFBFBF;text-align:center;" >			
+			Status changes and status logs	
+		</div>	
+		<div class = "statusLogs" >
+			<div class = " well" style = "max-width:85%;margin:auto;margin-bottom:5% margin-top:10%" >
+				<!-- status changes on issue -->
+				<div class = "">
+					<h5><i>Change status to</i></h5>
+					<button class="btn btn-primary" onclick="window.location.href='{% url 'closeIssue' user.id issue.id %}'" >Close</button>						
+					<button class="btn btn-success" onclick="window.location.href='{% url 'reopenIssue' user.id issue.id %}'">Reopen</button> {{numberOfStatus}}
+				</div>
+				<hr>
+				<h5 style= "text-align:center;">Status change log</h5>
+				<div class = "statusLog">
+					{% for status in status_log %}
+					<p>
+						Status changed to <i style = "color:#E11A1A;">{{status.status}}</i><br>
+						on <i style = "color:#256EB5;">{{status.date_of_change_status}}</i><br>
+						by <i style = "color:#256EB5;">{{status.status_changer}}</i>
+					</p>
+					<hr>
+					{% endfor %}					
+				</div>				
+			</div>
+		</div>
+		
+		
+		<div class = "row-fluid" style = "margin-top:3%;">
+			<!-- details and comments for a given issue -->	
+			
+					
 			<div class = "span8">
-				<div class = "well">
+				<div class = "well ">
 					<!-- deatails for a given issue-- issueAssignee-->
 					<h4><u>{{ issue.title|title }}</u></h4>
 					<p>&nbsp;&nbsp;{{ issue.description }}<br>
@@ -526,8 +744,8 @@
 					</form>		
 				</div>			
 			</div>
-			<!-- status details for a given issue-->
-			<div class = "span4">
+			<!-- status details for a given issue for desktop-->
+			<div class = "span4 visible-desktop" >
 				<div class = " well">
 					<!-- status changes on issue -->
 					<div class = "">
@@ -604,13 +822,15 @@
 		
 		<!-- edit profile -->
 		{%if contents == 'editProfile' %}
-		<div class = "well">
-		<div class = "headerforsignup">Edit your details</div>
+		<div class = "well" style = "max-width:90%;margin:auto;">
+			<p>
+				<i>Please edit information you want to edit</i>
+			</p>
 			<form class="form-horizontal"  method = "POST" action="{% url 'editProfile' user.id %}" name = "myform" onsubmit ="return editProfile()">
 				{% csrf_token %}				
 				
 				<div class="control-group">
-					<label class="control-label pull-right" for="first name">First name </label>	
+					<label class="control-label" for="first name">First name </label>	
 					<div class="controls">
 						<input type="text" name="firstName"  class = "required" value = "{{userName}}">
 					</div>			

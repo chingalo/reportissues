@@ -12,7 +12,7 @@ class Users(models.Model):
 	activationCode= models.CharField(max_length = 200)
 	activationStatus = models.CharField(max_length = 100,  default = 'disable')	
 	login_status = models.CharField(max_length = 100,  default = 'log_out')
-	
+
 	def __unicode__(self):
 		return self.name
 
@@ -22,17 +22,17 @@ class Project_details(models.Model):
 	title = models.CharField(max_length = 200)
 	description = models.TextField(max_length = 20000)
 	date_of_creation = models.DateTimeField(default=timezone.now)
-	
+
 	def __unicode__(self):
 		return self.title
-		
-	
+
+
 class Project_assignment(models.Model):
 	project = models.ForeignKey('Project_details',on_delete = models.CASCADE)
 	project_member = models.ForeignKey('Users',on_delete = models.CASCADE)	
 
-	
-	
+
+
 class Issue(models.Model):
 	project = models.ForeignKey('Project_details',on_delete = models.CASCADE)
 	assigner = models.ForeignKey('Users',on_delete = models.CASCADE)
@@ -41,35 +41,31 @@ class Issue(models.Model):
 	type_of_issue = models.CharField(max_length = 20)
 	priority = models.CharField(max_length = 20)
 	date_of_issue_creation = models.DateTimeField(default=timezone.now)
-	
+
 	def __unicode__(self):
 		return self.title
-		
+
 class Issue_assignment(models.Model):
 	assignee = models.ForeignKey('Users',on_delete = models.CASCADE)
 	issue = models.ForeignKey('Issue',on_delete = models.CASCADE)	
-			
-		
-	
+
+
+
 class Comments(models.Model):
 	issue = models.ForeignKey('Issue',on_delete = models.CASCADE)
 	commenter = models.ForeignKey('Users',on_delete = models.CASCADE)
 	description = models.TextField(max_length = 20000)
 	date_of_comment = models.DateTimeField(default=timezone.now)
-		
+
 
 class Issue_status(models.Model):
 	status_changer = models.ForeignKey('Users',on_delete = models.CASCADE)	
 	issue = models.ForeignKey('Issue',on_delete = models.CASCADE)
 	status = models.CharField(max_length = 20)
 	date_of_change_status = models.DateTimeField(default=timezone.now)
-	
+
 	def __unicode__(self):
 		return self.status
-	
-	
-	
-	
-	
-	
-	
+
+
+

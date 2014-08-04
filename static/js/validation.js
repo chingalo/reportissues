@@ -1,7 +1,4 @@
 
-
-
-
 //validation of form on submit if all required fields have been filled
 function validateForm(){
 	var test = 0;
