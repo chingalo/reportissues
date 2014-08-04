@@ -42,9 +42,17 @@ def forgetPassword(request):
 		emailForRequestNewPassword = form.getlist('emailForRequestNewPassword')
 		userRequestNewPassword = Users.objects.get(e_mail = emailForRequestNewPassword[0])
 		#send emils for request new password
-		send_mail('Subject', 'http://localhost:8000/'+str(user.id)+'/changePassword/', 'from@example.com',[emailForRequestNewPassword[0]], fail_silently=False)	
+		send_mail('REQUEST TO CHANGE PASSWORD', 'Hi ' +userRequestNewPassword.name+',\nYou have request to change new password in IMS.\nIf you have forgotten your password click on link below.\n\nhttp://localhost:8000/'+str(user.id)+'/changePassword/', '',[emailForRequestNewPassword[0]], fail_silently=False)	
 		
-		context = {'word':userRequestNewPassword}
+		users = Users.objects.all()
+		userList = []
+		userEmailData =[]
+		for user in users:
+			userList.append(user.e_mail)
+			userEmailData = json.dumps(userList)
+			
+		captureValue = randrange(100000,999999)	
+		context = {'captureValue':captureValue,'userEmailData':userEmailData}	
 		return render(request,'index.html',context)
 	
 	else:
