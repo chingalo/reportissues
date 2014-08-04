@@ -7,7 +7,17 @@ function changePassword(){
 		alert('Please fill all fields');
 		return false;
 		}
-	
+	else{
+		if(newPassword == newPasswordConfirmation){
+			alert('You have successfull change your password');
+		return false;
+			}
+		else{
+			alert("Please make sure password and confirmation password are the same");
+			return false;
+			}
+		
+		}
 	}
 
 
