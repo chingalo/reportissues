@@ -463,8 +463,9 @@ def createProject(request,user_id):
 			newProject.save()
 			
 			#send email after create new project			
-			subject = "NEW PROJECT"
-			message = "Hi, "+user.name+"\nYour have successfully create new project at"+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+".\nFor easy management of your project you can add more collaborators and assign some issues."
+			subject = "SUCCESSFUL CREATION OF " + newProject.title + "project"
+			message = "Hi, "+user.name+"\nYour have successfully create new "+ newProject.title +" at"+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+".\nFor easy management of your project you can add more collaborators and assign some issues." + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayto Systems Limited,\nMobile Number: +255687168637."
+
 			recipient_list = []
 			recipient_list.append(user.e_mail)
 			from_email = 'no-reply@project.org'
@@ -701,7 +702,7 @@ def deleteProject(request,user_id,project_id):
 		recipient_list = []
 		recipient_list.append(user.e_mail)
 		from_email = 'no-reply@project.org'
-		message = "Hi ," + user.name + "\nYou have succefull deleted " + project.title + " project on " + str(datetime.now().strftime('%Y-%m-%d')) + " at " + str(datetime.now().strftime('%H:%M:%S'))
+		message = "Hi ," + user.name + "\nYou have succefull deleted " + project.title + " project on " + str(datetime.now().strftime('%Y-%m-%d')) + " at " + str(datetime.now().strftime('%H:%M:%S')) + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 		#to all collaborator
 		
@@ -709,7 +710,8 @@ def deleteProject(request,user_id,project_id):
 		recipient_list = []
 		for projectAssignment in projectAssignmentList:
 			recipient_list.append(projectAssignment.project_member.e_mail)			
-		message = "Hi ,\n"+user.name +" have deleted "+project.title + " project on " + str(datetime.now().strftime('%Y-%m-%d')) + " at " + str(datetime.now().strftime('%H:%M:%S')) +".\nYou are no longer any more as collaborator."		
+		message = "Hi ,\n"+user.name +" have deleted " + project.title + " project on " + str(datetime.now().strftime('%Y-%m-%d')) + " at " + str(datetime.now().strftime('%H:%M:%S')) +".\nYou are no longer any more as collaborator." + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
+		
 		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 		
 		#delete project codes 		
@@ -784,12 +786,12 @@ def deleteColaborationOnProject(request,user_id,project_id):
 		from_email = 'no-reply@project.org'
 		recipient_list = []
 		recipient_list.append(user.e_mail)		
-		message = "Hi ,"+user.name +"\nYu have succefully remove your collaboration on " + project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+		message = "Hi ,"+user.name +"\nYou have successful remove your collaboration on " + project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 		
 		recipient_list = []
 		recipient_list.append(project.project_owner.e_mail)		
-		message = "Hi ,"+project.project_owner.name +"\n" + user.name + " have removed collaboration on "+project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+		message = "Hi ,"+project.project_owner.name +"\n" + user.name + " have removed collaboration on "+project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 		
 		
@@ -875,14 +877,14 @@ def sendInvitation(request,user_id,project_id):
 				projectAssignment.save()
 				
 				#send email after add collaborator in the project
-				subject = "COLLABORATION INVITATION ON "+project.title
-				message = "Hi, \nWelcome to IMS system. Its tracking issue system aims to facilitates easy management of software development as well as software maintenance.\nYou have been invited as collaborator on "+project.title+" project" +"by "+ user.name+ "\nYour default password : "+ str(newUser.password) + "\nYour activation codes: " + str(newUser.activationCode)
+				subject = "COLLABORATION INVITATION ON "+project.title + "IMS"
+				message = "Hi, \nWelcome to IMS system. Its tracking issue system aims to facilitates easy management of software development as well as software maintenance.\nYou have been invited as collaborator on "+project.title+" project" +"by "+ user.name+ "\nYour default password : "+ str(newUser.password) + "\nYour activation codes: " + str(newUser.activationCode) + "\nIMS website url is http://issuesmanager.herokuapp.com/" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(inviteeEmail[0])
 				from_email = 'no-reply@project.org'
 				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 
-				message = "Hi, "+user.name+"\nYou have successfully invite  "+ inviteeEmail[0] +" as collaborator on "+project.title+" project"
+				message = "Hi, "+user.name+"\nYou have successfully invite  "+ inviteeEmail[0] +" as collaborator on "+project.title+" project" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(user.e_mail)
 				from_email = 'no-reply@project.org'
@@ -899,13 +901,13 @@ def sendInvitation(request,user_id,project_id):
 				
 				#send email after add collaborator in the project
 				subject = "COLLABORATION INVITATION ON "+project.title + " IN IMS"
-				message = "Hi, " +invitee.name +"\nYou have been invited as collaborator on "+project.title+" project" +"by "+ user.name
+				message = "Hi, " +invitee.name +"\nYou have been invited as collaborator on "+project.title+" project" +"by "+ user.name + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(invitee.e_mail)
 				from_email = 'no-reply@project.org'
 				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 
-				message = "Hi, "+user.name+"\nYou have successfully invite  "+ invitee.name +" as collaborator on "+project.title+" project"
+				message = "Hi, "+user.name+"\nYou have successfully invite  "+ invitee.name +" as collaborator on "+project.title+" project" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(user.e_mail)
 				from_email = 'no-reply@project.org'
@@ -980,14 +982,14 @@ def addCollaborator(request,user_id,project_id):
 			mewProjectAssignment.save()	
 			
 			#send email after add collaborator in the project
-			subject = "COLLABORATION ON "+project.title
-			message = "Hi, "+Collaborator.name+"\nYou have been add as collaborator on "+project.title+" project" 
+			subject = "COLLABORATION ON "+project.title + " IN IMS"
+			message = "Hi, "+Collaborator.name+"\nYou have been add as collaborator on "+project.title+" project" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637." 
 			recipient_list = []
 			recipient_list.append(Collaborator.e_mail)
 			from_email = 'no-reply@project.org'
 			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 						
-			message = "Hi, "+user.name+"\nYou have successfully add "+Collaborator.name+" as collaborator on "+project.title+" project" + "by " +user.name
+			message = "Hi, "+user.name+"\nYou have successfully add "+Collaborator.name+" as collaborator on "+project.title+" project" + "by " +user.name + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 			recipient_list = []
 			recipient_list.append(user.e_mail)
 			from_email = 'no-reply@project.org'
@@ -1193,14 +1195,14 @@ def createIssue(request,user_id,project_id):
 			
 			
 			#send email after create and assign issue
-			subject = "ISSUE CREATION ON "+ newIssue.title
-			message = "Hi, "+user.name+ "\nYou have successfully create new issue and assign to "+aasignedUser.name +" on "+project.title +" project"
+			subject = "ISSUE CREATION ON "+ newIssue.title + " IN IMS"
+			message = "Hi, "+user.name+ "\nYou have successfully create new issue and assign to "+aasignedUser.name +" on "+project.title +" project" +"\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 			recipient_list = []
 			recipient_list.append(user.e_mail)
 			from_email = 'no-reply@project.org'
 			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 			
-			message = "Hi , " +aasignedUser.name+ "\nYou have assign to "+ newIssue.title+ " issue on "+project.title +" project"
+			message = "Hi , " +aasignedUser.name+ "\nYou have assign to \" "+ newIssue.title+ " \"issue on "+project.title +" project" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 			recipient_list = []
 			recipient_list.append(aasignedUser.e_mail)
 			from_email = 'no-reply@project.org'
@@ -1306,15 +1308,15 @@ def commentOnIssue(request,user_id,issue_id):
 		assignee = assigneeAss.assignee	
 		
 		#send email after comment on the isssue
-		subject = "COMMENT ON "+ issue.title
+		subject = "COMMENT ON "+ issue.title + "IN IMS"
 		from_email = 'no-reply@project.org'
 		if(assigner == user):
-			message = "Hi, "+assignee.name+"\n"+user.name +" has commented on "+issue.title +" as \""+commentToIssue.description+"\""
+			message = "Hi, "+assignee.name+"\n"+user.name +" has commented on \""+issue.title +"\" as \""+commentToIssue.description+"\"" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 			recipient_list = []	
 			recipient_list.append(assignee.e_mail)	
 			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 		else:
-			message = "Hi, "+assigner.name+"\n"+user.name +" has commented on "+issue.title +" as \""+commentToIssue.description+"\""
+			message = "Hi, "+assigner.name+"\n"+user.name +" has commented on \""+issue.title +"\" as \""+commentToIssue.description+"\"" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 			recipient_list = []	
 			recipient_list.append(assigner.e_mail)	
 			send_mail(subject,message,from_email,recipient_list,fail_silently=False)
@@ -1381,20 +1383,20 @@ def closeIssue(request,user_id,issue_id):
 			statusChange.status = "close"	
 			statusChange.save()
 			#send email after close an issue:
-			subject = "STATUS CHANGES ON "+issue.title
+			subject = "STATUS CHANGES ON \""+issue.title +"\" issue  IN IMS"
 						
 			assigner = issue.assigner
 			assigneeAss = Issue_assignment.objects.get(issue = issue)
 			assignee = assigneeAss.assignee		
 					
 			if(user == assigner):
-				message = "Hi, " +assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				message = "Hi, " +assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(assignee.e_mail)
 				from_email = 'no-reply@project.org'
 				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 			else:
-				message = "Hi, " +assigner.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				message = "Hi, " +assigner.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(assigner.e_mail)
 				from_email = 'no-reply@project.org'
@@ -1462,20 +1464,20 @@ def reopenIssue(request,user_id,issue_id):
 			statusChange.save()
 			
 			#send email upon reopen an issue
-			subject = "STATUS CHANGES ON "+issue.title
+			subject = "STATUS CHANGES ON \"" + issue.title + "\" issue IN IMS" 
 						
 			assigner = issue.assigner
 			assigneeAss = Issue_assignment.objects.get(issue = issue)
 			assignee = assigneeAss.assignee		
 					
 			if(user == assigner):
-				message = "Hi, " +assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				message = "Hi, " +assignee.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(assignee.e_mail)
 				from_email = 'no-reply@project.org'
 				send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 			else:
-				message = "Hi, " +assigner.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status
+				message = "Hi, " +assigner.name+"\n"+user.name+ " has changed status on "+issue.title +" from "+ previousStatus +" to " + statusChange.status + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(assigner.e_mail)
 				from_email = 'no-reply@project.org'
