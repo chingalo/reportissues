@@ -299,6 +299,8 @@
 		{% if user.activationStatus == 'enable' %}
 		<div class = "well addCollaborator " style = "max-width:80%;margin:auto;">
 			<h5>Add collaborator to : {{project}} project</h5>
+			<hr>
+			<p>If you know name of user please enter his or her name and add him or her </p>
 			<form class="form-horizontal" action = "{% url 'addCollaborator' user.id project.id %}" method = "POST"  onsubmit ="return addCollaborator()">
 				{% csrf_token %}
 				<div class="control-group">
@@ -314,7 +316,8 @@
 				</div>
 				
 			</form>	
-			<p>In cases Collaborator does n't exist in system, pleases fill and submit for below for invitation into IMS</p>			
+			<hr>
+			<p>In cases name of collaborator does not exist in system, pleases fill and submit for below for invitation into IMS and send invitation</p>			
 			<form class="form-horizontal" action = "{% url 'sendInvitation' user.id project.id %}" method = "POST"  onsubmit ="return sendInvitation()">
 				{% csrf_token %}
 				<div class="control-group">
