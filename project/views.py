@@ -42,7 +42,7 @@ def forgetPassword(request):
 		emailForRequestNewPassword = form.getlist('emailForRequestNewPassword')
 		userRequestNewPassword = Users.objects.get(e_mail = emailForRequestNewPassword[0])
 		#send emils for request new password
-		send_mail('REQUEST TO CHANGE PASSWORD IN IMS', 'Hi ' +userRequestNewPassword.name+',\nYou have request to change new password in IMS.\nIf you have forgotten your password click on link below.\n\nhttp://issuesmanager.herokuapp.com/'+str(userRequestNewPassword.id)+'/changePassword/', '',[emailForRequestNewPassword[0]], fail_silently=False)	
+		send_mail('REQUEST TO CHANGE PASSWORD IN IMS', 'Hi ' +userRequestNewPassword.name+',\nYou have request to change new password in IMS.\nIf you have forgotten your password click on link below.\n\nhttp://issuesmanager.herokuapp.com/'+str(userRequestNewPassword.id)+'/changePassword/'+'\n\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayto Systems Limited,\nMobile Number: +255687168637.', '',[emailForRequestNewPassword[0]], fail_silently=False)	
 		
 		users = Users.objects.all()
 		userList = []
@@ -74,7 +74,7 @@ def changePassword(request,user_id):
 		user.password = newPassword[0]
 		user.save()
 		#send emils for request new password
-		send_mail('SUCCESSFUL UPDATE ON PASSWORD IN IMS', 'Hi ' +user.name+'\nYou have successful update yout password.\nYour new password is \"'+str(user.password)+' \"', '',[user.e_mail], fail_silently=False)	
+		send_mail('SUCCESSFUL UPDATE ON PASSWORD IN IMS', 'Hi ' + user.name + '\nYou have successful update yout password.\nYour new password is \"'+str(user.password)+' \" \n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayto Systems Limited,\nMobile Number: +255687168637.', '',[user.e_mail], fail_silently=False)	
 		
 		#list of all projects for a given user
 		allProjectsFromSystem = Project_details.objects.all()
@@ -124,8 +124,8 @@ def signUp(request):
 	newUser.save()
 	
 	#email for activation codes
-	subject = "WELCOME TO PROJECT MANAGEMENT SYSTEM"
-	message = "hi, "+newUser.name+"\nYou hava successfully create new account in Project management system.\nTo activate your account please login into your account, click on activation account link and fill activation codes below.\nActivation code : "+str(newUser.activationCode)
+	subject = "WELCOME TO ISSUES MANAGEMENT SYSTEM (IMS)"
+	message = "hi, "+newUser.name+"\nYou hava successfully create new account in IMS. You are welcome to IMS, open source system amin to facilitate easy management of your software development as well as software maintenance through trcking of issue on a given project.\nTo activate your account please login into your account, click on activation account link and fill activation codes below.\nActivation code : " + str(newUser.activationCode) + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayto Systems Limited,\nMobile Number: +255687168637."
 	recipient_list = [newUser.e_mail]	
 	from_email = 'josephchingalo@gmail.com'
 	send_mail(subject,message,from_email,recipient_list,fail_silently=False)
@@ -160,8 +160,8 @@ def acctivationAccount(request,user_id):
 			user.activationStatus = 'enable'			
 			user.save()
 			#send activation complete email
-			subject = "SUCCESSFULLY ACTIVATION"
-			message = "Hi ,"+user.name +"\nYou have successfully activate your account."
+			subject = "SUCCESSFULLY ACCOUNT ACTIVATION IN IMS"
+			message = "Hi ,"+user.name +"\nYou have successfully activate your account. You can now create your project, add or invite collaborators and creates issues."+"\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayto Systems Limited,\nMobile Number: +255687168637."
 			recipient_list = []
 			recipient_list.append(user.e_mail)
 			from_email = 'no-reply@project.org'
