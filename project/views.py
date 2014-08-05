@@ -697,11 +697,11 @@ def deleteProject(request,user_id,project_id):
 		project = Project_details.objects.get(id = project_id)
 		
 		#send email to user:
-		subject = "successfully deletion of "+project.title+" project"
+		subject = "SUCCESSFUL DELETION OF "+project.title+" project IN IMS"
 		recipient_list = []
 		recipient_list.append(user.e_mail)
 		from_email = 'no-reply@project.org'
-		message = "Hi ,"+user.name +"\nYou have succefull deleted "+project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+		message = "Hi ," + user.name + "\nYou have succefull deleted " + project.title + " project on " + str(datetime.now().strftime('%Y-%m-%d')) + " at " + str(datetime.now().strftime('%H:%M:%S'))
 		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 		#to all collaborator
 		
@@ -709,7 +709,7 @@ def deleteProject(request,user_id,project_id):
 		recipient_list = []
 		for projectAssignment in projectAssignmentList:
 			recipient_list.append(projectAssignment.project_member.e_mail)			
-		message = "Hi ,\n"+user.name +" have deleted "+project.title + " project on "+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')) +".\nYou are no longer any more as collaborator."		
+		message = "Hi ,\n"+user.name +" have deleted "+project.title + " project on " + str(datetime.now().strftime('%Y-%m-%d')) + " at " + str(datetime.now().strftime('%H:%M:%S')) +".\nYou are no longer any more as collaborator."		
 		send_mail(subject,message,from_email,recipient_list,fail_silently=False)
 		
 		#delete project codes 		
@@ -780,7 +780,7 @@ def deleteColaborationOnProject(request,user_id,project_id):
 		userName = 	nameList[0]	
 		
 		#send emails		
-		subject = "Collaboration on "+project.title + "project completely removal"		
+		subject = "COMPLETLY REMOVAL OF COLLABORATION ON "+project.title + "project"		
 		from_email = 'no-reply@project.org'
 		recipient_list = []
 		recipient_list.append(user.e_mail)		
