@@ -21,7 +21,7 @@ function changePassword(){
 	}
 
 
-//
+//emailOfInvitee
 function sendInvitation(){
 	
 	
