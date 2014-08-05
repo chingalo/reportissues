@@ -23,7 +23,14 @@ function changePassword(){
 
 //emailOfInvitee
 function sendInvitation(){
-	
+	emailOfInvitee = document.getElementById('emailOfInvitee').value;
+	var atpos = emailOfInvitee.indexOf('@');
+	var atdot = emailOfInvitee.lastIndexOf('.');
+
+	if(atpos < 1 || atdot < atpos+2 || atdot+2 >= emailOfInvitee.length){
+		alert('Incorrect email');
+		return false;
+		}
 	
 	}
 
