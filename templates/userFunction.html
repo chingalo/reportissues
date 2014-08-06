@@ -162,7 +162,8 @@
 						{{member}}<br>
 						{% endfor %}						
 					</div>
-					{% endif %}
+					{% endif %}					
+					<button onclick="window.location.href='{% url 'allIssuesReport' user.id project.id %}'">View project</button>
 					</p>	
 					<span class="pull-right" >
 						<i>creaated on </i>{{project.date_of_creation|date:"D d M Y"}}
@@ -830,7 +831,8 @@
 						<td>{{user.entry_date}}</td>
 					</tr>				
 				</tbody>
-			</table>			
+			</table>
+			<button onclick="window.location.href='{% url 'viewUserProfile' user.id  %}'">Download</button>			
 		</div>
 		{% endif %}
 		

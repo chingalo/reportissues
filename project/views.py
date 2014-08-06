@@ -1517,6 +1517,80 @@ def logout(request,user_id):
 
 
 
+## reports testing
+def allIssuesReport(request,user_id,project_id):
+	# for report generation
+	from reportlab.pdfgen import canvas
+	from reportlab.lib.pagesizes import letter
+	
+	project = Project_details.objects.get(id = project_id)
+	nameOfProject = project.title
+	
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="project.pdf"'
+	
+	output = canvas.Canvas(response, pagesize=letter) 
+	width, height = letter
+	
+	output.drawString(275,750,nameOfProject)
+	output.line(50,748,550,748)
+	
+	
+	output.showPage()
+	output.save()
+	
+	return response
+	
+	
+
+#user profiles in pdf
+def viewUserProfile(request,user_id):
+	# for report generation
+	from reportlab.pdfgen import canvas
+	from reportlab.lib.pagesizes import letter
+	
+	user = Users.objects.get(id = user_id)
+	#user.name
+	#e_mail
+	#password
+	#mobile_number
+	#entry_date
+	#activationStatus
+		
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="project.pdf"'
+	
+	output = canvas.Canvas(response, pagesize=letter) 
+	width, height = letter
+	
+	output.drawString(250,750,"IMS USER'S DETAILS")
+	output.line(50,745,550,745)
+	#user details output.drawString()
+	output.drawString(80, 720, "Name")
+	output.drawString(280, 720, user.name)
+	
+	output.drawString(80, 700, "E-mail")
+	output.drawString(280, 700, user.e_mail)
+	
+	output.drawString(80, 680, "Mobile Number")
+	output.drawString(280, 680, user.mobile_number)
+	
+	output.drawString(80, 660, "Account activation status")
+	output.drawString(280, 660, user.activationStatus )
+	
+	output.drawString(80, 640, "Date of entry")	
+	output.drawString(280, 640, str(user.entry_date))	
+	
+	output.showPage()
+	output.save()
+	
+	return response
+	
+
+
+
+
+
 
 
 
